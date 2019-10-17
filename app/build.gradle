@@ -1,0 +1,148 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: "androidx.navigation.safeargs"
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'org.jlleitschuh.gradle.ktlint'
+
+buildscript {
+    repositories {
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+
+    dependencies {
+        classpath "org.jlleitschuh.gradle:ktlint-gradle:9.0.0"
+    }
+}
+
+def STRING = 'String'
+def BUILD_TIME = 'BUILD_TIME'
+
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+    maven { url 'https://jitpack.io' }
+}
+
+android {
+
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion "28.0.3"
+
+    defaultConfig {
+        applicationId "com.faskn.weatherApp.weatherapp"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 2
+        versionName "1.0.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField STRING, BUILD_TIME, "\"${rootProject.ext.buildTime}\""
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            zipAlignEnabled true
+            shrinkResources true
+            debuggable false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            ext.enableCrashlytics = false
+        }
+    }
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/ASL2.0'
+        exclude 'META-INF/atomicfu.kotlin_module'
+        exclude 'META-INF/rxjava.properties'
+    }
+    dataBinding {
+        enabled = true
+    }
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+    androidExtensions {
+        experimental = true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation rootProject.ext.supportv4
+    implementation rootProject.ext.appCompat
+    implementation rootProject.ext.materialDesign
+    implementation rootProject.ext.recyclerView
+    implementation rootProject.ext.cardView
+    implementation rootProject.ext.coreKtx
+    implementation rootProject.ext.threetenabp
+    implementation rootProject.ext.timber
+    implementation rootProject.ext.navigationFragment
+    implementation rootProject.ext.navigationUI
+    implementation rootProject.ext.dagger
+    implementation rootProject.ext.daggerSupport
+    kapt rootProject.ext.daggerApt
+    kapt rootProject.ext.daggerAnnotation
+    implementation rootProject.ext.rxJava
+    implementation rootProject.ext.rxAndroid
+    implementation rootProject.ext.rxKotlin
+    implementation rootProject.ext.rxAnimations
+    implementation rootProject.ext.retrofit
+    implementation rootProject.ext.okHttp
+    implementation rootProject.ext.gson
+    implementation rootProject.ext.rxJavaAdapter
+    implementation rootProject.ext.gsonConverter
+    implementation rootProject.ext.picasso
+    implementation rootProject.ext.coroutinesCore
+    implementation rootProject.ext.anko
+    implementation rootProject.ext.ankoCoroutines
+    implementation rootProject.ext.lifecycleExt
+    annotationProcessor rootProject.ext.lifecycleAnnotation
+    implementation rootProject.ext.lifecycleViewModelKtx
+    implementation rootProject.ext.roomRuntime
+    kapt rootProject.ext.roomCompiler
+    kapt rootProject.ext.dataBindingCompilerKapt
+    annotationProcessor rootProject.ext.dataBindingCompilerAnnotation
+    implementation rootProject.ext.stethoCore
+    implementation rootProject.ext.stethoOkHttp
+    implementation rootProject.ext.stethoUrlConnection
+    implementation rootProject.ext.autoDispose
+    implementation rootProject.ext.autoDisposeAndroidExt
+    implementation rootProject.ext.autoDisposeLifecycle
+    implementation rootProject.ext.autoDisposeArchComponents
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+}
+repositories {
+    mavenCentral()
+}
+
+ktlint {
+    debug = true
+    verbose = true
+    android = false
+    outputToConsole = true
+    ignoreFailures = true
+    enableExperimentalRules = true
+    additionalEditorconfigFile = file("/some/additional/.editorconfig")
+    kotlinScriptAdditionalPaths {
+        include fileTree("scripts/")
+    }
+    filter {
+        exclude("**/generated/**")
+        include("**/kotlin/**")
+    }
+}

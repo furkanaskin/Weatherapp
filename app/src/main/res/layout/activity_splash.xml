@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.faskn.app.weatherapp.ui.splash.SplashActivityViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/rootView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/splash_bg"
+        android:fitsSystemWindows="true"
+        tools:context=".ui.splash.SplashActivity">
+
+        <ImageView
+            android:id="@+id/imageViewBigCloud"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="50dp"
+            android:src="@drawable/ic_splash_big_cloud" />
+
+        <ImageView
+            android:id="@+id/imageViewSmallCloud"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="125dp"
+            android:layout_marginEnd="50dp"
+            android:src="@drawable/ic_splash_small_cloud" />
+
+        <ImageView
+            android:id="@+id/imageViewEllipse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="100dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_splash_bg_ellipse" />
+
+        <ImageView
+            android:id="@+id/imageViewBottomDrawableShadow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="220dp"
+            android:src="@drawable/ic_splash_bottom_drawable_shadow_drawable" />
+
+        <ImageView
+            android:id="@+id/imageViewBottomDrawable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:scaleType="center"
+            android:src="@drawable/ic_splash_bottom_drawable" />
+
+        <ImageView
+            android:id="@+id/imageViewMainCloud"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/imageViewEllipse"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/ic_splash_screen_main_logo" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonExplore"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="30dp"
+            android:elevation="2dp"
+            android:gravity="center"
+            android:paddingStart="60dp"
+            android:paddingEnd="60dp"
+            android:text="@string/explore"
+            android:textAllCaps="true"
+            android:textAppearance="@style/AppTheme"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:backgroundTint="@color/white"
+            app:cornerRadius="24dp" />
+
+    </RelativeLayout>
+</layout>
