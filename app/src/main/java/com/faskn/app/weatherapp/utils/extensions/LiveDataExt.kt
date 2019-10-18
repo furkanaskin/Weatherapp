@@ -9,14 +9,14 @@ import androidx.lifecycle.Observer
  */
 
 inline fun <T : Any> LiveData<T>.observeWith(
-        lifecycleOwner: LifecycleOwner,
-        crossinline onChanged: (T) -> Unit
+    lifecycleOwner: LifecycleOwner,
+    crossinline onChanged: (T) -> Unit
 ) {
     observe(
-            lifecycleOwner,
-            Observer {
-                it ?: return@Observer
-                onChanged.invoke(it)
-            }
+        lifecycleOwner,
+        Observer {
+            it ?: return@Observer
+            onChanged.invoke(it)
+        }
     )
 }

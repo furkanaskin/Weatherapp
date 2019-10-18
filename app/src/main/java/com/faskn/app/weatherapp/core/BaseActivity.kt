@@ -1,24 +1,14 @@
 package com.faskn.app.weatherapp.core
 
-import android.app.Dialog
-import android.content.IntentFilter
-import android.graphics.Color
-import android.net.ConnectivityManager
-import androidx.lifecycle.ViewModelProviders
+import android.os.Bundle
+import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import android.os.Bundle
-import android.view.WindowManager
-import android.widget.Toast
-import androidx.annotation.LayoutRes
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.snackbar.BaseTransientBottomBar
-import com.google.android.material.snackbar.Snackbar
+import androidx.lifecycle.ViewModelProviders
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
 import dagger.android.AndroidInjection
 import dagger.android.support.DaggerAppCompatActivity
-import org.jetbrains.anko.doAsync
 import javax.inject.Inject
 
 /**
@@ -26,7 +16,7 @@ import javax.inject.Inject
  */
 
 abstract class BaseActivity<VM : BaseViewModel, DB : ViewDataBinding>(private val mViewModelClass: Class<VM>) :
-        DaggerAppCompatActivity() {
+    DaggerAppCompatActivity() {
 
     @Inject
     internal lateinit var viewModelProviderFactory: ViewModelProvider.Factory
@@ -65,5 +55,4 @@ abstract class BaseActivity<VM : BaseViewModel, DB : ViewDataBinding>(private va
      */
 
     abstract fun initViewModel(viewModel: VM)
-
 }

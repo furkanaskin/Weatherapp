@@ -1,6 +1,5 @@
 package com.faskn.app.weatherapp.utils.extensions
 
-
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -13,19 +12,19 @@ import androidx.databinding.ViewDataBinding
 import com.google.android.material.textfield.TextInputLayout
 
 fun ViewGroup.inflate(@LayoutRes resourceId: Int) =
-        LayoutInflater.from(context).inflate(
-                resourceId,
-                this,
-                false
-        )
+    LayoutInflater.from(context).inflate(
+        resourceId,
+        this,
+        false
+    )
 
 fun <T : ViewDataBinding?> ViewGroup.bindingInflate(@LayoutRes resourceId: Int) =
-        DataBindingUtil.inflate<T>(
-                LayoutInflater.from(context),
-                resourceId,
-                this,
-                false
-        )
+    DataBindingUtil.inflate<T>(
+        LayoutInflater.from(context),
+        resourceId,
+        this,
+        false
+    )
 
 inline fun ViewGroup.forEach(action: (view: View) -> Unit) {
     for (index in 0 until childCount) {
@@ -45,7 +44,6 @@ fun EditText.clearBackground() {
     background = null
     setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom)
 }
-
 
 fun View.hide() {
     visibility = GONE

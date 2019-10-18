@@ -7,8 +7,8 @@ import com.faskn.app.weatherapp.di.component.DaggerApplicationComponent
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
-import timber.log.Timber
 import javax.inject.Inject
+import timber.log.Timber
 
 class WeatherApp : Application(), HasActivityInjector {
 
@@ -23,12 +23,11 @@ class WeatherApp : Application(), HasActivityInjector {
         super.onCreate()
 
         DaggerApplicationComponent.builder()
-                .applicationBind(this)
-                .build()
-                .inject(this)
+            .applicationBind(this)
+            .build()
+            .inject(this)
 
         Stetho.initializeWithDefaults(this)
         Timber.plant(Timber.DebugTree())
     }
 }
-

@@ -1,9 +1,9 @@
 package com.faskn.app.weatherapp.core
 
-import androidx.databinding.ViewDataBinding
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.DiffUtil
 import android.view.ViewGroup
+import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import com.faskn.app.weatherapp.R
 
 /**

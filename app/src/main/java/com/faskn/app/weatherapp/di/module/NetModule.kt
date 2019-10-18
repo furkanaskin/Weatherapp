@@ -4,20 +4,19 @@ import android.os.Environment
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.faskn.app.weatherapp.core.Constants
 import com.faskn.app.weatherapp.service.WeatherAppAPI
+import com.google.gson.FieldNamingPolicy
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
-import okhttp3.OkHttpClient
+import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton
 import okhttp3.Cache
-import java.util.concurrent.TimeUnit
+import okhttp3.OkHttpClient
+import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.Retrofit
-import com.google.gson.Gson
-import com.google.gson.FieldNamingPolicy
-import com.google.gson.GsonBuilder
-
 
 @Module
 class NetModule {
@@ -27,11 +26,11 @@ class NetModule {
     fun provideOkHttpClient(): OkHttpClient {
         val cache = Cache(Environment.getDownloadCacheDirectory(), 10 * 1024 * 1024)
         return OkHttpClient.Builder()
-                .addNetworkInterceptor(StethoInterceptor())
-                .readTimeout(1, TimeUnit.MINUTES)
-                .writeTimeout(1, TimeUnit.MINUTES)
-                .cache(cache)
-                .build()
+            .addNetworkInterceptor(StethoInterceptor())
+            .readTimeout(1, TimeUnit.MINUTES)
+            .writeTimeout(1, TimeUnit.MINUTES)
+            .cache(cache)
+            .build()
     }
 
     @Singleton
@@ -39,10 +38,10 @@ class NetModule {
     @Named("non_cached")
     fun provideNonCachedOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
-                .addNetworkInterceptor(StethoInterceptor())
-                .readTimeout(1, TimeUnit.MINUTES)
-                .writeTimeout(1, TimeUnit.MINUTES)
-                .build()
+            .addNetworkInterceptor(StethoInterceptor())
+            .readTimeout(1, TimeUnit.MINUTES)
+            .writeTimeout(1, TimeUnit.MINUTES)
+            .build()
     }
 
     @Provides
@@ -57,16 +56,16 @@ class NetModule {
     @Provides
     fun provideRetrofit(gson: Gson, @Named("cached") client: OkHttpClient): Retrofit.Builder {
         return Retrofit.Builder()
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .client(client)
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
     }
 
     @Provides
     @Singleton
     fun provideService(retrofit: Retrofit.Builder): WeatherAppAPI {
         return retrofit.baseUrl(Constants.NetworkService.BASE_URL)
-                .build()
-                .create(WeatherAppAPI::class.java)
+            .build()
+            .create(WeatherAppAPI::class.java)
     }
 }

@@ -5,14 +5,13 @@ import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-
-
 @Entity()
 class Example() : Parcelable {
-    @PrimaryKey(autoGenerate = true) var id: Long = 0
+    @PrimaryKey(autoGenerate = true)
+    var id: Long = 0
     var exampleString: String = ""
 
-    constructor(exampleString : String) : this() {
+    constructor(exampleString: String) : this() {
         id = 0
         this@Example.exampleString = exampleString
     }

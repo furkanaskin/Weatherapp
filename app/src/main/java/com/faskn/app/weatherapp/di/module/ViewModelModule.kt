@@ -29,5 +29,4 @@ abstract class ViewModelModule {
     @Binds
     @ViewModelKey(MainActivityViewModel::class)
     abstract fun provideMainViewModel(mainActivityViewModel: MainActivityViewModel): ViewModel
-
 }

@@ -7,6 +7,4 @@ import com.faskn.app.weatherapp.service.WeatherAppAPI
  * Created by Furkan on 2019-10-16
  */
 
-open class BaseViewModel(var baseApi: WeatherAppAPI? = null, var db: WeatherDatabase? = null) : AutoDisposeViewModel() {
-
-}
+open class BaseViewModel(var baseApi: WeatherAppAPI? = null, var db: WeatherDatabase? = null) : AutoDisposeViewModel()

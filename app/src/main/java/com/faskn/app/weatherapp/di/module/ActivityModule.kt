@@ -10,7 +10,6 @@ import dagger.android.ContributesAndroidInjector
  * Created by Furkan on 2019-10-16
  */
 
-
 @Module
 abstract class ActivityModule {
 
@@ -33,5 +32,4 @@ abstract class ActivityModule {
     @PerActivity
     @ContributesAndroidInjector
     internal abstract fun mainActivity(): MainActivity
-
 }

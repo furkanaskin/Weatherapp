@@ -25,5 +25,4 @@ interface ExampleDao {
 
     @Query("Select count(*) from Example")
     fun getCount(): Int
-
 }
