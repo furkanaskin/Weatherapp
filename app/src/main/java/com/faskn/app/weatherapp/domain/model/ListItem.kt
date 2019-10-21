@@ -5,29 +5,29 @@ import com.google.gson.annotations.SerializedName
 data class ListItem(
 
     @field:SerializedName("dt")
-    val dt: Int? = null,
+    val dt: Int?,
 
     @field:SerializedName("rain")
-    val rain: Rain? = null,
+    val rain: Rain?,
 
     @field:SerializedName("dt_txt")
-    val dtTxt: String? = null,
+    val dtTxt: String?,
 
     @field:SerializedName("snow")
-    val snow: Snow? = null,
+    val snow: Snow?,
 
     @field:SerializedName("weather")
-    val weather: List<WeatherItem?>? = null,
+    val weather: List<WeatherItem?>?,
 
     @field:SerializedName("main")
-    val main: Main? = null,
+    val main: Main?,
 
     @field:SerializedName("clouds")
-    val clouds: Clouds? = null,
+    val clouds: Clouds?,
 
     @field:SerializedName("sys")
-    val sys: Sys? = null,
+    val sys: Sys?,
 
     @field:SerializedName("wind")
-    val wind: Wind? = null
+    val wind: Wind?
 )

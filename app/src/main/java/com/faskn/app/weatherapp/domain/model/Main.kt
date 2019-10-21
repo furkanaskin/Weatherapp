@@ -5,26 +5,26 @@ import com.google.gson.annotations.SerializedName
 data class Main(
 
     @field:SerializedName("temp")
-    val temp: Double? = null,
+    val temp: Double?,
 
     @field:SerializedName("temp_min")
-    val tempMin: Double? = null,
+    val tempMin: Double?,
 
     @field:SerializedName("grnd_level")
-    val grndLevel: Double? = null,
+    val grndLevel: Double?,
 
     @field:SerializedName("temp_kf")
-    val tempKf: Double? = null,
+    val tempKf: Double?,
 
     @field:SerializedName("humidity")
-    val humidity: Int? = null,
+    val humidity: Int?,
 
     @field:SerializedName("pressure")
-    val pressure: Double? = null,
+    val pressure: Double?,
 
     @field:SerializedName("sea_level")
-    val seaLevel: Double? = null,
+    val seaLevel: Double?,
 
     @field:SerializedName("temp_max")
-    val tempMax: Double? = null
+    val tempMax: Double?
 )

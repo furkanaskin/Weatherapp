@@ -5,14 +5,14 @@ import com.google.gson.annotations.SerializedName
 data class City(
 
     @field:SerializedName("country")
-    val country: String? = null,
+    val country: String?,
 
     @field:SerializedName("coord")
-    val coord: Coord? = null,
+    val coord: Coord?,
 
     @field:SerializedName("name")
-    val name: String? = null,
+    val name: String?,
 
     @field:SerializedName("id")
-    val id: Int? = null
+    val id: Int?
 )

@@ -5,8 +5,8 @@ import com.google.gson.annotations.SerializedName
 data class Wind(
 
     @field:SerializedName("deg")
-    val deg: Double? = null,
+    val deg: Double?,
 
     @field:SerializedName("speed")
-    val speed: Double? = null
+    val speed: Double?
 )

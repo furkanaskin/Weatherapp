@@ -1,23 +1,16 @@
 package com.faskn.app.weatherapp.ui.main
 
-import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import com.faskn.app.weatherapp.core.BaseViewModel
-import com.faskn.app.weatherapp.db.WeatherDatabase
-import com.faskn.app.weatherapp.domain.WeatherAppAPI
+import com.faskn.app.weatherapp.db.entity.ForecastEntity
 import com.faskn.app.weatherapp.domain.usecase.ForecastUseCase
-import com.uber.autodispose.autoDisposable
-import io.reactivex.android.schedulers.AndroidSchedulers
+import com.faskn.app.weatherapp.utils.domain.Resource
 import javax.inject.Inject
 
-class MainActivityViewModel @Inject constructor(api: WeatherAppAPI, weatherDatabase: WeatherDatabase, private val useCase: ForecastUseCase) : BaseViewModel(api, weatherDatabase) {
+class MainActivityViewModel @Inject internal constructor(private val useCase: ForecastUseCase) : BaseViewModel() {
 
-    fun test() {
-        useCase.execute(ForecastUseCase.ForecastParams(city = "Istanbul,tr"))
-            .observeOn(AndroidSchedulers.mainThread())
-            .autoDisposable(this)
-            .subscribe {
-                Log.v("qqq", it.data.toString())
-                Log.v("qqq", it.error.toString())
-            }
-    }
+    private val forecastLiveData = MutableLiveData<Resource<ForecastEntity>>()
+    val getForecastLiveData: LiveData<Resource<ForecastEntity>> = Transformations.switchMap(forecastLiveData) { useCase.execute(ForecastUseCase.ForecastParams("Istanbul,tr")) }
 }
