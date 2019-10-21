@@ -18,11 +18,11 @@
         android:fitsSystemWindows="true"
         tools:context=".ui.main.MainActivity">
 
-            <TextView
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@{viewModel.appName}" />
+            android:gravity="center"
+            android:text="Testing" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

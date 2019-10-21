@@ -1,7 +1,7 @@
 package com.faskn.app.weatherapp.core
 
 import com.faskn.app.weatherapp.db.WeatherDatabase
-import com.faskn.app.weatherapp.service.WeatherAppAPI
+import com.faskn.app.weatherapp.domain.WeatherAppAPI
 
 /**
  * Created by Furkan on 2019-10-16

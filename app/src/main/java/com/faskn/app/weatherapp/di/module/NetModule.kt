@@ -3,7 +3,8 @@ package com.faskn.app.weatherapp.di.module
 import android.os.Environment
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.faskn.app.weatherapp.core.Constants
-import com.faskn.app.weatherapp.service.WeatherAppAPI
+import com.faskn.app.weatherapp.domain.DefaultRequestInterceptor
+import com.faskn.app.weatherapp.domain.WeatherAppAPI
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -27,6 +28,7 @@ class NetModule {
         val cache = Cache(Environment.getDownloadCacheDirectory(), 10 * 1024 * 1024)
         return OkHttpClient.Builder()
             .addNetworkInterceptor(StethoInterceptor())
+            .addInterceptor(DefaultRequestInterceptor())
             .readTimeout(1, TimeUnit.MINUTES)
             .writeTimeout(1, TimeUnit.MINUTES)
             .cache(cache)
@@ -39,6 +41,7 @@ class NetModule {
     fun provideNonCachedOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
             .addNetworkInterceptor(StethoInterceptor())
+            .addInterceptor(DefaultRequestInterceptor())
             .readTimeout(1, TimeUnit.MINUTES)
             .writeTimeout(1, TimeUnit.MINUTES)
             .build()

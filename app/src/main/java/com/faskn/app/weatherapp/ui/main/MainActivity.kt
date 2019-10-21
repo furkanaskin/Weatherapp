@@ -1,5 +1,6 @@
 package com.faskn.app.weatherapp.ui.main
 
+import android.os.Bundle
 import com.faskn.app.weatherapp.R
 import com.faskn.app.weatherapp.core.BaseActivity
 import com.faskn.app.weatherapp.databinding.ActivityMainBinding
@@ -10,4 +11,10 @@ class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>(Ma
     }
 
     override fun getLayoutRes() = R.layout.activity_main
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        viewModel.test()
+    }
 }

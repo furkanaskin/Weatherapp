@@ -1,4 +1,4 @@
-package com.faskn.app.weatherapp.utils.service
+package com.faskn.app.weatherapp.utils.domain
 
 /**
  * Created by Furkan on 2019-10-16

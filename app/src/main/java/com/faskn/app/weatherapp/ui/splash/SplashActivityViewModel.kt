@@ -2,7 +2,7 @@ package com.faskn.app.weatherapp.ui.splash
 
 import com.faskn.app.weatherapp.core.BaseViewModel
 import com.faskn.app.weatherapp.db.WeatherDatabase
-import com.faskn.app.weatherapp.service.WeatherAppAPI
+import com.faskn.app.weatherapp.domain.WeatherAppAPI
 import javax.inject.Inject
 
 /**
