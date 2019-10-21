@@ -9,7 +9,7 @@ import com.faskn.app.weatherapp.db.entity.ForecastEntity
 interface ForecastDao {
 
     @Query("SELECT * FROM Forecast")
-    fun getForecasts(): LiveData<List<ForecastEntity>>
+    fun getForecasts(): LiveData<ForecastEntity>
 
     @Query("SELECT * FROM Forecast WHERE city = :cityName")
     fun getForecastByCityName(cityName: String): LiveData<ForecastEntity>

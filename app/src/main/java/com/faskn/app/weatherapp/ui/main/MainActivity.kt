@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer
 import com.faskn.app.weatherapp.R
 import com.faskn.app.weatherapp.core.BaseActivity
 import com.faskn.app.weatherapp.databinding.ActivityMainBinding
+import com.faskn.app.weatherapp.domain.usecase.ForecastUseCase
 
 class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>(MainActivityViewModel::class.java) {
     override fun initViewModel(viewModel: MainActivityViewModel) {
@@ -17,10 +18,12 @@ class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>(Ma
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel.getForecastLiveData.observe(
+        viewModel.getForecast(ForecastUseCase.ForecastParams("istanbul,tr"))
+
+        viewModel.getForecastLiveData().observe(
             this,
             Observer {
-                Log.v("qqq", it.data?.city.toString())
+                Log.v("qqq", it.data.toString())
                 Log.v("qqq", it.message.toString())
                 Log.v("qqq", it.status.toString())
             }

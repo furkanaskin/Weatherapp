@@ -26,7 +26,7 @@ class ForecastRepository @Inject constructor(private val forecastRemoteDataSourc
 
             override fun shouldFetch(data: ForecastEntity?): Boolean = data == null
 
-            override fun loadFromDb(): LiveData<ForecastEntity> = forecastLocalDataSource.getForecasyByCityName(city = cityName)
+            override fun loadFromDb(): LiveData<ForecastEntity> = forecastLocalDataSource.getForecasyByCityName()
 
             override fun createCall(): Single<ForecastResponse> = forecastRemoteDataSource.getForecasyByCityName(city = cityName)
 

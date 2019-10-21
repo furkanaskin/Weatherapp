@@ -11,6 +11,20 @@ import javax.inject.Inject
 
 class MainActivityViewModel @Inject internal constructor(private val useCase: ForecastUseCase) : BaseViewModel() {
 
-    private val forecastLiveData = MutableLiveData<Resource<ForecastEntity>>()
-    val getForecastLiveData: LiveData<Resource<ForecastEntity>> = Transformations.switchMap(forecastLiveData) { useCase.execute(ForecastUseCase.ForecastParams("Istanbul,tr")) }
+    private lateinit var forecastLiveData: LiveData<Resource<ForecastEntity>>
+
+    fun getForecast(params: ForecastUseCase.ForecastParams): LiveData<Resource<ForecastEntity>> {
+        forecastLiveData =
+            Transformations.switchMap(
+                useCase.execute(params)
+            ) {
+                val forecastLiveData = MutableLiveData<Resource<ForecastEntity>>()
+                forecastLiveData.value = it
+                return@switchMap forecastLiveData
+            }
+
+        return forecastLiveData
+    }
+
+    fun getForecastLiveData() = forecastLiveData
 }
