@@ -120,10 +120,6 @@ dependencies {
     implementation rootProject.ext.stethoCore
     implementation rootProject.ext.stethoOkHttp
     implementation rootProject.ext.stethoUrlConnection
-    implementation rootProject.ext.autoDispose
-    implementation rootProject.ext.autoDisposeAndroidExt
-    implementation rootProject.ext.autoDisposeLifecycle
-    implementation rootProject.ext.autoDisposeArchComponents
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 }
 repositories {
