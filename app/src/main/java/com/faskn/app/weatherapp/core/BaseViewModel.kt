@@ -1,9 +1,13 @@
 package com.faskn.app.weatherapp.core
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 /**
  * Created by Furkan on 2019-10-16
  */
 
-open class BaseViewModel : ViewModel()
+open class BaseViewModel : ViewModel() {
+    var progressLiveData = MutableLiveData<Boolean>()
+    var toastLiveData = MutableLiveData<String>()
+}

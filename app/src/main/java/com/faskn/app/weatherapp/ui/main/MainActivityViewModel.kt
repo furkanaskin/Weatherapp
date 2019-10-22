@@ -7,6 +7,7 @@ import com.faskn.app.weatherapp.core.BaseViewModel
 import com.faskn.app.weatherapp.db.entity.ForecastEntity
 import com.faskn.app.weatherapp.domain.usecase.ForecastUseCase
 import com.faskn.app.weatherapp.utils.domain.Resource
+import com.faskn.app.weatherapp.utils.domain.Status
 import javax.inject.Inject
 
 class MainActivityViewModel @Inject internal constructor(private val useCase: ForecastUseCase) : BaseViewModel() {
@@ -19,7 +20,11 @@ class MainActivityViewModel @Inject internal constructor(private val useCase: Fo
                 useCase.execute(params)
             ) {
                 val forecastLiveData = MutableLiveData<Resource<ForecastEntity>>()
-                forecastLiveData.value = it
+                when (it.status) {
+                    Status.SUCCESS -> forecastLiveData.value = it
+                    Status.LOADING -> progressLiveData.postValue(it.data == null)
+                    Status.ERROR -> toastLiveData.postValue(it.message)
+                }
                 return@switchMap forecastLiveData
             }
 

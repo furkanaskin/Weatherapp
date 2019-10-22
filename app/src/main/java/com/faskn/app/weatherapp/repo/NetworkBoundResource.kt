@@ -35,6 +35,7 @@ abstract class NetworkBoundResource<ResultType, RequestType>
                 Log.d("TAG", "Network called")
             } else {
                 result.addSource(dbSource) { newData ->
+                    setValue(Resource.loading(newData))
                     setValue(Resource.success(newData))
                     Log.d("TAG", "DB called")
                 }
@@ -67,6 +68,7 @@ abstract class NetworkBoundResource<ResultType, RequestType>
                             // otherwise we will get immediately last cached value,
                             // which may not be updated with latest results received from network.
                             result.addSource(loadFromDb()) { newData ->
+                                setValue(Resource.loading(newData))
                                 setValue(Resource.success(newData))
                                 Log.d("TAG", "Network called success")
                             }
@@ -77,6 +79,7 @@ abstract class NetworkBoundResource<ResultType, RequestType>
                     appExecutors.mainThread().execute {
                         // reload from disk whatever we had
                         result.addSource(loadFromDb()) { newData ->
+                            setValue(Resource.loading(newData))
                             setValue(Resource.success(newData))
                             Log.d("TAG", "Network called is empty")
                         }
@@ -85,6 +88,7 @@ abstract class NetworkBoundResource<ResultType, RequestType>
                 is ApiErrorResponse -> {
                     onFetchFailed()
                     result.addSource(dbSource) { newData ->
+                        setValue(Resource.loading(newData))
                         setValue(Resource.error(response.errorMessage, newData))
                         Log.d("TAG", "Network called error")
                     }
