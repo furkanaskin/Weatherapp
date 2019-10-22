@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 class MainActivityViewModel @Inject internal constructor(private val useCase: ForecastUseCase) : BaseViewModel() {
 
-    private lateinit var forecastLiveData: LiveData<Resource<ForecastEntity>>
+    private var forecastLiveData: LiveData<Resource<ForecastEntity>> = MutableLiveData()
 
     fun getForecast(params: ForecastUseCase.ForecastParams): LiveData<Resource<ForecastEntity>> {
         forecastLiveData =

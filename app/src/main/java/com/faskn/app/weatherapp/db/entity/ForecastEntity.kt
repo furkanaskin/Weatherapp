@@ -1,7 +1,6 @@
 package com.faskn.app.weatherapp.db.entity
 
 import androidx.room.*
-import com.faskn.app.weatherapp.domain.model.City
 import com.faskn.app.weatherapp.domain.model.ForecastResponse
 import com.faskn.app.weatherapp.domain.model.ListItem
 import com.faskn.app.weatherapp.utils.typeconverters.DataConverter
@@ -18,29 +17,16 @@ data class ForecastEntity(
     @ColumnInfo(name = "id")
     var id: Int,
 
-    @ColumnInfo(name = "city")
-    var city: City?,
-
-    @ColumnInfo(name = "cnt")
-    var cnt: Int?,
-
-    @ColumnInfo(name = "cod")
-    var cod: String?,
-
-    @ColumnInfo(name = "message")
-    var message: Double?,
+    @Embedded
+    var city: CityEntity?,
 
     @ColumnInfo(name = "list")
     var list: List<ListItem>?
 ) {
     @Ignore
     constructor(forecastResponse: ForecastResponse) : this(
-
         id = 0,
-        city = forecastResponse.city,
-        cnt = forecastResponse.cnt,
-        cod = forecastResponse.cod,
-        message = forecastResponse.message,
+        city = forecastResponse.city?.let { CityEntity(it) },
         list = forecastResponse.list
     )
 }

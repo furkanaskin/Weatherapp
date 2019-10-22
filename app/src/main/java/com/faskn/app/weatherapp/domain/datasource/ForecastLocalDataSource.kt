@@ -9,9 +9,9 @@ import javax.inject.Inject
  * Created by Furkan on 2019-10-21
  */
 
-class ForecastLocalDataSource @Inject constructor(private val dao: ForecastDao) {
+class ForecastLocalDataSource @Inject constructor(private val forecastDao: ForecastDao) {
 
-    fun getForecasyByCityName() = dao.getForecasts()
+    fun getForecasyByCityName() = forecastDao.getForecasts()
 
-    fun insertForecast(forecast: ForecastResponse) = dao.insertForecast(ForecastEntity(forecast))
+    fun insertForecast(forecast: ForecastResponse) = forecastDao.insertForecast(ForecastEntity(forecast))
 }

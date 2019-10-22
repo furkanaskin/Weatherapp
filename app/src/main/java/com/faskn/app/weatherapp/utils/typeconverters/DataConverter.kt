@@ -1,7 +1,6 @@
 package com.faskn.app.weatherapp.utils.typeconverters
 
 import androidx.room.TypeConverter
-import com.faskn.app.weatherapp.domain.model.City
 import com.faskn.app.weatherapp.domain.model.ListItem
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -11,22 +10,6 @@ import com.google.gson.reflect.TypeToken
  */
 
 object DataConverter {
-
-    @TypeConverter
-    @JvmStatic
-    fun stringToObject(data: String?): City {
-        if (data == null)
-            return City(null, null, null, null)
-        val type = object : TypeToken<City>() {}.type
-
-        return Gson().fromJson(data, type)
-    }
-
-    @TypeConverter
-    @JvmStatic
-    fun objectToString(city: City?): String {
-        return Gson().toJson(city)
-    }
 
     @TypeConverter
     @JvmStatic
