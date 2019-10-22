@@ -42,6 +42,7 @@ abstract class BaseActivity<VM : BaseViewModel, DB : ViewDataBinding>(private va
         super.onCreate(savedInstanceState)
         initViewModel(viewModel)
         onInject()
+        setupBindingLifecycleOwner()
     }
 
     /**
@@ -52,4 +53,8 @@ abstract class BaseActivity<VM : BaseViewModel, DB : ViewDataBinding>(private va
      */
 
     abstract fun initViewModel(viewModel: VM)
+
+    private fun setupBindingLifecycleOwner() {
+        binding.lifecycleOwner = this
+    }
 }

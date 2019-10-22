@@ -15,7 +15,6 @@ data class CityEntity(
     var cityCoord: CoordEntity?,
     @ColumnInfo(name = "cityName")
     var cityName: String?,
-    @PrimaryKey
     @ColumnInfo(name = "cityId")
     var cityId: Int?
 ) {

@@ -23,10 +23,15 @@ data class ForecastEntity(
     @ColumnInfo(name = "list")
     var list: List<ListItem>?
 ) {
+
     @Ignore
     constructor(forecastResponse: ForecastResponse) : this(
         id = 0,
         city = forecastResponse.city?.let { CityEntity(it) },
         list = forecastResponse.list
     )
+
+    fun test(): String {
+        return id.toString()
+    }
 }
