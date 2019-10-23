@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
 
     <data>
+
         <variable
             name="viewModel"
             type="com.faskn.app.weatherapp.ui.main.MainActivityViewModel" />
+
+        <variable
+            name="viewState"
+            type="com.faskn.app.weatherapp.ui.main.MainActivityViewState" />
     </data>
 
     <RelativeLayout
@@ -21,8 +27,14 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:text="@{viewModel.forecastLiveData.data.city.cityName}"
+            android:text="@{viewState.getForecast().city.cityName}"
             android:textColor="@android:color/black" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            app:visibility="@{viewState.isLoading()}" />
 
     </RelativeLayout>
 </layout>

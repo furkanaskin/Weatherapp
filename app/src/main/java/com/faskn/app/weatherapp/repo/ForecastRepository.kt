@@ -19,13 +19,13 @@ import javax.inject.Inject
 
 class ForecastRepository @Inject constructor(private val forecastRemoteDataSource: ForecastRemoteDataSource, private val forecastLocalDataSource: ForecastLocalDataSource, private val appExecutors: AppExecutors) {
 
-    private val forecastListRateLimit = RateLimiter<String>(3, TimeUnit.SECONDS)
+    private val forecastListRateLimit = RateLimiter<String>(30, TimeUnit.SECONDS)
 
-    fun loadForecastByCityName(cityName: String): LiveData<Resource<ForecastEntity>> {
+    fun loadForecastByCityName(cityName: String, fetchRequired: Boolean): LiveData<Resource<ForecastEntity>> {
         return object : NetworkBoundResource<ForecastEntity, ForecastResponse>(appExecutors) {
             override fun saveCallResult(item: ForecastResponse) = forecastLocalDataSource.insertForecast(item)
 
-            override fun shouldFetch(data: ForecastEntity?): Boolean = data == null
+            override fun shouldFetch(data: ForecastEntity?): Boolean = fetchRequired
 
             override fun loadFromDb(): LiveData<ForecastEntity> = forecastLocalDataSource.getForecastByCityName(city = cityName.substringBefore(","))
 

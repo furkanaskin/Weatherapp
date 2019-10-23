@@ -1,11 +1,9 @@
 package com.faskn.app.weatherapp.core
 
 import android.os.Bundle
-import android.util.Log
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import dagger.android.AndroidInjection
@@ -45,7 +43,6 @@ abstract class BaseActivity<VM : BaseViewModel, DB : ViewDataBinding>(private va
         initViewModel(viewModel)
         onInject()
         setupBindingLifecycleOwner()
-        setupProgressBar()
     }
 
     /**
@@ -59,18 +56,5 @@ abstract class BaseActivity<VM : BaseViewModel, DB : ViewDataBinding>(private va
 
     private fun setupBindingLifecycleOwner() {
         binding.lifecycleOwner = this
-    }
-
-    private fun setupProgressBar() {
-        viewModel.progressLiveData.observe(
-            this,
-            Observer {
-                if (it) {
-                    Log.v("qqq", "showProgress")
-                } else {
-                    Log.v("qqq", "hideProgress")
-                }
-            }
-        )
     }
 }

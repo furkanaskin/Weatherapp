@@ -13,10 +13,11 @@ import javax.inject.Inject
 class ForecastUseCase @Inject internal constructor(private val repository: ForecastRepository) : UseCaseLiveData<Resource<ForecastEntity>, ForecastUseCase.ForecastParams>(repository) {
 
     override fun buildUseCaseObservable(params: ForecastParams?): LiveData<Resource<ForecastEntity>> {
-        return repository.loadForecastByCityName(params?.city ?: "")
+        return repository.loadForecastByCityName(params?.city ?: "", params?.fetchRequired ?: false)
     }
 
     class ForecastParams(
-        val city: String = ""
+        val city: String = "",
+        val fetchRequired: Boolean
     ) : UseCaseLiveData.Params()
 }
