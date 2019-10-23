@@ -5,7 +5,6 @@ import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.faskn.app.weatherapp.core.Constants
 import com.faskn.app.weatherapp.domain.DefaultRequestInterceptor
 import com.faskn.app.weatherapp.domain.WeatherAppAPI
-import com.faskn.app.weatherapp.utils.LiveDataCallAdapterFactory
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -17,6 +16,7 @@ import javax.inject.Singleton
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
@@ -61,7 +61,7 @@ class NetModule {
         return Retrofit.Builder()
             .client(client)
             .addConverterFactory(GsonConverterFactory.create(gson))
-            .addCallAdapterFactory(LiveDataCallAdapterFactory())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
     }
 
     @Provides

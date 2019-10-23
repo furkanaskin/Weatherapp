@@ -1,7 +1,7 @@
 package com.faskn.app.weatherapp.domain
 
-import androidx.lifecycle.LiveData
 import com.faskn.app.weatherapp.domain.model.ForecastResponse
+import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -15,5 +15,5 @@ interface WeatherAppAPI {
     fun getForecastByCityName(
         @Query("q")
         city: String
-    ): LiveData<ApiResponse<ForecastResponse>>
+    ): Single<ForecastResponse>
 }

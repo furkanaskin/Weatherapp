@@ -1,6 +1,8 @@
 package com.faskn.app.weatherapp.domain.datasource
 
 import com.faskn.app.weatherapp.domain.WeatherAppAPI
+import com.faskn.app.weatherapp.domain.model.ForecastResponse
+import io.reactivex.Single
 import javax.inject.Inject
 
 /**
@@ -9,5 +11,5 @@ import javax.inject.Inject
 
 class ForecastRemoteDataSource @Inject constructor(private val api: WeatherAppAPI) {
 
-    fun getForecasyByCityName(city: String) = api.getForecastByCityName(city)
+    fun getForecasyByCityName(city: String): Single<ForecastResponse> = api.getForecastByCityName(city)
 }

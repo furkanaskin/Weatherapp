@@ -30,8 +30,4 @@ data class ForecastEntity(
         city = forecastResponse.city?.let { CityEntity(it) },
         list = forecastResponse.list
     )
-
-    fun test(): String {
-        return id.toString()
-    }
 }
