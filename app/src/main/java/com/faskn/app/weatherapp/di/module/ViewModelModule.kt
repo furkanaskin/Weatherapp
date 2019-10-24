@@ -4,8 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.faskn.app.weatherapp.di.ViewModelFactory
 import com.faskn.app.weatherapp.di.key.ViewModelKey
+import com.faskn.app.weatherapp.ui.dashboard.DashboardFragmentViewModel
 import com.faskn.app.weatherapp.ui.main.MainActivityViewModel
-import com.faskn.app.weatherapp.ui.splash.SplashActivityViewModel
+import com.faskn.app.weatherapp.ui.splash.SplashFragmentViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -22,11 +23,16 @@ abstract class ViewModelModule {
 
     @IntoMap
     @Binds
-    @ViewModelKey(SplashActivityViewModel::class)
-    abstract fun provideSplashViewModel(splashActivityViewModel: SplashActivityViewModel): ViewModel
+    @ViewModelKey(SplashFragmentViewModel::class)
+    abstract fun provideSplashFragmentViewModel(splashFragmentViewModel: SplashFragmentViewModel): ViewModel
 
     @IntoMap
     @Binds
     @ViewModelKey(MainActivityViewModel::class)
     abstract fun provideMainViewModel(mainActivityViewModel: MainActivityViewModel): ViewModel
+
+    @IntoMap
+    @Binds
+    @ViewModelKey(DashboardFragmentViewModel::class)
+    abstract fun provideDashboardFragmentViewModel(dashboardFragmentViewModel: DashboardFragmentViewModel): ViewModel
 }

@@ -2,7 +2,6 @@ package com.faskn.app.weatherapp.di.module
 
 import com.faskn.app.weatherapp.di.scope.PerActivity
 import com.faskn.app.weatherapp.ui.main.MainActivity
-import com.faskn.app.weatherapp.ui.splash.SplashActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -12,16 +11,6 @@ import dagger.android.ContributesAndroidInjector
 
 @Module
 abstract class ActivityModule {
-
-    /**
-     * Injects [SplashActivity]
-     *
-     * @return an instance of [SplashActivity]
-     */
-
-    @PerActivity
-    @ContributesAndroidInjector
-    internal abstract fun splashActivity(): SplashActivity
 
     /**
      * Injects [MainActivity]

@@ -95,6 +95,7 @@ dependencies {
     implementation rootProject.ext.navigationUI
     implementation rootProject.ext.dagger
     implementation rootProject.ext.daggerSupport
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt rootProject.ext.daggerApt
     kapt rootProject.ext.daggerAnnotation
     implementation rootProject.ext.rxJava

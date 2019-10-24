@@ -3,16 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-
     <data>
 
         <variable
             name="viewModel"
             type="com.faskn.app.weatherapp.ui.main.MainActivityViewModel" />
 
-        <variable
-            name="viewState"
-            type="com.faskn.app.weatherapp.ui.main.MainActivityViewState" />
     </data>
 
     <RelativeLayout
@@ -22,19 +18,14 @@
         android:fitsSystemWindows="true"
         tools:context=".ui.main.MainActivity">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:text="@{viewState.getForecast().city.cityName}"
-            android:textColor="@android:color/black" />
-
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            app:visibility="@{viewState.isLoading()}" />
+        <fragment
+            android:id="@+id/container_fragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="false"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/mobile_navigation" />
 
     </RelativeLayout>
 </layout>

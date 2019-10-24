@@ -7,4 +7,4 @@ import javax.inject.Inject
  * Created by Furkan on 2019-10-16
  */
 
-class SplashActivityViewModel @Inject constructor() : BaseViewModel()
+class SplashFragmentViewModel @Inject constructor() : BaseViewModel()

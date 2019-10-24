@@ -23,7 +23,7 @@ interface ForecastDao {
         insertForecast(forecast)
     }
 
-    @Update()
+    @Update
     fun updateForecast(forecast: ForecastEntity)
 
     @Delete

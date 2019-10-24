@@ -1,4 +1,4 @@
-package com.faskn.app.weatherapp.ui.main
+package com.faskn.app.weatherapp.ui.dashboard
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -6,11 +6,14 @@ import androidx.lifecycle.Transformations
 import com.faskn.app.weatherapp.core.BaseViewModel
 import com.faskn.app.weatherapp.db.entity.ForecastEntity
 import com.faskn.app.weatherapp.domain.usecase.ForecastUseCase
-import com.faskn.app.weatherapp.ui.dashboard.DashboardFragmentViewState
 import com.faskn.app.weatherapp.utils.domain.Resource
 import javax.inject.Inject
 
-class MainActivityViewModel @Inject internal constructor(private val useCase: ForecastUseCase) : BaseViewModel() {
+/**
+ * Created by Furkan on 2019-10-24
+ */
+
+class DashboardFragmentViewModel @Inject internal constructor(private val useCase: ForecastUseCase) : BaseViewModel() {
 
     private var forecastLiveData: LiveData<DashboardFragmentViewState> = MutableLiveData()
 

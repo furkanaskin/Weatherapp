@@ -1,4 +1,4 @@
-package com.faskn.app.weatherapp.ui.main
+package com.faskn.app.weatherapp.ui.dashboard
 
 import com.faskn.app.weatherapp.db.entity.ForecastEntity
 import com.faskn.app.weatherapp.utils.domain.Status
@@ -7,7 +7,7 @@ import com.faskn.app.weatherapp.utils.domain.Status
  * Created by Furkan on 2019-10-23
  */
 
-class MainActivityViewState(
+class DashboardFragmentViewState(
     val status: Status,
     val error: String? = null,
     val data: ForecastEntity? = null
