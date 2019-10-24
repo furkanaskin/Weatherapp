@@ -1,5 +1,6 @@
 package com.faskn.app.weatherapp.domain
 
+import com.faskn.app.weatherapp.domain.model.CurrentWeatherResponse
 import com.faskn.app.weatherapp.domain.model.ForecastResponse
 import io.reactivex.Single
 import retrofit2.http.GET
@@ -14,6 +15,16 @@ interface WeatherAppAPI {
     @GET("forecast")
     fun getForecastByCityName(
         @Query("q")
-        city: String
+        city: String,
+        @Query("units")
+        units: String
     ): Single<ForecastResponse>
+
+    @GET("weather")
+    fun getCurrentByCityName(
+        @Query("q")
+        city: String,
+        @Query("units")
+        units: String
+    ): Single<CurrentWeatherResponse>
 }

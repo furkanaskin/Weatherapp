@@ -1,15 +1,15 @@
-package com.faskn.app.weatherapp.domain.usecase
+package com.faskn.app.weatherapp.domain.usecase.forecast
 
 import androidx.lifecycle.LiveData
-import com.faskn.app.weatherapp.repo.ForecastRepository
+import com.faskn.app.weatherapp.repo.CurrentWeatherRepository
 
 /**
  * Created by Furkan on 2019-10-21
  */
 
-abstract class UseCaseLiveData<M, P>(repository: ForecastRepository) {
+abstract class CurrentWeatherUseCaseLiveData<M, P>(repository: CurrentWeatherRepository) {
 
-    private val repository: ForecastRepository = repository
+    private val repository: CurrentWeatherRepository = repository
 
     abstract fun buildUseCaseObservable(params: P?): LiveData<M>
 
@@ -23,7 +23,7 @@ abstract class UseCaseLiveData<M, P>(repository: ForecastRepository) {
         return buildUseCaseObservable(params)
     }
 
-    fun getForecastRepository(): ForecastRepository {
+    fun getCurrentWeatherRepository(): CurrentWeatherRepository {
         return repository
     }
 

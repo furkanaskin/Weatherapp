@@ -1,4 +1,4 @@
-package com.faskn.app.weatherapp.domain.datasource
+package com.faskn.app.weatherapp.domain.datasource.forecast
 
 import com.faskn.app.weatherapp.db.dao.ForecastDao
 import com.faskn.app.weatherapp.db.entity.ForecastEntity

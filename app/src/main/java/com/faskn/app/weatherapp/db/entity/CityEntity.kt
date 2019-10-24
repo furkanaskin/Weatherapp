@@ -1,6 +1,9 @@
 package com.faskn.app.weatherapp.db.entity
 
-import androidx.room.*
+import androidx.room.ColumnInfo
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.Ignore
 import com.faskn.app.weatherapp.domain.model.City
 
 /**
@@ -26,4 +29,11 @@ data class CityEntity(
         cityName = city.name,
         cityCountry = city.country
     )
+
+    fun getCityAndCountry(): String {
+        return if (cityCountry.equals("none"))
+            "$cityName"
+        else
+            "$cityName, $cityCountry"
+    }
 }

@@ -6,4 +6,7 @@
 
 
     <color name="white">#FFFFFF</color>
+    <color name="mainTextColor">#130E51</color>
+    <color name="chipItemBackgroundColor">#1AADA7FE</color>
+    <color name="chipTextColor">#5D50FE</color>
 </resources>

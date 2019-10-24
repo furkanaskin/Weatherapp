@@ -3,6 +3,7 @@ package com.faskn.app.weatherapp.di.module
 import android.content.Context
 import androidx.room.Room
 import com.faskn.app.weatherapp.db.WeatherDatabase
+import com.faskn.app.weatherapp.db.dao.CurrentWeatherDao
 import com.faskn.app.weatherapp.db.dao.ForecastDao
 import dagger.Module
 import dagger.Provides
@@ -24,5 +25,11 @@ class DatabaseModule {
     @Provides
     fun provideForecastDao(db: WeatherDatabase): ForecastDao {
         return db.forecastDao()
+    }
+
+    @Singleton
+    @Provides
+    fun provideCurrentWeatherDao(db: WeatherDatabase): CurrentWeatherDao {
+        return db.currentWeatherDao()
     }
 }

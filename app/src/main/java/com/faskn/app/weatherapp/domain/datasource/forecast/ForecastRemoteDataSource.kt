@@ -1,4 +1,4 @@
-package com.faskn.app.weatherapp.domain.datasource
+package com.faskn.app.weatherapp.domain.datasource.forecast
 
 import com.faskn.app.weatherapp.domain.WeatherAppAPI
 import com.faskn.app.weatherapp.domain.model.ForecastResponse
@@ -11,5 +11,5 @@ import javax.inject.Inject
 
 class ForecastRemoteDataSource @Inject constructor(private val api: WeatherAppAPI) {
 
-    fun getForecasyByCityName(city: String): Single<ForecastResponse> = api.getForecastByCityName(city)
+    fun getForecastByCityName(city: String, units: String): Single<ForecastResponse> = api.getForecastByCityName(city, units)
 }

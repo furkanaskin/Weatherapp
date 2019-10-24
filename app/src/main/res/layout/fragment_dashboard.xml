@@ -11,29 +11,54 @@
 
         <variable
             name="viewState"
-            type="com.faskn.app.weatherapp.ui.dashboard.DashboardFragmentViewState" />
+            type="com.faskn.app.weatherapp.ui.dashboard.ForecastViewState" />
     </data>
 
     <RelativeLayout
         android:id="@+id/rootView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         android:fitsSystemWindows="true"
         tools:context=".ui.dashboard.DashboardFragment">
 
         <TextView
+            android:id="@+id/textViewCityAndCountry"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="64dp"
             android:gravity="center"
-            android:text="@{viewState.getForecast().city.cityName}"
-            android:textColor="@android:color/black" />
+            android:text="@{viewState.getForecast().city.getCityAndCountry()}"
+            android:textColor="@color/mainTextColor"
+            android:textSize="19sp"
+            android:textStyle="bold"
+            tools:text="Istanbul, TR" />
+
+        <include
+            android:id="@+id/container_forecast"
+            layout="@layout/layout_dashboard_forecast"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/chipGroupDays"
+            android:layout_marginTop="24dp" />
 
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             app:visibility="@{viewState.isLoading()}" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroupDays"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewCityAndCountry"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            app:chipSpacingHorizontal="4dp"
+            app:singleLine="true"
+            app:singleSelection="true" />
 
     </RelativeLayout>
 </layout>

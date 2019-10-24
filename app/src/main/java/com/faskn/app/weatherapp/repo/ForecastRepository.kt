@@ -3,8 +3,8 @@ package com.faskn.app.weatherapp.repo
 import NetworkBoundResource
 import androidx.lifecycle.LiveData
 import com.faskn.app.weatherapp.db.entity.ForecastEntity
-import com.faskn.app.weatherapp.domain.datasource.ForecastLocalDataSource
-import com.faskn.app.weatherapp.domain.datasource.ForecastRemoteDataSource
+import com.faskn.app.weatherapp.domain.datasource.forecast.ForecastLocalDataSource
+import com.faskn.app.weatherapp.domain.datasource.forecast.ForecastRemoteDataSource
 import com.faskn.app.weatherapp.domain.model.ForecastResponse
 import com.faskn.app.weatherapp.utils.domain.RateLimiter
 import com.faskn.app.weatherapp.utils.domain.Resource
@@ -20,7 +20,7 @@ class ForecastRepository @Inject constructor(private val forecastRemoteDataSourc
 
     private val forecastListRateLimit = RateLimiter<String>(30, TimeUnit.SECONDS)
 
-    fun loadForecastByCityName(cityName: String, fetchRequired: Boolean): LiveData<Resource<ForecastEntity>> {
+    fun loadForecastByCityName(cityName: String, fetchRequired: Boolean, units: String): LiveData<Resource<ForecastEntity>> {
         return object : NetworkBoundResource<ForecastEntity, ForecastResponse>() {
             override fun saveCallResult(item: ForecastResponse) = forecastLocalDataSource.insertForecast(item)
 
@@ -28,7 +28,7 @@ class ForecastRepository @Inject constructor(private val forecastRemoteDataSourc
 
             override fun loadFromDb(): LiveData<ForecastEntity> = forecastLocalDataSource.getForecastByCityName(city = cityName.substringBefore(","))
 
-            override fun createCall(): Single<ForecastResponse> = forecastRemoteDataSource.getForecasyByCityName(city = cityName)
+            override fun createCall(): Single<ForecastResponse> = forecastRemoteDataSource.getForecastByCityName(city = cityName, units = units)
 
             override fun onFetchFailed() = forecastListRateLimit.reset(RATE_LIMITER_TYPE)
         }.asLiveData
