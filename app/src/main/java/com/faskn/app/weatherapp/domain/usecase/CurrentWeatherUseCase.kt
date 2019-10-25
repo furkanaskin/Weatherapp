@@ -1,8 +1,9 @@
-package com.faskn.app.weatherapp.domain.usecase.forecast
+package com.faskn.app.weatherapp.domain.usecase
 
 import androidx.lifecycle.LiveData
 import com.faskn.app.weatherapp.db.entity.CurrentWeatherEntity
 import com.faskn.app.weatherapp.repo.CurrentWeatherRepository
+import com.faskn.app.weatherapp.utils.UseCaseLiveData
 import com.faskn.app.weatherapp.utils.domain.Resource
 import javax.inject.Inject
 
@@ -10,7 +11,11 @@ import javax.inject.Inject
  * Created by Furkan on 2019-10-21
  */
 
-class CurrentWeatherUseCase @Inject internal constructor(private val repository: CurrentWeatherRepository) : CurrentWeatherUseCaseLiveData<Resource<CurrentWeatherEntity>, CurrentWeatherUseCase.CurrentWeatherParams>(repository) {
+class CurrentWeatherUseCase @Inject internal constructor(private val repository: CurrentWeatherRepository) : UseCaseLiveData<Resource<CurrentWeatherEntity>, CurrentWeatherUseCase.CurrentWeatherParams, CurrentWeatherRepository>() {
+
+    override fun getRepository(): CurrentWeatherRepository {
+        return repository
+    }
 
     override fun buildUseCaseObservable(params: CurrentWeatherParams?): LiveData<Resource<CurrentWeatherEntity>> {
         return repository.loadCurrentWeatherByCityName(

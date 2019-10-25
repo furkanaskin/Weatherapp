@@ -39,4 +39,12 @@ data class MainEntity(
         seaLevel = main?.seaLevel,
         tempMax = main?.tempMax
     )
+
+    fun getTempString(): String {
+        return temp.toString().substringBefore(".") + "°"
+    }
+
+    fun getHumidityString(): String {
+        return humidity.toString() + "°"
+    }
 }

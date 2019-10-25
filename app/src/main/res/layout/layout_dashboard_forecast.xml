@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -9,7 +10,7 @@
             type="com.faskn.app.weatherapp.ui.dashboard.CurrentWeatherViewState" />
     </data>
 
-    <com.google.android.material.card.MaterialCardView
+    <RelativeLayout
         android:id="@+id/rootView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,21 +18,69 @@
         android:fitsSystemWindows="true"
         tools:context=".ui.dashboard.DashboardFragment">
 
-        <RelativeLayout
+
+        <ImageView
+            android:id="@+id/imageViewForecastBackground"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/dashboard_main_forecast_bg" />
+
+        <ImageView
+            android:id="@+id/imageViewWeatherIcon"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:adjustViewBounds="true"
+            app:setWeatherIcon="@{viewState.data.getCurrentWeather().icon}"
+            tools:src="@drawable/ic_splash_big_cloud" />
+
+        <TextView
+            android:id="@+id/textViewTemperature"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="32dp"
+            android:text="@{viewState.data.main.getTempString()}"
+            android:textColor="@color/white"
+            android:textSize="100sp"
+            tools:text="25°" />
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/dashboard_main_forecast_bg" />
+        <TextView
+            android:id="@+id/textViewWeatherMain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewTemperature"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:text="@{viewState.data.getCurrentWeather().main}"
+            android:textColor="@color/white"
+            android:textSize="23sp"
+            tools:text="Clouds &amp; Sun" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="@{viewState.data.main.temp.toString()}" />
+        <TextView
+            android:id="@+id/textViewHumidityHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewWeatherMain"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:text="@string/humidity"
+            android:textColor="@color/white"
+            android:textSize="19sp"
+            android:textStyle="bold" />
 
-        </RelativeLayout>
-    </com.google.android.material.card.MaterialCardView>
+        <TextView
+            android:id="@+id/textViewHumidity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewHumidityHeader"
+            android:layout_centerHorizontal="true"
+            android:text="@{viewState.data.main.getHumidityString()}"
+            android:textColor="@color/whiteWithOpacity"
+            android:textSize="27sp"
+            tools:text="35°" />
+
+    </RelativeLayout>
 </layout>

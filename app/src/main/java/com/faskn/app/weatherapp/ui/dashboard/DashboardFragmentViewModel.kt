@@ -6,8 +6,8 @@ import androidx.lifecycle.Transformations
 import com.faskn.app.weatherapp.core.BaseViewModel
 import com.faskn.app.weatherapp.db.entity.CurrentWeatherEntity
 import com.faskn.app.weatherapp.db.entity.ForecastEntity
-import com.faskn.app.weatherapp.domain.usecase.forecast.CurrentWeatherUseCase
-import com.faskn.app.weatherapp.domain.usecase.forecast.ForecastUseCase
+import com.faskn.app.weatherapp.domain.usecase.CurrentWeatherUseCase
+import com.faskn.app.weatherapp.domain.usecase.ForecastUseCase
 import com.faskn.app.weatherapp.utils.domain.Resource
 import javax.inject.Inject
 
@@ -19,6 +19,9 @@ class DashboardFragmentViewModel @Inject internal constructor(private val foreca
 
     private var forecastLiveData: LiveData<ForecastViewState> = MutableLiveData()
     private var currentWeatherLiveData: LiveData<CurrentWeatherViewState> = MutableLiveData()
+
+    fun getForecastLiveData() = forecastLiveData
+    fun getCurrentWeatherLiveData() = currentWeatherLiveData
 
     fun getForecast(params: ForecastUseCase.ForecastParams): LiveData<ForecastViewState> {
         forecastLiveData =
@@ -43,9 +46,6 @@ class DashboardFragmentViewModel @Inject internal constructor(private val foreca
         }
         return currentWeatherLiveData
     }
-
-    fun getForecastLiveData() = forecastLiveData
-    fun getCurrentWeatherLiveData() = currentWeatherLiveData
 
     private fun onForecastResultReady(resource: Resource<ForecastEntity>): ForecastViewState {
         return ForecastViewState(

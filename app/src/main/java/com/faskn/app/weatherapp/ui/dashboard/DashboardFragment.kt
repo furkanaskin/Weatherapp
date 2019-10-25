@@ -6,8 +6,8 @@ import androidx.lifecycle.Observer
 import com.faskn.app.weatherapp.R
 import com.faskn.app.weatherapp.core.BaseFragment
 import com.faskn.app.weatherapp.databinding.FragmentDashboardBinding
-import com.faskn.app.weatherapp.domain.usecase.forecast.CurrentWeatherUseCase
-import com.faskn.app.weatherapp.domain.usecase.forecast.ForecastUseCase
+import com.faskn.app.weatherapp.domain.usecase.CurrentWeatherUseCase
+import com.faskn.app.weatherapp.domain.usecase.ForecastUseCase
 import com.faskn.app.weatherapp.utils.extensions.isNetworkAvailable
 import com.faskn.app.weatherapp.utils.extensions.toast
 import com.google.android.material.chip.Chip
@@ -60,20 +60,20 @@ class DashboardFragment : BaseFragment<DashboardFragmentViewModel, FragmentDashb
             chip.isCloseIconVisible = false
             chip.isCheckedIconVisible = false
             chip.setChipBackgroundColorResource(R.color.white)
-            chip.setTextColor(ContextCompat.getColor(this.context!!, R.color.mainTextColor))
-
+            chip.setTextColor(ContextCompat.getColor(requireContext(), R.color.mainTextColor))
             chip.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
                     toast(chip.text, Toast.LENGTH_SHORT)
                     chip.setChipBackgroundColorResource(R.color.chipItemBackgroundColor)
-                    chip.setTextColor(ContextCompat.getColor(this.context!!, R.color.chipTextColor))
+                    chip.setTextColor(ContextCompat.getColor(requireContext(), R.color.chipTextColor))
                 } else {
                     chip.setChipBackgroundColorResource(R.color.white)
-                    chip.setTextColor(ContextCompat.getColor(this.context!!, R.color.mainTextColor))
+                    chip.setTextColor(ContextCompat.getColor(requireContext(), R.color.mainTextColor))
                 }
             }
 
             mBinding.chipGroupDays.addView(chip)
+            chip.isChecked = index == 0
         }
     }
 }

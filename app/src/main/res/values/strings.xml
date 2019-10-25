@@ -8,6 +8,7 @@
     <string name="today">Today</string>
     <string name="tomorrow">Tomorrow</string>
     <string name="next_week">Next Week</string>
+    <string name="humidity">Humidity</string>
     <string-array name="chip_titles">
         <item>@string/today</item>
         <item>@string/tomorrow</item>
