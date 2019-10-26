@@ -14,5 +14,13 @@
     <fragment
         android:id="@+id/dashboardFragment"
         android:name="com.faskn.app.weatherapp.ui.dashboard.DashboardFragment"
-        android:label="DashboardFragment" />
+        android:label="DashboardFragment" >
+        <action
+            android:id="@+id/action_dashboardFragment_to_weatherDetailFragment"
+            app:destination="@id/weatherDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/weatherDetailFragment"
+        android:name="com.faskn.app.weatherapp.ui.weather_detail.WeatherDetailFragment"
+        android:label="WeatherDetailFragment" />
 </navigation>

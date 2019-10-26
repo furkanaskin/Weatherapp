@@ -8,6 +8,7 @@ import com.faskn.app.weatherapp.ui.dashboard.DashboardFragmentViewModel
 import com.faskn.app.weatherapp.ui.dashboard.forecast.ForecastItemViewModel
 import com.faskn.app.weatherapp.ui.main.MainActivityViewModel
 import com.faskn.app.weatherapp.ui.splash.SplashFragmentViewModel
+import com.faskn.app.weatherapp.ui.weather_detail.WeatherDetailViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -41,4 +42,9 @@ abstract class ViewModelModule {
     @Binds
     @ViewModelKey(ForecastItemViewModel::class)
     abstract fun provideForecastItemViewModel(forecastItemViewModel: ForecastItemViewModel): ViewModel
+
+    @IntoMap
+    @Binds
+    @ViewModelKey(WeatherDetailViewModel::class)
+    abstract fun provideWeatherDetailViewModel(weatherDetailViewModel: WeatherDetailViewModel): ViewModel
 }

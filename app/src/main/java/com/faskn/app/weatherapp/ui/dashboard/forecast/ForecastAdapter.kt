@@ -1,7 +1,9 @@
 package com.faskn.app.weatherapp.ui.dashboard.forecast
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
@@ -14,7 +16,7 @@ import com.faskn.app.weatherapp.domain.model.ListItem
  * Created by Furkan on 2019-10-25
  */
 
-class ForecastAdapter(private val callBack: (ListItem) -> Unit) : BaseAdapter<ListItem>(diffCallback) {
+class ForecastAdapter(private val callBack: (ListItem, View) -> Unit) : BaseAdapter<ListItem>(diffCallback) {
 
     override fun createBinding(parent: ViewGroup, viewType: Int): ViewDataBinding {
         val mBinding = DataBindingUtil.inflate<ItemForecastBinding>(
@@ -28,7 +30,8 @@ class ForecastAdapter(private val callBack: (ListItem) -> Unit) : BaseAdapter<Li
 
         mBinding.rootView.setOnClickListener {
             mBinding.viewModel?.item?.get()?.let {
-                callBack.invoke(it)
+                ViewCompat.setTransitionName(mBinding.cardView, "weatherItem")
+                callBack.invoke(it, mBinding.cardView)
             }
         }
         return mBinding

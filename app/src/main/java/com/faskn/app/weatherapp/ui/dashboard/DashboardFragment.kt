@@ -1,6 +1,8 @@
 package com.faskn.app.weatherapp.ui.dashboard
 
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.FragmentNavigator
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.faskn.app.weatherapp.R
 import com.faskn.app.weatherapp.core.BaseFragment
@@ -21,7 +23,6 @@ class DashboardFragment : BaseFragment<DashboardFragmentViewModel, FragmentDashb
 
     override fun init() {
         super.init()
-
         initForecastAdapter()
 
         viewModel.getForecast(ForecastUseCase.ForecastParams("Istanbul,TR", isNetworkAvailable(requireContext()), "metric"))
@@ -48,7 +49,15 @@ class DashboardFragment : BaseFragment<DashboardFragmentViewModel, FragmentDashb
     }
 
     private fun initForecastAdapter() {
-        val adapter = ForecastAdapter { item ->
+        val adapter = ForecastAdapter { item, cardView ->
+
+            findNavController()
+                .navigate(
+                    R.id.action_dashboardFragment_to_weatherDetailFragment,
+                    null,
+                    null,
+                    FragmentNavigator.Extras.Builder().addSharedElement(cardView, "weatherItem").build()
+                )
         }
 
         mBinding.recyclerForecast.adapter = adapter
