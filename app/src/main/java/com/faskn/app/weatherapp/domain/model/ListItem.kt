@@ -1,13 +1,16 @@
 package com.faskn.app.weatherapp.domain.model
 
 import android.graphics.Color
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlinx.android.parcel.Parcelize
 import org.threeten.bp.DayOfWeek
 import org.threeten.bp.LocalDate
 import org.threeten.bp.format.TextStyle
 
+@Parcelize
 data class ListItem(
 
     @field:SerializedName("dt")
@@ -36,7 +39,7 @@ data class ListItem(
 
     @field:SerializedName("wind")
     val wind: Wind?
-) {
+) : Parcelable {
     fun getWeatherItem(): WeatherItem? {
         return weather?.first()
     }
@@ -72,7 +75,11 @@ data class ListItem(
             DayOfWeek.FRIDAY -> Color.parseColor("#DC0000")
             DayOfWeek.SATURDAY -> Color.parseColor("#0051FF")
             DayOfWeek.SUNDAY -> Color.parseColor("#3D28E0")
-            null -> Color.parseColor("#28E0AE")
+            else -> Color.parseColor("#28E0AE")
         }
+    }
+
+    fun getHourOfDay(): String {
+        return dtTxt?.substringAfter(" ")?.substringBeforeLast(":") ?: "00:00"
     }
 }

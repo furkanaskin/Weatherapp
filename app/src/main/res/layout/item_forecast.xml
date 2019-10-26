@@ -98,7 +98,7 @@
                     tools:text="23°" />
 
                 <LinearLayout
-                    android:id="@+id/linearLayoutTempMaxMix"
+                    android:id="@+id/linearLayoutTempMaxMin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/textViewTemp"
@@ -110,7 +110,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="12dp"
                         android:text="@{viewModel.item.main.getTempMinString()}"
-                        android:textColor="@color/whiteWithOpacity"
+                        android:textColor="@color/whiteWithHalfOpacity"
                         android:textSize="14sp"
                         android:textStyle="bold"
                         tools:text="24°" />

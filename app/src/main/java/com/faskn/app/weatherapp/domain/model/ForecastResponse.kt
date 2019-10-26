@@ -1,7 +1,10 @@
 package com.faskn.app.weatherapp.domain.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class ForecastResponse(
 
     @field:SerializedName("city")
@@ -18,4 +21,4 @@ data class ForecastResponse(
 
     @field:SerializedName("list")
     val list: List<ListItem>?
-)
+) : Parcelable

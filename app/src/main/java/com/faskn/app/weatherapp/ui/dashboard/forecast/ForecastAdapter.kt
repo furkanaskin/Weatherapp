@@ -16,7 +16,7 @@ import com.faskn.app.weatherapp.domain.model.ListItem
  * Created by Furkan on 2019-10-25
  */
 
-class ForecastAdapter(private val callBack: (ListItem, View, Int) -> Unit) : BaseAdapter<ListItem>(diffCallback) {
+class ForecastAdapter(private val callBack: (ListItem, View, View, View, View, View) -> Unit) : BaseAdapter<ListItem>(diffCallback) {
 
     override fun createBinding(parent: ViewGroup, viewType: Int): ViewDataBinding {
         val mBinding = DataBindingUtil.inflate<ItemForecastBinding>(
@@ -31,7 +31,11 @@ class ForecastAdapter(private val callBack: (ListItem, View, Int) -> Unit) : Bas
         mBinding.rootView.setOnClickListener {
             mBinding.viewModel?.item?.get()?.let {
                 ViewCompat.setTransitionName(mBinding.cardView, "weatherItem")
-                callBack.invoke(it, mBinding.cardView, it.getColor())
+                ViewCompat.setTransitionName(mBinding.imageViewForecastIcon, "weatherItemForecastIcon")
+                ViewCompat.setTransitionName(mBinding.textViewDayOfWeek, "weatherItemDayOfWeek")
+                ViewCompat.setTransitionName(mBinding.textViewTemp, "weatherItemTemp")
+                ViewCompat.setTransitionName(mBinding.linearLayoutTempMaxMin, "weatherItemTempMaxMin")
+                callBack.invoke(it, mBinding.cardView, mBinding.imageViewForecastIcon, mBinding.textViewDayOfWeek, mBinding.textViewTemp, mBinding.linearLayoutTempMaxMin)
             }
         }
         return mBinding

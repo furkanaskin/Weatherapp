@@ -24,7 +24,7 @@
         android:name="com.faskn.app.weatherapp.ui.weather_detail.WeatherDetailFragment"
         android:label="WeatherDetailFragment" >
         <argument
-            android:name="backgroundColor"
-            app:argType="integer" />
+            android:name="weatherItem"
+            app:argType="com.faskn.app.weatherapp.domain.model.ListItem" />
     </fragment>
 </navigation>

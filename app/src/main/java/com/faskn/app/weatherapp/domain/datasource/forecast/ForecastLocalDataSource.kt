@@ -13,5 +13,7 @@ class ForecastLocalDataSource @Inject constructor(private val forecastDao: Forec
 
     fun getForecastByCityName(city: String) = forecastDao.getForecastByCityName(city)
 
+    fun getForecast() = forecastDao.getForecast()
+
     fun insertForecast(forecast: ForecastResponse) = forecastDao.deleteAndInsert(ForecastEntity(forecast))
 }

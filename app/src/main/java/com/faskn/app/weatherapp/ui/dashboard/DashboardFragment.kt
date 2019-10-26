@@ -45,12 +45,22 @@ class DashboardFragment : BaseFragment<DashboardFragmentViewModel, FragmentDashb
     }
 
     private fun initForecastAdapter() {
-        val adapter = ForecastAdapter { item, cardView, color ->
-            val action = DashboardFragmentDirections.actionDashboardFragmentToWeatherDetailFragment(color)
+        val adapter = ForecastAdapter { item, cardView, forecastIcon, dayOfWeek, temp, tempMaxMin ->
+            val action = DashboardFragmentDirections.actionDashboardFragmentToWeatherDetailFragment(item)
             findNavController()
                 .navigate(
                     action,
-                    FragmentNavigator.Extras.Builder().addSharedElement(cardView, "weatherItem").build()
+                    FragmentNavigator.Extras.Builder()
+                        .addSharedElements(
+                            mapOf(
+                                cardView to "weatherItemCardView",
+                                forecastIcon to "weatherItemForecastIcon",
+                                dayOfWeek to "weatherItemDayOfWeek",
+                                temp to "weatherItemTemp",
+                                tempMaxMin to "weatherItemTempMaxMin"
+                            )
+                        )
+                        .build()
                 )
         }
 

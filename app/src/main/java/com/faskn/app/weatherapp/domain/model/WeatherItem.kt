@@ -1,7 +1,10 @@
 package com.faskn.app.weatherapp.domain.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class WeatherItem(
 
     @field:SerializedName("icon")
@@ -15,7 +18,8 @@ data class WeatherItem(
 
     @field:SerializedName("id")
     val id: Int?
-) {
+) : Parcelable {
+
     fun getDescriptionText(): String? {
         return description?.capitalize()
     }

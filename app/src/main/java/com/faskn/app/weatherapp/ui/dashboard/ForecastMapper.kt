@@ -35,7 +35,7 @@ class ForecastMapper @Inject constructor() : Mapper<List<ListItem>, List<ListIte
 
         return mappedArray
             .filter { it.dtTxt?.substringAfter(" ")?.substringBefore(":")?.toInt()!! >= 12 }
-            .distinctBy { it.dtTxt?.substringBefore(" ") } // Distinct by dtTxt
+            .distinctBy { it.getDay() } // Eliminate same days
             .toList() // Return as list
     }
 }

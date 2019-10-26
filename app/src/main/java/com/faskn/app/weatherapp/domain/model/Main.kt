@@ -1,7 +1,10 @@
 package com.faskn.app.weatherapp.domain.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Main(
 
     @field:SerializedName("temp")
@@ -27,7 +30,8 @@ data class Main(
 
     @field:SerializedName("temp_max")
     var tempMax: Double?
-) {
+) : Parcelable {
+
     fun getTempString(): String {
         return temp.toString().substringBefore(".") + "°"
     }
