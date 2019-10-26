@@ -27,4 +27,20 @@ data class Main(
 
     @field:SerializedName("temp_max")
     val tempMax: Double?
-)
+) {
+    fun getTempString(): String {
+        return temp.toString().substringBefore(".") + "°"
+    }
+
+    fun getHumidityString(): String {
+        return humidity.toString() + "°"
+    }
+
+    fun getTempMinString(): String {
+        return tempMin.toString().substringBefore(".") + "°"
+    }
+
+    fun getTempMaxString(): String {
+        return tempMax.toString().substringBefore(".") + "°"
+    }
+}

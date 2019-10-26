@@ -1,20 +1,17 @@
 package com.faskn.app.weatherapp.ui.dashboard
 
-import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.faskn.app.weatherapp.R
 import com.faskn.app.weatherapp.core.BaseFragment
 import com.faskn.app.weatherapp.databinding.FragmentDashboardBinding
+import com.faskn.app.weatherapp.domain.model.ListItem
 import com.faskn.app.weatherapp.domain.usecase.CurrentWeatherUseCase
 import com.faskn.app.weatherapp.domain.usecase.ForecastUseCase
+import com.faskn.app.weatherapp.ui.dashboard.forecast.ForecastAdapter
 import com.faskn.app.weatherapp.utils.extensions.isNetworkAvailable
-import com.faskn.app.weatherapp.utils.extensions.toast
-import com.google.android.material.chip.Chip
 
 class DashboardFragment : BaseFragment<DashboardFragmentViewModel, FragmentDashboardBinding>(DashboardFragmentViewModel::class.java) {
-
-    private var chipItems: Array<String> = emptyArray()
 
     override fun getLayoutRes() = R.layout.fragment_dashboard
 
@@ -25,8 +22,7 @@ class DashboardFragment : BaseFragment<DashboardFragmentViewModel, FragmentDashb
     override fun init() {
         super.init()
 
-        chipItems = resources.getStringArray(R.array.chip_titles)
-        prepareChipGroup()
+        initForecastAdapter()
 
         viewModel.getForecast(ForecastUseCase.ForecastParams("Istanbul,TR", isNetworkAvailable(requireContext()), "metric"))
         viewModel.getForecastLiveData().observe(
@@ -35,6 +31,8 @@ class DashboardFragment : BaseFragment<DashboardFragmentViewModel, FragmentDashb
                 with(mBinding) {
                     viewState = it
                 }
+
+                it.data?.list?.let { data -> initForecast(data) }
             }
         )
 
@@ -49,31 +47,20 @@ class DashboardFragment : BaseFragment<DashboardFragmentViewModel, FragmentDashb
         )
     }
 
-    private fun prepareChipGroup() {
-        chipItems.forEachIndexed { index, item ->
-
-            val chip = Chip(context)
-            chip.text = item
-            chip.tag = index
-            chip.isClickable = true
-            chip.isCheckable = true
-            chip.isCloseIconVisible = false
-            chip.isCheckedIconVisible = false
-            chip.setChipBackgroundColorResource(R.color.white)
-            chip.setTextColor(ContextCompat.getColor(requireContext(), R.color.mainTextColor))
-            chip.setOnCheckedChangeListener { _, isChecked ->
-                if (isChecked) {
-                    toast(chip.text, Toast.LENGTH_SHORT)
-                    chip.setChipBackgroundColorResource(R.color.chipItemBackgroundColor)
-                    chip.setTextColor(ContextCompat.getColor(requireContext(), R.color.chipTextColor))
-                } else {
-                    chip.setChipBackgroundColorResource(R.color.white)
-                    chip.setTextColor(ContextCompat.getColor(requireContext(), R.color.mainTextColor))
-                }
-            }
-
-            mBinding.chipGroupDays.addView(chip)
-            chip.isChecked = index == 0
+    private fun initForecastAdapter() {
+        val adapter = ForecastAdapter { item ->
         }
+
+        mBinding.recyclerForecast.adapter = adapter
+        mBinding.recyclerForecast.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+    }
+
+    private fun initForecast(list: List<ListItem>) {
+        (mBinding.recyclerForecast.adapter as ForecastAdapter).submitList(
+            list
+                .filter { it.dtTxt?.substringAfter(" ").equals("12:00:00") }
+                .distinctBy { it.dtTxt?.substringBefore(" ") }
+                .drop(1)
+        )
     }
 }

@@ -22,7 +22,7 @@ fun setVisibilty(view: View, isVisible: Boolean) {
 }
 
 @BindingAdapter("app:setWeatherIcon")
-fun setWeatherIcon(view: ImageView, iconPath : String?) {
+fun setWeatherIcon(view: ImageView, iconPath: String?) {
     if (iconPath.isNullOrEmpty())
         return
     Picasso.get().cancelRequest(view)

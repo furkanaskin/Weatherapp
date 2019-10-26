@@ -112,6 +112,7 @@ dependencies {
     implementation rootProject.ext.anko
     implementation rootProject.ext.ankoCoroutines
     implementation rootProject.ext.lifecycleExt
+    implementation rootProject.ext.shadowView
     annotationProcessor rootProject.ext.lifecycleAnnotation
     implementation rootProject.ext.lifecycleViewModelKtx
     implementation rootProject.ext.roomRuntime

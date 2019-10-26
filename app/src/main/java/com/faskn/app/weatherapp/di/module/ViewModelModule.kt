@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.faskn.app.weatherapp.di.ViewModelFactory
 import com.faskn.app.weatherapp.di.key.ViewModelKey
 import com.faskn.app.weatherapp.ui.dashboard.DashboardFragmentViewModel
+import com.faskn.app.weatherapp.ui.dashboard.forecast.ForecastItemViewModel
 import com.faskn.app.weatherapp.ui.main.MainActivityViewModel
 import com.faskn.app.weatherapp.ui.splash.SplashFragmentViewModel
 import dagger.Binds
@@ -35,4 +36,9 @@ abstract class ViewModelModule {
     @Binds
     @ViewModelKey(DashboardFragmentViewModel::class)
     abstract fun provideDashboardFragmentViewModel(dashboardFragmentViewModel: DashboardFragmentViewModel): ViewModel
+
+    @IntoMap
+    @Binds
+    @ViewModelKey(ForecastItemViewModel::class)
+    abstract fun provideForecastItemViewModel(forecastItemViewModel: ForecastItemViewModel): ViewModel
 }

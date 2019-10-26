@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Application
 import com.facebook.stetho.Stetho
 import com.faskn.app.weatherapp.di.component.DaggerApplicationComponent
+import com.jakewharton.threetenabp.AndroidThreeTen
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
@@ -29,5 +30,6 @@ class WeatherApp : Application(), HasActivityInjector {
 
         Stetho.initializeWithDefaults(this)
         Timber.plant(Timber.DebugTree())
+        AndroidThreeTen.init(this)
     }
 }

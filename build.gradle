@@ -59,6 +59,7 @@ ext {
     lifecycleVersion = "2.0.0"
     roomVersion = "2.1.0"
     dataBindingVersion = "3.5.1"
+    shadowViewVersion = "0.0.3"
 
     //supportLib
     supportv4 = "androidx.legacy:legacy-support-v4:$support_version"
@@ -118,6 +119,9 @@ ext {
 
     //threetenabp
     threetenabp = "com.jakewharton.threetenabp:threetenabp:$threetenabpVersion"
+
+    //shadowView
+    shadowView = "com.loopeer.lib:shadow:$shadowViewVersion"
 
     //timber
     timber = "com.jakewharton.timber:timber:$timberVersion"

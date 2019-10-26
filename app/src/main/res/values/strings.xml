@@ -9,9 +9,5 @@
     <string name="tomorrow">Tomorrow</string>
     <string name="next_week">Next Week</string>
     <string name="humidity">Humidity</string>
-    <string-array name="chip_titles">
-        <item>@string/today</item>
-        <item>@string/tomorrow</item>
-        <item>@string/next_week</item>
-    </string-array>
+    <string name="next_5_days">Next 5 Days</string>
 </resources>

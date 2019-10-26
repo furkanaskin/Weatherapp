@@ -15,4 +15,8 @@ data class WeatherItem(
 
     @field:SerializedName("id")
     val id: Int?
-)
+) {
+    fun getDescriptionText(): String? {
+        return description?.capitalize()
+    }
+}

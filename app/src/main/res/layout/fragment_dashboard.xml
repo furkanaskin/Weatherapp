@@ -14,51 +14,81 @@
             type="com.faskn.app.weatherapp.ui.dashboard.ForecastViewState" />
     </data>
 
-    <RelativeLayout
-        android:id="@+id/rootView"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:fitsSystemWindows="true"
-        tools:context=".ui.dashboard.DashboardFragment">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textViewCityAndCountry"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="64dp"
-            android:gravity="center"
-            android:text="@{viewState.getForecast().city.getCityAndCountry()}"
-            android:textColor="@color/mainTextColor"
-            android:textSize="19sp"
-            android:textStyle="bold"
-            tools:text="Istanbul, TR" />
-
-        <include
-            android:id="@+id/container_forecast"
-            layout="@layout/layout_dashboard_forecast"
+        <RelativeLayout
+            android:id="@+id/rootView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/chipGroupDays"
-            android:layout_margin="20dp" />
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:fitsSystemWindows="true"
+            tools:context=".ui.dashboard.DashboardFragment">
 
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            app:visibility="@{viewState.isLoading()}" />
+            <TextView
+                android:id="@+id/textViewCityAndCountry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="48dp"
+                android:gravity="center"
+                android:text="@{viewState.getForecast().city.getCityAndCountry()}"
+                android:textColor="@color/mainTextColor"
+                android:textSize="19sp"
+                android:textStyle="bold"
+                tools:text="Istanbul, TR" />
 
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chipGroupDays"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/textViewCityAndCountry"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"
-            app:chipSpacingHorizontal="4dp"
-            app:singleLine="true"
-            app:singleSelection="true" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipToday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewCityAndCountry"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="16dp"
+                android:checkable="false"
+                android:checked="true"
+                android:clickable="false"
+                android:text="@string/today"
+                android:textColor="@color/chipTextColor"
+                app:chipBackgroundColor="@color/chipItemBackgroundColor" />
 
-    </RelativeLayout>
+            <include
+                android:id="@+id/container_forecast"
+                layout="@layout/layout_dashboard_forecast"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/chipToday"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="32dp" />
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                app:visibility="@{viewState.isLoading()}" />
+
+            <TextView
+                android:id="@+id/textViewForecastHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/container_forecast"
+                android:layout_marginStart="16dp"
+                android:text="@string/next_5_days"
+                android:textColor="@color/mainTextColor"
+                android:textSize="19sp"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerForecast"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewForecastHeader"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp" />
+        </RelativeLayout>
+    </ScrollView>
 </layout>
