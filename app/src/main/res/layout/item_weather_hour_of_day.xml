@@ -41,13 +41,14 @@
 
             <ImageView
                 android:id="@+id/imageViewForecastIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_below="@id/textViewHourOfDay"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="4dp"
+                android:tint="@{viewModel.item.getHourColor()}"
                 app:setWeatherIcon="@{viewModel.item.getWeatherItem().icon}"
-                tools:src="@drawable/ic_close" />
+                tools:src="@drawable/a10d_svg" />
 
             <TextView
                 android:id="@+id/textViewTemp"
@@ -55,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/imageViewForecastIcon"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="8dp"
                 android:text="@{viewModel.item.main.getTempString()}"
                 android:textColor="@color/mainTextColor"
                 android:textSize="19sp"

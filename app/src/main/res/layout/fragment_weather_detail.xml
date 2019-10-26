@@ -88,14 +88,15 @@
 
                         <ImageView
                             android:id="@+id/imageViewForecastIcon"
-                            android:layout_width="200dp"
-                            android:layout_height="200dp"
+                            android:layout_width="160dp"
+                            android:layout_height="160dp"
                             android:layout_below="@id/textViewDayOfWeek"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="12dp"
+                            android:layout_marginBottom="12dp"
                             android:transitionName="weatherItemForecastIcon"
                             app:setWeatherIcon="@{viewModel.weatherItem.getWeatherItem().icon}"
-                            tools:src="@drawable/ic_splash_big_cloud" />
+                            tools:src="@drawable/a10d_svg" />
 
                         <TextView
                             android:id="@+id/textViewTemp"

@@ -79,6 +79,20 @@ data class ListItem(
         }
     }
 
+    fun getHourColor(): Int {
+        return when (dtTxt?.substringAfter(" ")?.substringBeforeLast(":")) {
+            "00:00" -> Color.parseColor("#28E0AE")
+            "03:00" -> Color.parseColor("#FF0090")
+            "06:00" -> Color.parseColor("#FFAE00")
+            "09:00" -> Color.parseColor("#0090FF")
+            "12:00" -> Color.parseColor("#DC0000")
+            "15:00" -> Color.parseColor("#0051FF")
+            "18:00" -> Color.parseColor("#3D28E0")
+            "21:00" -> Color.parseColor("#50E3FE")
+            else -> Color.parseColor("#28E0AE")
+        }
+    }
+
     fun getHourOfDay(): String {
         return dtTxt?.substringAfter(" ")?.substringBeforeLast(":") ?: "00:00"
     }

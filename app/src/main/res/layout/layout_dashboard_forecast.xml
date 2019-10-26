@@ -26,13 +26,12 @@
 
             <ImageView
                 android:id="@+id/imageViewWeatherIcon"
-                android:layout_width="125dp"
-                android:layout_height="125dp"
+                android:layout_width="124dp"
+                android:layout_height="124dp"
                 android:layout_marginStart="36dp"
                 android:layout_marginTop="48dp"
-                android:adjustViewBounds="true"
                 app:setWeatherIcon="@{viewState.data.getCurrentWeather().icon}"
-                tools:src="@drawable/ic_splash_big_cloud" />
+                tools:src="@drawable/a10d_svg" />
 
             <TextView
                 android:id="@+id/textViewTemperature"
