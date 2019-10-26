@@ -23,7 +23,12 @@ class DashboardFragmentViewModel @Inject internal constructor(private val foreca
     fun getForecastLiveData() = forecastLiveData
     fun getCurrentWeatherLiveData() = currentWeatherLiveData
 
-    fun getForecast(params: ForecastUseCase.ForecastParams): LiveData<ForecastViewState> {
+    init {
+        getForecast(ForecastUseCase.ForecastParams("Istanbul,TR", true, "metric"))
+        getCurrentWeather((CurrentWeatherUseCase.CurrentWeatherParams("Istanbul,TR", true, "metric")))
+    }
+
+    private fun getForecast(params: ForecastUseCase.ForecastParams): LiveData<ForecastViewState> {
         forecastLiveData =
             Transformations.switchMap(
                 forecastUseCase.execute(params)
@@ -36,7 +41,7 @@ class DashboardFragmentViewModel @Inject internal constructor(private val foreca
         return forecastLiveData
     }
 
-    fun getCurrentWeather(params: CurrentWeatherUseCase.CurrentWeatherParams): LiveData<CurrentWeatherViewState> {
+    private fun getCurrentWeather(params: CurrentWeatherUseCase.CurrentWeatherParams): LiveData<CurrentWeatherViewState> {
         currentWeatherLiveData = Transformations.switchMap(
             currentWeatherUseCase.execute(params)
         ) {

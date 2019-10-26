@@ -4,10 +4,11 @@ import android.graphics.Color
 import com.faskn.app.weatherapp.R
 import com.faskn.app.weatherapp.core.BaseFragment
 import com.faskn.app.weatherapp.databinding.FragmentSplashBinding
+import com.faskn.app.weatherapp.di.Injectable
 import com.mikhaellopez.rxanimation.*
 import io.reactivex.disposables.CompositeDisposable
 
-class SplashFragment : BaseFragment<SplashFragmentViewModel, FragmentSplashBinding>(SplashFragmentViewModel::class.java) {
+class SplashFragment : BaseFragment<SplashFragmentViewModel, FragmentSplashBinding>(SplashFragmentViewModel::class.java), Injectable {
 
     var disposable = CompositeDisposable()
 

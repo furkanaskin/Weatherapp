@@ -11,7 +11,7 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/rootView"
+        android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/chipTextColor"
@@ -20,6 +20,7 @@
         app:cardElevation="8dp">
 
         <RelativeLayout
+            android:id="@+id/rootView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 

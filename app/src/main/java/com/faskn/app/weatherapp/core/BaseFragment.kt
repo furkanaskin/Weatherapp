@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
+import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
@@ -20,8 +21,10 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding>(private va
 
     lateinit var viewModel: VM
     open lateinit var mBinding: DB
+    lateinit var dataBindingComponent: DataBindingComponent
     private fun init(inflater: LayoutInflater, container: ViewGroup) {
         mBinding = DataBindingUtil.inflate(inflater, getLayoutRes(), container, false)
+        mBinding.lifecycleOwner = viewLifecycleOwner
     }
 
     open fun init() {}

@@ -7,13 +7,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.faskn.app.weatherapp.R
 import com.faskn.app.weatherapp.core.BaseFragment
 import com.faskn.app.weatherapp.databinding.FragmentDashboardBinding
+import com.faskn.app.weatherapp.di.Injectable
 import com.faskn.app.weatherapp.domain.model.ListItem
-import com.faskn.app.weatherapp.domain.usecase.CurrentWeatherUseCase
-import com.faskn.app.weatherapp.domain.usecase.ForecastUseCase
 import com.faskn.app.weatherapp.ui.dashboard.forecast.ForecastAdapter
-import com.faskn.app.weatherapp.utils.extensions.isNetworkAvailable
 
-class DashboardFragment : BaseFragment<DashboardFragmentViewModel, FragmentDashboardBinding>(DashboardFragmentViewModel::class.java) {
+class DashboardFragment : BaseFragment<DashboardFragmentViewModel, FragmentDashboardBinding>(DashboardFragmentViewModel::class.java), Injectable {
 
     override fun getLayoutRes() = R.layout.fragment_dashboard
 
@@ -25,10 +23,9 @@ class DashboardFragment : BaseFragment<DashboardFragmentViewModel, FragmentDashb
         super.init()
         initForecastAdapter()
 
-        viewModel.getForecast(ForecastUseCase.ForecastParams("Istanbul,TR", isNetworkAvailable(requireContext()), "metric"))
         viewModel.getForecastLiveData().observe(
             this,
-            Observer {
+            Observer<ForecastViewState> {
                 with(mBinding) {
                     viewState = it
                 }
@@ -37,10 +34,9 @@ class DashboardFragment : BaseFragment<DashboardFragmentViewModel, FragmentDashb
             }
         )
 
-        viewModel.getCurrentWeather((CurrentWeatherUseCase.CurrentWeatherParams("Istanbul,TR", isNetworkAvailable(requireContext()), "metric")))
         viewModel.getCurrentWeatherLiveData().observe(
             this,
-            Observer {
+            Observer<CurrentWeatherViewState> {
                 with(mBinding) {
                     containerForecast.viewState = it
                 }
@@ -69,7 +65,7 @@ class DashboardFragment : BaseFragment<DashboardFragmentViewModel, FragmentDashb
             list
                 .filter { it.dtTxt?.substringAfter(" ").equals("12:00:00") }
                 .distinctBy { it.dtTxt?.substringBefore(" ") }
-                .drop(1)
+
         )
     }
 }

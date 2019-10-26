@@ -19,6 +19,6 @@ abstract class ActivityModule {
      */
 
     @PerActivity
-    @ContributesAndroidInjector
+    @ContributesAndroidInjector(modules = [FragmentBuildersModule::class])
     internal abstract fun mainActivity(): MainActivity
 }
