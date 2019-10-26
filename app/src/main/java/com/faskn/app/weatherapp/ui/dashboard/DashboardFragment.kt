@@ -45,13 +45,11 @@ class DashboardFragment : BaseFragment<DashboardFragmentViewModel, FragmentDashb
     }
 
     private fun initForecastAdapter() {
-        val adapter = ForecastAdapter { item, cardView ->
-
+        val adapter = ForecastAdapter { item, cardView, color ->
+            val action = DashboardFragmentDirections.actionDashboardFragmentToWeatherDetailFragment(color)
             findNavController()
                 .navigate(
-                    R.id.action_dashboardFragment_to_weatherDetailFragment,
-                    null,
-                    null,
+                    action,
                     FragmentNavigator.Extras.Builder().addSharedElement(cardView, "weatherItem").build()
                 )
         }
@@ -61,11 +59,6 @@ class DashboardFragment : BaseFragment<DashboardFragmentViewModel, FragmentDashb
     }
 
     private fun initForecast(list: List<ListItem>) {
-        (mBinding.recyclerForecast.adapter as ForecastAdapter).submitList(
-            list
-                .filter { it.dtTxt?.substringAfter(" ").equals("12:00:00") }
-                .distinctBy { it.dtTxt?.substringBefore(" ") }
-
-        )
+        (mBinding.recyclerForecast.adapter as ForecastAdapter).submitList(ForecastMapper().mapFrom(list))
     }
 }

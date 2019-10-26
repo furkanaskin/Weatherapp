@@ -18,13 +18,12 @@
         tools:context=".ui.weather_detail.WeatherDetailFragment">
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/imageViewBigCloud"
+            android:id="@+id/cardView"
             android:layout_width="300dp"
             android:layout_height="400dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"
-            android:background="#28E0AE"
-            android:backgroundTint="#28E0AE"
+            android:backgroundTint="@{viewModel.backgroundColor}"
             android:transitionName="weatherItem"
             app:cardCornerRadius="24dp">
 

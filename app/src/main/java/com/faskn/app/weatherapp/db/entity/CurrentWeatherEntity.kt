@@ -1,9 +1,14 @@
 package com.faskn.app.weatherapp.db.entity
 
+import android.graphics.Color
 import androidx.room.*
 import com.faskn.app.weatherapp.domain.model.CurrentWeatherResponse
 import com.faskn.app.weatherapp.domain.model.WeatherItem
 import com.faskn.app.weatherapp.utils.typeconverters.DataConverter
+import java.text.SimpleDateFormat
+import java.util.*
+import org.threeten.bp.DayOfWeek
+import org.threeten.bp.LocalDate
 
 /**
  * Created by Furkan on 2019-10-24
@@ -21,7 +26,7 @@ data class CurrentWeatherEntity(
     @Embedded
     var clouds: CloudsEntity?,
     @ColumnInfo(name = "dt")
-    var dt: Int?,
+    var dt: Long?,
     @ColumnInfo(name = "weather")
     val weather: List<WeatherItem?>? = null,
     @ColumnInfo(name = "name")
@@ -40,7 +45,7 @@ data class CurrentWeatherEntity(
         timezone = currentWeather.timezone,
         main = MainEntity(currentWeather.main),
         clouds = CloudsEntity(currentWeather.clouds),
-        dt = currentWeather.dt,
+        dt = currentWeather.dt?.toLong(),
         weather = currentWeather.weather,
         name = currentWeather.name,
         id = 0,
@@ -50,5 +55,36 @@ data class CurrentWeatherEntity(
 
     fun getCurrentWeather(): WeatherItem? {
         return weather?.first()
+    }
+
+    private fun getDateTime(s: Long): DayOfWeek? {
+        return try {
+            val sdf = SimpleDateFormat("dd/MM/yyyy")
+            val netDate = Date(s * 1000)
+            val formattedDate = sdf.format(netDate)
+
+            LocalDate.of(
+                formattedDate.substringAfterLast("/").toInt(),
+                formattedDate.substringAfter("/").take(2).toInt(),
+                formattedDate.substringBefore("/").toInt()
+            )
+                .dayOfWeek
+        } catch (e: Exception) {
+            e.printStackTrace()
+            DayOfWeek.MONDAY
+        }
+    }
+
+    fun getColor(): Int {
+        return when (dt?.let { getDateTime(it) }) {
+            DayOfWeek.MONDAY -> Color.parseColor("#28E0AE")
+            DayOfWeek.TUESDAY -> Color.parseColor("#FF0090")
+            DayOfWeek.WEDNESDAY -> Color.parseColor("#FFAE00")
+            DayOfWeek.THURSDAY -> Color.parseColor("#0090FF")
+            DayOfWeek.FRIDAY -> Color.parseColor("#DC0000")
+            DayOfWeek.SATURDAY -> Color.parseColor("#0051FF")
+            DayOfWeek.SUNDAY -> Color.parseColor("#3D28E0")
+            else -> Color.parseColor("#28E0AE")
+        }
     }
 }

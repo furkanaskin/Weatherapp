@@ -14,7 +14,7 @@
         android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/chipTextColor"
+        android:backgroundTint="@{viewState.data.getColor()}"
         android:fitsSystemWindows="true"
         app:cardCornerRadius="24dp"
         app:cardElevation="8dp">

@@ -8,7 +8,7 @@ data class Main(
     val temp: Double?,
 
     @field:SerializedName("temp_min")
-    val tempMin: Double?,
+    var tempMin: Double?,
 
     @field:SerializedName("grnd_level")
     val grndLevel: Double?,
@@ -26,7 +26,7 @@ data class Main(
     val seaLevel: Double?,
 
     @field:SerializedName("temp_max")
-    val tempMax: Double?
+    var tempMax: Double?
 ) {
     fun getTempString(): String {
         return temp.toString().substringBefore(".") + "°"
