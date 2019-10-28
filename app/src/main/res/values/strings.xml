@@ -10,4 +10,7 @@
     <string name="next_week">Next Week</string>
     <string name="humidity">Humidity</string>
     <string name="next_5_days">Next 5 Days</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="more">More</string>
+    <string name="about_app">About app</string>
 </resources>

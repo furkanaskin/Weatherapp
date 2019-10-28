@@ -1,6 +1,7 @@
 package com.faskn.app.weatherapp.ui.splash
 
 import android.graphics.Color
+import androidx.navigation.fragment.findNavController
 import com.faskn.app.weatherapp.R
 import com.faskn.app.weatherapp.core.BaseFragment
 import com.faskn.app.weatherapp.databinding.FragmentSplashBinding
@@ -88,9 +89,16 @@ class SplashFragment : BaseFragment<SplashFragmentViewModel, FragmentSplashBindi
 
                 mBinding.imageViewMainCloud.fadeOut(300L),
                 mBinding.buttonExplore.fadeOut(300L),
-                mBinding.rootView.backgroundColor(Color.parseColor("#5D50FE"), Color.parseColor("#FFFFFF"), duration = 750L)
+                mBinding.rootView.backgroundColor(
+                    Color.parseColor("#5D50FE"),
+                    Color.parseColor("#FFFFFF"), duration = 750L
+                )
             )
-                .doOnTerminate { navigate(R.id.action_splashFragment_to_dashboardFragment) }
+                .doOnTerminate {
+                    findNavController().graph.startDestination = R.id.dashboardFragment // Little bit tricky solution :)
+                    findNavController()
+                        .navigate(SplashFragmentDirections.actionSplashFragmentToDashboardFragment())
+                }
                 .subscribe()
 
         )

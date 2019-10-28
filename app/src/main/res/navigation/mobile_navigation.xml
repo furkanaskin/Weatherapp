@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/mobile_navigation"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mobile_navigation"
     app:startDestination="@id/splashFragment">
 
     <fragment
         android:id="@+id/splashFragment"
         android:name="com.faskn.app.weatherapp.ui.splash.SplashFragment"
-        android:label="SplashFragment" >
+        android:label="SplashFragment">
         <action
             android:id="@+id/action_splashFragment_to_dashboardFragment"
-            app:destination="@id/dashboardFragment" />
+            app:destination="@id/dashboardFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/dashboardFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/dashboardFragment"
         android:name="com.faskn.app.weatherapp.ui.dashboard.DashboardFragment"
-        android:label="DashboardFragment" >
+        android:label="DashboardFragment">
         <action
             android:id="@+id/action_dashboardFragment_to_weatherDetailFragment"
             app:destination="@id/weatherDetailFragment" />
@@ -22,7 +26,7 @@
     <fragment
         android:id="@+id/weatherDetailFragment"
         android:name="com.faskn.app.weatherapp.ui.weather_detail.WeatherDetailFragment"
-        android:label="WeatherDetailFragment" >
+        android:label="WeatherDetailFragment">
         <argument
             android:name="weatherItem"
             app:argType="com.faskn.app.weatherapp.domain.model.ListItem" />

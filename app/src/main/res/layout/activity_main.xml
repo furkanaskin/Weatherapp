@@ -4,27 +4,66 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.faskn.app.weatherapp.ui.main.MainActivityViewModel" />
 
     </data>
 
-    <RelativeLayout
-        android:id="@+id/rootView"
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:context=".ui.main.MainActivity">
+        tools:context=".MainActivity">
 
-        <fragment
-            android:id="@+id/container_fragment"
-            android:name="androidx.navigation.fragment.NavHostFragment"
+        <RelativeLayout
+            android:id="@+id/rootView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fillViewport="false"
-            app:defaultNavHost="true"
-            app:navGraph="@navigation/mobile_navigation" />
+            android:fitsSystemWindows="true"
+            tools:context=".ui.main.MainActivity">
 
-    </RelativeLayout>
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                style="@style/ToolBarStyle"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/white"
+                android:gravity="center"
+                app:title="test">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="72dp"
+                    android:gravity="center"
+                    android:text="Istanbul" />
+
+            </androidx.appcompat.widget.Toolbar>
+
+            <fragment
+                android:id="@+id/container_fragment"
+                android:name="androidx.navigation.fragment.NavHostFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/toolbar"
+                android:fillViewport="false"
+                app:defaultNavHost="true"
+                app:navGraph="@navigation/mobile_navigation" />
+
+        </RelativeLayout>
+
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navigationView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:fitsSystemWindows="true"
+            app:headerLayout="@layout/header_layout"
+            app:menu="@menu/drawer_menu" />
+
+    </androidx.drawerlayout.widget.DrawerLayout>
 </layout>
