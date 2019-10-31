@@ -18,6 +18,7 @@
 
     <style name="ToolBarStyle" parent="ToolBarStyle.Base">
         <item name="titleTextAppearance">@style/TextAppearance.Widget.Event.Toolbar.Title</item>
+
     </style>
 
     <style name="ToolBarStyle.Base" parent="Widget.AppCompat.Toolbar" />

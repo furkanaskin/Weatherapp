@@ -1,14 +1,17 @@
 package com.faskn.app.weatherapp.db.entity
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import com.faskn.app.weatherapp.domain.model.Main
+import kotlinx.android.parcel.Parcelize
 
 /**
  * Created by Furkan on 2019-10-24
  */
 
+@Parcelize
 @Entity(tableName = "Main")
 data class MainEntity(
     @ColumnInfo(name = "temp")
@@ -27,7 +30,7 @@ data class MainEntity(
     var seaLevel: Double?,
     @ColumnInfo(name = "tempMax")
     var tempMax: Double?
-) {
+) : Parcelable {
     @Ignore
     constructor(main: Main?) : this(
         temp = main?.temp,

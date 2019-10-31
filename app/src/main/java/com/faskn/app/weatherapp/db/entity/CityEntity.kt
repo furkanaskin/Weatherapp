@@ -1,15 +1,18 @@
 package com.faskn.app.weatherapp.db.entity
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.Ignore
 import com.faskn.app.weatherapp.domain.model.City
+import kotlinx.android.parcel.Parcelize
 
 /**
  * Created by Furkan on 2019-10-22
  */
 
+@Parcelize
 @Entity(tableName = "City")
 data class CityEntity(
     @ColumnInfo(name = "cityCountry")
@@ -20,7 +23,7 @@ data class CityEntity(
     var cityName: String?,
     @ColumnInfo(name = "cityId")
     var cityId: Int?
-) {
+) : Parcelable {
 
     @Ignore
     constructor(city: City) : this(

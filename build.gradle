@@ -61,6 +61,10 @@ ext {
     roomVersion = "2.1.0"
     dataBindingVersion = "3.5.1"
     shadowViewVersion = "0.0.3"
+    firebaseCoreVersion = "17.0.1"
+    firebaseDatabaseVersion = "18.0.0"
+    firebaseMessagingVersion = "20.0.0"
+    algoliaVersion = "3.+"
 
     //supportLib
     supportv4 = "androidx.legacy:legacy-support-v4:$support_version"
@@ -80,6 +84,14 @@ ext {
     lifecycleExt = "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
     lifecycleAnnotation = "androidx.lifecycle:lifecycle-compiler:$lifecycleVersion"
     lifecycleViewModelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleViewModelKtxVersion"
+
+    //firebase
+    firebaseCore = "com.google.firebase:firebase-core:$firebaseCoreVersion"
+    firebaseDatabase = "com.google.firebase:firebase-database:$firebaseDatabaseVersion"
+    firebaseMessaging = "com.google.firebase:firebase-messaging:$firebaseMessagingVersion"
+
+    //algolia
+    algolia = "com.algolia:algoliasearch-android:$algoliaVersion"
 
     //navigation
     navigationFragment = 'androidx.navigation:navigation-fragment-ktx:2.0.0-rc02'

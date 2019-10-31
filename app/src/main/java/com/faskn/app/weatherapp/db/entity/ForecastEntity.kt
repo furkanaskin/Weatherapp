@@ -1,16 +1,17 @@
 package com.faskn.app.weatherapp.db.entity
 
+import android.os.Parcelable
 import androidx.room.*
 import com.faskn.app.weatherapp.domain.model.ForecastResponse
 import com.faskn.app.weatherapp.domain.model.ListItem
-import com.faskn.app.weatherapp.utils.typeconverters.DataConverter
+import kotlinx.android.parcel.Parcelize
 
 /**
  * Created by Furkan on 2019-10-21
  */
 
+@Parcelize
 @Entity(tableName = "Forecast")
-@TypeConverters(DataConverter::class)
 data class ForecastEntity(
 
     @PrimaryKey(autoGenerate = true)
@@ -22,7 +23,7 @@ data class ForecastEntity(
 
     @ColumnInfo(name = "list")
     var list: List<ListItem>?
-) {
+) : Parcelable {
 
     @Ignore
     constructor(forecastResponse: ForecastResponse) : this(

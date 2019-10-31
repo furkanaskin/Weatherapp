@@ -93,6 +93,10 @@ dependencies {
     implementation rootProject.ext.timber
     implementation rootProject.ext.navigationFragment
     implementation rootProject.ext.navigationUI
+    implementation rootProject.ext.firebaseCore
+    implementation rootProject.ext.firebaseDatabase
+    implementation rootProject.ext.firebaseMessaging
+    implementation rootProject.ext.algolia
     implementation rootProject.ext.dagger
     implementation rootProject.ext.daggerSupport
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'

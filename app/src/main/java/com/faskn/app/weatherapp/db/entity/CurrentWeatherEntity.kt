@@ -1,12 +1,13 @@
 package com.faskn.app.weatherapp.db.entity
 
 import android.graphics.Color
+import android.os.Parcelable
 import androidx.room.*
 import com.faskn.app.weatherapp.domain.model.CurrentWeatherResponse
 import com.faskn.app.weatherapp.domain.model.WeatherItem
-import com.faskn.app.weatherapp.utils.typeconverters.DataConverter
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlinx.android.parcel.Parcelize
 import org.threeten.bp.DayOfWeek
 import org.threeten.bp.LocalDate
 
@@ -14,8 +15,8 @@ import org.threeten.bp.LocalDate
  * Created by Furkan on 2019-10-24
  */
 
+@Parcelize
 @Entity(tableName = "CurrentWeather")
-@TypeConverters(DataConverter::class)
 data class CurrentWeatherEntity(
     @ColumnInfo(name = "visibility")
     var visibility: Int?,
@@ -38,7 +39,7 @@ data class CurrentWeatherEntity(
     val base: String?,
     @Embedded
     val wind: WindEntity?
-) {
+) : Parcelable {
     @Ignore
     constructor(currentWeather: CurrentWeatherResponse) : this(
         visibility = currentWeather.visibility,
