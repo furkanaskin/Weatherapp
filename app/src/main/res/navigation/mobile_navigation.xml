@@ -31,4 +31,8 @@
             android:name="weatherItem"
             app:argType="com.faskn.app.weatherapp.domain.model.ListItem" />
     </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.faskn.app.weatherapp.ui.search.SearchFragment"
+        android:label="SearchFragment" />
 </navigation>

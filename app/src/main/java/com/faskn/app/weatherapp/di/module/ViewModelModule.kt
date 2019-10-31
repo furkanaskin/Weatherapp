@@ -7,6 +7,7 @@ import com.faskn.app.weatherapp.di.key.ViewModelKey
 import com.faskn.app.weatherapp.ui.dashboard.DashboardFragmentViewModel
 import com.faskn.app.weatherapp.ui.dashboard.forecast.ForecastItemViewModel
 import com.faskn.app.weatherapp.ui.main.MainActivityViewModel
+import com.faskn.app.weatherapp.ui.search.SearchViewModel
 import com.faskn.app.weatherapp.ui.splash.SplashFragmentViewModel
 import com.faskn.app.weatherapp.ui.weather_detail.WeatherDetailViewModel
 import com.faskn.app.weatherapp.ui.weather_detail.weatherHourOfDay.WeatherHourOfDayItemViewModel
@@ -53,4 +54,9 @@ abstract class ViewModelModule {
     @Binds
     @ViewModelKey(WeatherHourOfDayItemViewModel::class)
     abstract fun provideWeatherHourOfDayItemViewModel(weatherHourOfDayItemViewModel: WeatherHourOfDayItemViewModel): ViewModel
+
+    @IntoMap
+    @Binds
+    @ViewModelKey(SearchViewModel::class)
+    abstract fun provideSearchViewModel(searchViewModel: SearchViewModel): ViewModel
 }

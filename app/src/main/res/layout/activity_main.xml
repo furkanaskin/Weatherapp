@@ -15,14 +15,12 @@
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
         tools:context=".MainActivity">
 
         <RelativeLayout
             android:id="@+id/rootView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
             tools:context=".ui.main.MainActivity">
 
             <androidx.appcompat.widget.Toolbar
@@ -31,13 +29,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/white"
-                android:gravity="center"
-                app:title="test">
+                android:gravity="center">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="72dp"
+                    android:layout_marginEnd="24dp"
                     android:gravity="center"
                     android:text="Istanbul" />
 
@@ -61,7 +58,6 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:fitsSystemWindows="true"
             app:headerLayout="@layout/header_layout"
             app:menu="@menu/drawer_menu" />
 

@@ -2,6 +2,7 @@ package com.faskn.app.weatherapp.ui.main
 
 import android.graphics.Color
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
@@ -12,7 +13,6 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.navigation.ui.onNavDestinationSelected
-import androidx.navigation.ui.setupActionBarWithNavController
 import com.faskn.app.weatherapp.R
 import com.faskn.app.weatherapp.core.BaseActivity
 import com.faskn.app.weatherapp.databinding.ActivityMainBinding
@@ -53,6 +53,21 @@ class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>(Ma
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.toolbar_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return when (item?.itemId) {
+            R.id.menuItemSearch -> {
+                findNavController(R.id.container_fragment).navigate(R.id.searchFragment)
+                true
+            }
+            else -> false
+        }
+    }
+
     private fun setupNavigation() {
         val appBarConfig = AppBarConfiguration(
             setOf(R.id.dashboardFragment),
@@ -60,14 +75,27 @@ class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>(Ma
         )
 
         val navController = findNavController(R.id.container_fragment)
-        setupActionBarWithNavController(navController, appBarConfig)
+        binding.toolbar.overflowIcon = getDrawable(R.drawable.ic_menu)
+        binding.toolbar.navigationIcon?.setTint(Color.parseColor("#130e51"))
+        setupWithNavController(binding.toolbar, navController, appBarConfig)
         setupWithNavController(binding.navigationView, navController)
         binding.navigationView.setNavigationItemSelectedListener(this)
-
-        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+        navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.splashFragment -> binding.toolbar.hide()
-                else -> binding.toolbar.show()
+                R.id.splashFragment -> {
+                    binding.toolbar.hide()
+                }
+                R.id.dashboardFragment -> {
+                    binding.toolbar.show()
+                    binding.toolbar.setNavigationIcon(R.drawable.ic_menu)
+                }
+                R.id.searchFragment -> {
+                    binding.toolbar.hide()
+                }
+                else -> {
+                    binding.toolbar.setNavigationIcon(R.drawable.ic_back)
+                    binding.toolbar.show()
+                }
             }
         }
     }
