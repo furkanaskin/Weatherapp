@@ -1,10 +1,7 @@
 package com.faskn.app.weatherapp.db.entity
 
 import android.os.Parcelable
-import androidx.room.ColumnInfo
-import androidx.room.Embedded
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.*
 import com.faskn.app.weatherapp.domain.model.HitsItem
 import kotlinx.android.parcel.Parcelize
 
@@ -12,15 +9,16 @@ import kotlinx.android.parcel.Parcelize
 @Entity(tableName = "CitiesForSearch")
 data class CitiesForSearchEntity(
     @ColumnInfo(name = "Country")
-    var country: String? = null,
+    val country: String?,
     @Embedded
-    var coord: CoordEntity? = null,
+    val coord: CoordEntity?,
     @ColumnInfo(name = "fullName")
-    var name: String? = null,
+    val name: String?,
     @PrimaryKey
     @ColumnInfo(name = "Id")
-    var id: String
+    val id: String
 ) : Parcelable {
+    @Ignore
     constructor(hitsItem: HitsItem?) : this(
         country = hitsItem?.country,
         coord = CoordEntity(hitsItem?.geoloc),

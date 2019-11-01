@@ -1,6 +1,5 @@
 package com.faskn.app.weatherapp.domain.datasource.searchCities
 
-import android.util.Log
 import com.algolia.search.saas.places.PlacesClient
 import com.algolia.search.saas.places.PlacesQuery
 import com.faskn.app.weatherapp.core.Constants
@@ -18,6 +17,7 @@ class SearchCitiesRemoteDataSource @Inject constructor() {
 
     fun getCityWithQuery(query: String): Single<SearchResponse> {
         val client = PlacesClient(Constants.AlgoliaKeys.APPLICATION_ID, Constants.AlgoliaKeys.SEARCH_API_KEY)
+
         return Single.create { single ->
             val algoliaQuery = PlacesQuery(query)
                 .setLanguage("en")
@@ -25,7 +25,6 @@ class SearchCitiesRemoteDataSource @Inject constructor() {
 
             client.searchAsync(algoliaQuery) { json, exception ->
                 if (exception == null) {
-                    Log.v("qqq", json.toString())
                     val data = Gson().fromJson(json.toString(), SearchResponse::class.java)
                     single.onSuccess(data)
                 } else

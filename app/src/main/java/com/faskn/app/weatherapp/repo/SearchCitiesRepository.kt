@@ -18,19 +18,24 @@ import javax.inject.Inject
 
 class SearchCitiesRepository @Inject constructor(private val searchCitiesLocalDataSource: SearchCitiesLocalDataSource, private val searchCitiesRemoteDataSource: SearchCitiesRemoteDataSource) {
 
-    private val currentWeatherRateLimit = RateLimiter<String>(1, TimeUnit.MINUTES)
+    private val rateLimiter = RateLimiter<String>(1, TimeUnit.SECONDS)
 
-    fun loadCitiesByCityName(cityName: String, fetchRequired: Boolean): LiveData<Resource<List<CitiesForSearchEntity>>> {
+    fun loadCitiesByCityName(cityName: String?): LiveData<Resource<List<CitiesForSearchEntity>>> {
         return object : NetworkBoundResource<List<CitiesForSearchEntity>, SearchResponse>() {
             override fun saveCallResult(item: SearchResponse) = searchCitiesLocalDataSource.insertCities(item)
 
-            override fun shouldFetch(data: List<CitiesForSearchEntity>?): Boolean = fetchRequired
+            override fun shouldFetch(data: List<CitiesForSearchEntity>?): Boolean {
+                return data == null || data.isEmpty()
+            }
 
             override fun loadFromDb(): LiveData<List<CitiesForSearchEntity>> = searchCitiesLocalDataSource.getCityByName(cityName)
 
-            override fun createCall(): Single<SearchResponse> = searchCitiesRemoteDataSource.getCityWithQuery(cityName)
+            override fun createCall(): Single<SearchResponse> = searchCitiesRemoteDataSource.getCityWithQuery(
+                cityName
+                    ?: ""
+            )
 
-            override fun onFetchFailed() = currentWeatherRateLimit.reset(RATE_LIMITER_TYPE)
+            override fun onFetchFailed() = rateLimiter.reset(RATE_LIMITER_TYPE)
         }.asLiveData
     }
 

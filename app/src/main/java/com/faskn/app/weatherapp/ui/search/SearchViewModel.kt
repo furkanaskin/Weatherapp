@@ -18,15 +18,6 @@ class SearchViewModel @Inject internal constructor(private val useCase: SearchCi
     private var searchResultLiveData: LiveData<SearchViewState> = MutableLiveData()
     fun getSearchResultLiveData() = searchResultLiveData
 
-    init {
-/*
-         getCities(SearchCitiesUseCase.SearchCitiesParams(city = "Istanbul", fetchRequired = true))
-         getCities working well when i call it from viewModel init but
-         when i try to getCities while searchView query changed on fragment
-         getCities doesn't work.
-*/
-    }
-
     fun getCities(params: SearchCitiesUseCase.SearchCitiesParams): LiveData<SearchViewState> {
         searchResultLiveData =
             Transformations.switchMap(

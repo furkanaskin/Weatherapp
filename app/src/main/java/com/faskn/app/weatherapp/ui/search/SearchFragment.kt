@@ -1,5 +1,6 @@
 package com.faskn.app.weatherapp.ui.search
 
+import android.util.Log
 import android.widget.EditText
 import android.widget.ImageView
 import androidx.appcompat.widget.SearchView
@@ -10,14 +11,13 @@ import com.faskn.app.weatherapp.core.BaseFragment
 import com.faskn.app.weatherapp.databinding.FragmentSearchBinding
 import com.faskn.app.weatherapp.di.Injectable
 import com.faskn.app.weatherapp.domain.usecase.SearchCitiesUseCase
-import com.faskn.app.weatherapp.utils.extensions.isNetworkAvailable
 
 class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>(SearchViewModel::class.java), Injectable {
+
     override fun getLayoutRes(): Int = R.layout.fragment_search
 
     override fun initViewModel() {
         mBinding.viewModel = viewModel
-        mBinding.lifecycleOwner = viewLifecycleOwner
     }
 
     override fun init() {
@@ -26,7 +26,8 @@ class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>(Sear
         viewModel.getSearchResultLiveData().observe(
             viewLifecycleOwner,
             Observer {
-                // Handle search result
+                if (!it.getSearchResult().isNullOrEmpty())
+                    Log.v("qqq", it?.data?.toString())
             }
         )
 
@@ -48,15 +49,15 @@ class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>(Sear
 
         mBinding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(newText: String): Boolean {
-                if (newText.isNotEmpty()) {
-                    viewModel.getCities(params = SearchCitiesUseCase.SearchCitiesParams(newText, isNetworkAvailable(requireContext())))
+                if (newText.isNotEmpty() && newText.count() > 4) {
+                    viewModel.getCities(params = SearchCitiesUseCase.SearchCitiesParams(newText))
                 }
                 return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                if (newText?.isNotEmpty() == true) {
-                    viewModel.getCities(SearchCitiesUseCase.SearchCitiesParams(city = newText, fetchRequired = isNetworkAvailable(requireContext())))
+                if (newText?.isNotEmpty() == true && newText.count() > 4) {
+                    viewModel.getCities(SearchCitiesUseCase.SearchCitiesParams(city = newText))
                 }
                 return true
             }

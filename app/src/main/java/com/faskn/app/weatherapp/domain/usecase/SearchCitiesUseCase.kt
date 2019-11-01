@@ -16,13 +16,11 @@ class SearchCitiesUseCase @Inject internal constructor(private val repository: S
 
     override fun buildUseCaseObservable(params: SearchCitiesParams?): LiveData<Resource<List<CitiesForSearchEntity>>> {
         return repository.loadCitiesByCityName(
-            cityName = params?.city ?: "",
-            fetchRequired = params?.fetchRequired ?: true
+            cityName = params?.city ?: ""
         )
     }
 
     class SearchCitiesParams(
-        val city: String = "",
-        val fetchRequired: Boolean
+        val city: String = ""
     ) : Params()
 }
