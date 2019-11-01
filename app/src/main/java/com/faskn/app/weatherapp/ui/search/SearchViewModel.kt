@@ -16,14 +16,18 @@ import javax.inject.Inject
 class SearchViewModel @Inject internal constructor(private val useCase: SearchCitiesUseCase) : BaseViewModel() {
 
     private var searchResultLiveData: LiveData<SearchViewState> = MutableLiveData()
-
     fun getSearchResultLiveData() = searchResultLiveData
 
     init {
-        getForecast(SearchCitiesUseCase.SearchCitiesParams(city = "Istanb"))
+/*
+         getCities(SearchCitiesUseCase.SearchCitiesParams(city = "Istanbul", fetchRequired = true))
+         getCities working well when i call it from viewModel init but
+         when i try to getCities while searchView query changed on fragment
+         getCities doesn't work.
+*/
     }
 
-    private fun getForecast(params: SearchCitiesUseCase.SearchCitiesParams): LiveData<SearchViewState> {
+    fun getCities(params: SearchCitiesUseCase.SearchCitiesParams): LiveData<SearchViewState> {
         searchResultLiveData =
             Transformations.switchMap(
                 useCase.execute(params)

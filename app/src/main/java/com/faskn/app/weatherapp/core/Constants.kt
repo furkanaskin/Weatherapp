@@ -13,7 +13,7 @@ object Constants {
     }
 
     object AlgoliaKeys {
-        const val APPLICATION_ID = "TOSOKQ3NIH"
-        const val SEARCH_API_KEY = "ff169fcb2259f85e1961f63f52cebc66"
+        const val APPLICATION_ID = "plNW8IW0YOIN"
+        const val SEARCH_API_KEY = "029766644cb160efa51f2a32284310eb"
     }
 }

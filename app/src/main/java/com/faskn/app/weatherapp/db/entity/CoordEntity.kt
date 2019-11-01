@@ -5,6 +5,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import com.faskn.app.weatherapp.domain.model.Coord
+import com.faskn.app.weatherapp.domain.model.Geoloc
 import kotlinx.android.parcel.Parcelize
 
 /**
@@ -23,5 +24,11 @@ data class CoordEntity(
     constructor(coord: Coord) : this(
         lon = coord.lon,
         lat = coord.lat
+    )
+
+    @Ignore
+    constructor(geoloc: Geoloc?) : this(
+        lon = geoloc?.lng,
+        lat = geoloc?.lat
     )
 }

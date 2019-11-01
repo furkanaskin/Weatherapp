@@ -15,16 +15,16 @@ data class CitiesForSearchEntity(
     var country: String? = null,
     @Embedded
     var coord: CoordEntity? = null,
-    @ColumnInfo(name = "Name")
+    @ColumnInfo(name = "fullName")
     var name: String? = null,
     @PrimaryKey
     @ColumnInfo(name = "Id")
-    var id: Int? = null
+    var id: String
 ) : Parcelable {
     constructor(hitsItem: HitsItem?) : this(
         country = hitsItem?.country,
-        coord = hitsItem?.coord?.let { CoordEntity(it) },
-        name = hitsItem?.name,
-        id = hitsItem?.id
+        coord = CoordEntity(hitsItem?.geoloc),
+        name = hitsItem?.county?.first().plus(", ") + hitsItem?.administrative?.first().plus(", ") + hitsItem?.country,
+        id = hitsItem?.objectID.toString()
     )
 }

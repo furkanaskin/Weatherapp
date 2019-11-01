@@ -4,21 +4,39 @@ import com.google.gson.annotations.SerializedName
 
 data class HitsItem(
 
-    @field:SerializedName("_highlightResult")
-    val highlightResult: HighlightResult? = null,
-
     @field:SerializedName("country")
     val country: String? = null,
 
-    @field:SerializedName("coord")
-    val coord: Coord? = null,
+    @field:SerializedName("country_code")
+    val countryCode: String? = null,
 
-    @field:SerializedName("name")
-    val name: String? = null,
+    @field:SerializedName("is_city")
+    val isCity: Boolean? = null,
 
-    @field:SerializedName("id")
-    val id: Int? = null,
+    @field:SerializedName("is_country")
+    val isCountry: Boolean? = null,
+
+    @field:SerializedName("administrative")
+    val administrative: List<String?>? = null,
+
+    @field:SerializedName("admin_level")
+    val adminLevel: Int? = null,
+
+    @field:SerializedName("postcode")
+    val postcode: List<String?>? = null,
+
+    @field:SerializedName("county")
+    val county: List<String?>? = null,
+
+    @field:SerializedName("_geoloc")
+    val geoloc: Geoloc? = null,
 
     @field:SerializedName("objectID")
-    val objectID: String? = null
+    val objectID: String? = null,
+
+    @field:SerializedName("is_suburb")
+    val isSuburb: Boolean? = null,
+
+    @field:SerializedName("locale_names")
+    val localeNames: List<String?>? = null
 )
