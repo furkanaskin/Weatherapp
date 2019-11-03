@@ -1,6 +1,7 @@
 package com.faskn.app.weatherapp.di.module
 
 import android.os.Environment
+import com.algolia.search.saas.places.PlacesClient
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.faskn.app.weatherapp.core.Constants
 import com.faskn.app.weatherapp.domain.DefaultRequestInterceptor
@@ -70,5 +71,11 @@ class NetModule {
         return retrofit.baseUrl(Constants.NetworkService.BASE_URL)
             .build()
             .create(WeatherAppAPI::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun providePlacesClient(): PlacesClient {
+        return PlacesClient(Constants.AlgoliaKeys.APPLICATION_ID, Constants.AlgoliaKeys.SEARCH_API_KEY)
     }
 }

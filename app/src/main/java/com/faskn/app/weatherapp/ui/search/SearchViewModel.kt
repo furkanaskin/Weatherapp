@@ -15,21 +15,18 @@ import javax.inject.Inject
 
 class SearchViewModel @Inject internal constructor(private val useCase: SearchCitiesUseCase) : BaseViewModel() {
 
-    private var searchResultLiveData: LiveData<SearchViewState> = MutableLiveData()
-    fun getSearchResultLiveData() = searchResultLiveData
-
-    fun getCities(params: SearchCitiesUseCase.SearchCitiesParams): LiveData<SearchViewState> {
-        searchResultLiveData =
-            Transformations.switchMap(
-                useCase.execute(params)
-            ) {
-                val searchResultLiveData = MutableLiveData<SearchViewState>()
-                searchResultLiveData.value = onSearchResultReady(it)
-                return@switchMap searchResultLiveData
-            }
-
-        return searchResultLiveData
+    var useCaseParams: MutableLiveData<SearchCitiesUseCase.SearchCitiesParams> = MutableLiveData()
+    private var searchResultLiveData: LiveData<Resource<List<CitiesForSearchEntity>>> = Transformations.switchMap(
+        useCaseParams
+    ) {
+        return@switchMap useCase.execute(it)
     }
+
+    private var searchViewState: LiveData<SearchViewState> = Transformations.map(searchResultLiveData) {
+        return@map onSearchResultReady(it)
+    }
+
+    fun getSearchViewState() = searchViewState
 
     private fun onSearchResultReady(resource: Resource<List<CitiesForSearchEntity>>): SearchViewState {
         return SearchViewState(

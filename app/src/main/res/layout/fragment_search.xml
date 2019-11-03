@@ -8,6 +8,10 @@
             name="viewModel"
             type="com.faskn.app.weatherapp.ui.search.SearchViewModel" />
 
+        <variable
+            name="viewState"
+            type="com.faskn.app.weatherapp.ui.search.SearchViewState" />
+
     </data>
 
 
@@ -18,6 +22,7 @@
         android:fitsSystemWindows="true">
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
@@ -34,6 +39,27 @@
                 app:defaultQueryHint="@string/search" />
 
         </com.google.android.material.card.MaterialCardView>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/cardView">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="24dp"
+                android:text="@{viewState.data.toString()}"
+                android:textColor="@android:color/black" />
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_margin="24dp"
+                app:visibility="@{viewState.loading}" />
+        </RelativeLayout>
 
     </RelativeLayout>
 </layout>

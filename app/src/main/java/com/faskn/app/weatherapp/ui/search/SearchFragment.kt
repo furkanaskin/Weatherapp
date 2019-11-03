@@ -1,6 +1,5 @@
 package com.faskn.app.weatherapp.ui.search
 
-import android.util.Log
 import android.widget.EditText
 import android.widget.ImageView
 import androidx.appcompat.widget.SearchView
@@ -23,11 +22,10 @@ class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>(Sear
     override fun init() {
         super.init()
 
-        viewModel.getSearchResultLiveData().observe(
+        viewModel.getSearchViewState().observe(
             viewLifecycleOwner,
             Observer {
-                if (!it.getSearchResult().isNullOrEmpty())
-                    Log.v("qqq", it?.data?.toString())
+                mBinding.viewState = it
             }
         )
 
@@ -50,14 +48,14 @@ class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>(Sear
         mBinding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(newText: String): Boolean {
                 if (newText.isNotEmpty() && newText.count() > 4) {
-                    viewModel.getCities(params = SearchCitiesUseCase.SearchCitiesParams(newText))
+                    viewModel.useCaseParams.postValue(SearchCitiesUseCase.SearchCitiesParams(newText))
                 }
                 return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (newText?.isNotEmpty() == true && newText.count() > 4) {
-                    viewModel.getCities(SearchCitiesUseCase.SearchCitiesParams(city = newText))
+                    viewModel.useCaseParams.postValue(SearchCitiesUseCase.SearchCitiesParams(newText))
                 }
                 return true
             }
