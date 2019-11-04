@@ -31,6 +31,9 @@ data class HitsItem(
     @field:SerializedName("_geoloc")
     val geoloc: Geoloc? = null,
 
+    @field:SerializedName("importance")
+    val importance: Int? = null,
+
     @field:SerializedName("objectID")
     val objectID: String? = null,
 

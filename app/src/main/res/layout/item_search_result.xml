@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.faskn.app.weatherapp.ui.search.result.SearchResultItemViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/rootView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textViewCityName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textSize="21sp"
+            tools:text="Çukurova, Adana, Turkey"
+            android:layout_marginBottom="4dp"
+            android:text="@{viewModel.item.getFullName()}"
+            android:textColor="@color/mainTextColor" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/textViewCityName"
+            android:layout_marginBottom="8dp"
+            android:background="@color/mainTextColor" />
+    </RelativeLayout>
+</layout>

@@ -5,11 +5,14 @@ import android.widget.ImageView
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.faskn.app.weatherapp.R
 import com.faskn.app.weatherapp.core.BaseFragment
 import com.faskn.app.weatherapp.databinding.FragmentSearchBinding
+import com.faskn.app.weatherapp.db.entity.CitiesForSearchEntity
 import com.faskn.app.weatherapp.di.Injectable
 import com.faskn.app.weatherapp.domain.usecase.SearchCitiesUseCase
+import com.faskn.app.weatherapp.ui.search.result.SearchResultAdapter
 
 class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>(SearchViewModel::class.java), Injectable {
 
@@ -21,15 +24,16 @@ class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>(Sear
 
     override fun init() {
         super.init()
+        initSearchResultsAdapter()
+        initSearchView()
 
         viewModel.getSearchViewState().observe(
             viewLifecycleOwner,
             Observer {
                 mBinding.viewState = it
+                it.data?.let { results -> initSearchResultsRecyclerView(results) }
             }
         )
-
-        initSearchView()
     }
 
     private fun initSearchView() {
@@ -47,18 +51,30 @@ class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>(Sear
 
         mBinding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(newText: String): Boolean {
-                if (newText.isNotEmpty() && newText.count() > 4) {
+                if (newText.isNotEmpty() && newText.count() > 2) {
                     viewModel.useCaseParams.postValue(SearchCitiesUseCase.SearchCitiesParams(newText))
                 }
                 return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                if (newText?.isNotEmpty() == true && newText.count() > 4) {
+                if (newText?.isNotEmpty() == true && newText.count() > 2) {
                     viewModel.useCaseParams.postValue(SearchCitiesUseCase.SearchCitiesParams(newText))
                 }
                 return true
             }
         })
+    }
+
+    private fun initSearchResultsAdapter() {
+        val adapter = SearchResultAdapter { item ->
+        }
+
+        mBinding.recyclerViewSearchResults.adapter = adapter
+        mBinding.recyclerViewSearchResults.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+    }
+
+    private fun initSearchResultsRecyclerView(list: List<CitiesForSearchEntity>) {
+        (mBinding.recyclerViewSearchResults.adapter as SearchResultAdapter).submitList(list.distinctBy { it.getFullName() }.sortedBy { it.importance })
     }
 }
