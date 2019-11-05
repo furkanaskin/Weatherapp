@@ -18,8 +18,9 @@ class CurrentWeatherUseCase @Inject internal constructor(private val repository:
     }
 
     override fun buildUseCaseObservable(params: CurrentWeatherParams?): LiveData<Resource<CurrentWeatherEntity>> {
-        return repository.loadCurrentWeatherByCityName(
-            params?.city ?: "",
+        return repository.loadCurrentWeatherByGeoCords(
+            params?.lat?.toDouble() ?: 0.0,
+            params?.lon?.toDouble() ?: 0.0,
             params?.fetchRequired
                 ?: false,
             units = params?.units ?: "metric"
@@ -27,7 +28,8 @@ class CurrentWeatherUseCase @Inject internal constructor(private val repository:
     }
 
     class CurrentWeatherParams(
-        val city: String = "",
+        val lat: String = "",
+        val lon: String = "",
         val fetchRequired: Boolean,
         val units: String
     ) : Params()

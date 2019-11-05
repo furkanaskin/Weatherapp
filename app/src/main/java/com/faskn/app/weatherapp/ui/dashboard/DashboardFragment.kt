@@ -9,7 +9,11 @@ import com.faskn.app.weatherapp.core.BaseFragment
 import com.faskn.app.weatherapp.databinding.FragmentDashboardBinding
 import com.faskn.app.weatherapp.di.Injectable
 import com.faskn.app.weatherapp.domain.model.ListItem
+import com.faskn.app.weatherapp.domain.usecase.CurrentWeatherUseCase
+import com.faskn.app.weatherapp.domain.usecase.ForecastUseCase
 import com.faskn.app.weatherapp.ui.dashboard.forecast.ForecastAdapter
+import com.faskn.app.weatherapp.ui.main.MainActivity
+import com.faskn.app.weatherapp.utils.extensions.isNetworkAvailable
 
 class DashboardFragment : BaseFragment<DashboardFragmentViewModel, FragmentDashboardBinding>(DashboardFragmentViewModel::class.java), Injectable {
 
@@ -23,20 +27,28 @@ class DashboardFragment : BaseFragment<DashboardFragmentViewModel, FragmentDashb
         super.init()
         initForecastAdapter()
 
-        viewModel.getForecastLiveData().observe(
-            this,
-            Observer<ForecastViewState> {
+        val lat: String? = viewModel.sharedPreferences.getString("lat", "")
+        val lon: String? = viewModel.sharedPreferences.getString("lon", "")
+
+        if (lat?.isNotEmpty() == true && lon?.isNotEmpty() == true) {
+            viewModel.currentWeatherParams.postValue(CurrentWeatherUseCase.CurrentWeatherParams(lat, lon, isNetworkAvailable(requireContext()), "metric"))
+            viewModel.forecastParams.postValue(ForecastUseCase.ForecastParams(lat, lon, isNetworkAvailable(requireContext()), "metric"))
+        }
+
+        viewModel.getForecastViewState().observe(
+            viewLifecycleOwner,
+            Observer {
                 with(mBinding) {
                     viewState = it
+                    it.data?.list?.let { forecasts -> initForecast(forecasts) }
+                    (activity as MainActivity).viewModel.toolbarTitle.set(it.data?.city?.getCityAndCountry())
                 }
-
-                it.data?.list?.let { data -> initForecast(data) }
             }
         )
 
-        viewModel.getCurrentWeatherLiveData().observe(
-            this,
-            Observer<CurrentWeatherViewState> {
+        viewModel.getCurrentWeatherViewState().observe(
+            viewLifecycleOwner,
+            Observer {
                 with(mBinding) {
                     containerForecast.viewState = it
                 }

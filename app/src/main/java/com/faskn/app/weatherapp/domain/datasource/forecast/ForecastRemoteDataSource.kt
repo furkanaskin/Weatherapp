@@ -11,5 +11,5 @@ import javax.inject.Inject
 
 class ForecastRemoteDataSource @Inject constructor(private val api: WeatherAppAPI) {
 
-    fun getForecastByCityName(city: String, units: String): Single<ForecastResponse> = api.getForecastByCityName(city, units)
+    fun getForecastByGeoCords(lat: Double, lon: Double, units: String): Single<ForecastResponse> = api.getForecastByGeoCords(lat, lon, units)
 }

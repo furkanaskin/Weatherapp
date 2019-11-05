@@ -1,5 +1,6 @@
 package com.faskn.app.weatherapp.ui.dashboard
 
+import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -15,42 +16,31 @@ import javax.inject.Inject
  * Created by Furkan on 2019-10-24
  */
 
-class DashboardFragmentViewModel @Inject internal constructor(private val forecastUseCase: ForecastUseCase, private val currentWeatherUseCase: CurrentWeatherUseCase) : BaseViewModel() {
+class DashboardFragmentViewModel @Inject internal constructor(private val forecastUseCase: ForecastUseCase, private val currentWeatherUseCase: CurrentWeatherUseCase, var sharedPreferences: SharedPreferences) : BaseViewModel() {
 
-    private var forecastLiveData: LiveData<ForecastViewState> = MutableLiveData()
-    private var currentWeatherLiveData: LiveData<CurrentWeatherViewState> = MutableLiveData()
-
-    fun getForecastLiveData() = forecastLiveData
-    fun getCurrentWeatherLiveData() = currentWeatherLiveData
-
-    init {
-        getForecast(ForecastUseCase.ForecastParams("Istanbul,TR", true, "metric"))
-        getCurrentWeather((CurrentWeatherUseCase.CurrentWeatherParams("Istanbul,TR", true, "metric")))
+    var forecastParams: MutableLiveData<ForecastUseCase.ForecastParams> = MutableLiveData()
+    var currentWeatherParams: MutableLiveData<CurrentWeatherUseCase.CurrentWeatherParams> = MutableLiveData()
+    private val forecastLiveData: LiveData<Resource<ForecastEntity>> = Transformations.switchMap(
+        forecastParams
+    ) {
+        return@switchMap forecastUseCase.execute(it)
+    }
+    private val currentWeatherLiveData: LiveData<Resource<CurrentWeatherEntity>> = Transformations.switchMap(
+        currentWeatherParams
+    ) {
+        return@switchMap currentWeatherUseCase.execute(it)
     }
 
-    private fun getForecast(params: ForecastUseCase.ForecastParams): LiveData<ForecastViewState> {
-        forecastLiveData =
-            Transformations.switchMap(
-                forecastUseCase.execute(params)
-            ) {
-                val forecastLiveData = MutableLiveData<ForecastViewState>()
-                forecastLiveData.value = onForecastResultReady(it)
-                return@switchMap forecastLiveData
-            }
-
-        return forecastLiveData
+    private val forecastViewState: LiveData<ForecastViewState> = Transformations.map(forecastLiveData) {
+        return@map onForecastResultReady(it)
     }
 
-    private fun getCurrentWeather(params: CurrentWeatherUseCase.CurrentWeatherParams): LiveData<CurrentWeatherViewState> {
-        currentWeatherLiveData = Transformations.switchMap(
-            currentWeatherUseCase.execute(params)
-        ) {
-            val currentWeatherLiveData = MutableLiveData<CurrentWeatherViewState>()
-            currentWeatherLiveData.value = onCurrentWeatherResultReady(it)
-            return@switchMap currentWeatherLiveData
-        }
-        return currentWeatherLiveData
+    private val currentWeatherViewState: LiveData<CurrentWeatherViewState> = Transformations.map(currentWeatherLiveData) {
+        return@map onCurrentWeatherResultReady(it)
     }
+
+    fun getForecastViewState() = forecastViewState
+    fun getCurrentWeatherViewState() = currentWeatherViewState
 
     private fun onForecastResultReady(resource: Resource<ForecastEntity>): ForecastViewState {
         return ForecastViewState(

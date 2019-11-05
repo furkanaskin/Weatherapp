@@ -61,13 +61,26 @@
                     android:layout_marginEnd="-40dp"
                     android:src="@drawable/ic_splash_big_cloud" />
 
+
                 <TextView
-                    android:id="@+id/textViewDayOfWeek"
+                    android:id="@+id/textViewTimeOfDay"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="24dp"
+                    android:text="@{viewModel.item.getHourOfDay()}"
+                    android:textColor="@color/white"
+                    android:textSize="8sp"
+                    android:textStyle="bold"
+                    tools:text="12:00" />
+
+                <TextView
+                    android:id="@+id/textViewDayOfWeek"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textViewTimeOfDay"
+                    android:layout_centerHorizontal="true"
                     android:text="@{viewModel.item.getDay()}"
                     android:textColor="@color/white"
                     android:textSize="14sp"

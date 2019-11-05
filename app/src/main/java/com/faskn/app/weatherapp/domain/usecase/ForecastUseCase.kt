@@ -18,8 +18,9 @@ class ForecastUseCase @Inject internal constructor(private val repository: Forec
     }
 
     override fun buildUseCaseObservable(params: ForecastParams?): LiveData<Resource<ForecastEntity>> {
-        return repository.loadForecastByCityName(
-            params?.city ?: "",
+        return repository.loadForecastByCoord(
+            params?.lat?.toDouble() ?: 0.0,
+            params?.lon?.toDouble() ?: 0.0,
             params?.fetchRequired
                 ?: false,
             units = params?.units ?: "metric"
@@ -27,7 +28,8 @@ class ForecastUseCase @Inject internal constructor(private val repository: Forec
     }
 
     class ForecastParams(
-        val city: String = "",
+        val lat: String = "",
+        val lon: String = "",
         val fetchRequired: Boolean,
         val units: String
     ) : Params()

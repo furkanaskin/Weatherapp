@@ -5,6 +5,7 @@ import android.widget.ImageView
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.faskn.app.weatherapp.R
 import com.faskn.app.weatherapp.core.BaseFragment
@@ -68,6 +69,11 @@ class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>(Sear
 
     private fun initSearchResultsAdapter() {
         val adapter = SearchResultAdapter { item ->
+            item.coord?.let {
+                viewModel.saveCoordsToSharedPref(it)?.subscribe { t1, t2 ->
+                    findNavController().navigate(R.id.action_searchFragment_to_dashboardFragment)
+                }
+            }
         }
 
         mBinding.recyclerViewSearchResults.adapter = adapter

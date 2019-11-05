@@ -11,5 +11,5 @@ import javax.inject.Inject
 
 class CurrentWeatherRemoteDataSource @Inject constructor(private val api: WeatherAppAPI) {
 
-    fun getCurrentWeatherByCityName(city: String, units: String): Single<CurrentWeatherResponse> = api.getCurrentByCityName(city, units)
+    fun getCurrentWeatherByGeoCords(lat: Double, lon: Double, units: String): Single<CurrentWeatherResponse> = api.getCurrentByGeoCords(lat, lon, units)
 }

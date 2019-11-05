@@ -1,8 +1,13 @@
 package com.faskn.app.weatherapp.db.entity
 
 import android.os.Parcelable
+import android.text.SpannableString
 import androidx.room.*
 import com.faskn.app.weatherapp.domain.model.HitsItem
+import com.faskn.app.weatherapp.utils.extensions.bold
+import com.faskn.app.weatherapp.utils.extensions.italic
+import com.faskn.app.weatherapp.utils.extensions.plus
+import com.faskn.app.weatherapp.utils.extensions.spannable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -32,7 +37,11 @@ data class CitiesForSearchEntity(
         id = hitsItem?.objectID.toString()
     )
 
-    fun getFullName(): String {
-        return "$name, $administrative, $country"
+    fun getFullName(): SpannableString {
+        return spannable {
+            bold(name.toString()).plus(", ") +
+                italic(administrative.toString()).plus(", ") +
+                italic(country.toString())
+        }
     }
 }

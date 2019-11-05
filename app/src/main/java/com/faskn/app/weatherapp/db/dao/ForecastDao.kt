@@ -11,8 +11,8 @@ interface ForecastDao {
     @Query("SELECT * FROM Forecast")
     fun getForecast(): LiveData<ForecastEntity>
 
-    @Query("SELECT * FROM Forecast WHERE cityName = :cityName")
-    fun getForecastByCityName(cityName: String): LiveData<ForecastEntity>
+    @Query("SELECT * FROM Forecast ORDER BY abs(lat-:lat) AND abs(lon-:lon) LIMIT 1")
+    fun getForecastByCoord(lat: Double, lon: Double): LiveData<ForecastEntity>
 
     @Insert(onConflict = REPLACE)
     fun insertForecast(forecast: ForecastEntity)

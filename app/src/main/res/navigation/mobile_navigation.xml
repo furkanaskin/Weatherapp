@@ -34,5 +34,12 @@
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.faskn.app.weatherapp.ui.search.SearchFragment"
-        android:label="SearchFragment" />
+        android:label="SearchFragment" >
+        <action
+            android:id="@+id/action_searchFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/dashboardFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

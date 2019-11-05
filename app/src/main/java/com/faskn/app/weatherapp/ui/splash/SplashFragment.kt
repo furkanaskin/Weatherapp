@@ -26,6 +26,10 @@ class SplashFragment : BaseFragment<SplashFragmentViewModel, FragmentSplashBindi
         mBinding.buttonExplore.setOnClickListener {
             endSplashAnimation()
         }
+
+        mBinding.rootView.setOnClickListener {
+            endSplashAnimation()
+        }
     }
 
     private fun startSplashAnimation() {

@@ -5,7 +5,6 @@ import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.faskn.app.weatherapp.R
 import com.faskn.app.weatherapp.core.BaseFragment
 import com.faskn.app.weatherapp.databinding.FragmentWeatherDetailBinding
@@ -36,7 +35,6 @@ class WeatherDetailFragment : BaseFragment<WeatherDetailViewModel, FragmentWeath
         viewModel.weatherItem.set(weatherDetailFragmentArgs.weatherItem)
         viewModel.selectedDayDate = weatherDetailFragmentArgs.weatherItem.dtTxt?.substringBefore(" ")
 
-        initWeatherHourOfDayAdapter()
         viewModel.getForecastLiveData().observe(
             viewLifecycleOwner,
             Observer {
@@ -47,7 +45,7 @@ class WeatherDetailFragment : BaseFragment<WeatherDetailViewModel, FragmentWeath
         viewModel.selectedDayForecastLiveData.observe(
             viewLifecycleOwner,
             Observer {
-                initHourOfDay(it)
+                initWeatherHourOfDayAdapter(it)
             }
         )
 
@@ -69,15 +67,11 @@ class WeatherDetailFragment : BaseFragment<WeatherDetailViewModel, FragmentWeath
         }
     }
 
-    private fun initWeatherHourOfDayAdapter() {
+    private fun initWeatherHourOfDayAdapter(list: List<ListItem>) {
         val adapter = WeatherHourOfDayAdapter { item ->
         }
 
         mBinding.recyclerViewHourOfDay.adapter = adapter
-        mBinding.recyclerViewHourOfDay.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-    }
-
-    private fun initHourOfDay(list: List<ListItem>) {
         (mBinding.recyclerViewHourOfDay.adapter as WeatherHourOfDayAdapter).submitList(list)
     }
 
