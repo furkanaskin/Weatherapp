@@ -6,6 +6,8 @@ import com.faskn.app.weatherapp.R
 import com.faskn.app.weatherapp.core.BaseFragment
 import com.faskn.app.weatherapp.databinding.FragmentSplashBinding
 import com.faskn.app.weatherapp.di.Injectable
+import com.faskn.app.weatherapp.utils.extensions.hide
+import com.faskn.app.weatherapp.utils.extensions.show
 import com.mikhaellopez.rxanimation.*
 import io.reactivex.disposables.CompositeDisposable
 
@@ -21,18 +23,27 @@ class SplashFragment : BaseFragment<SplashFragmentViewModel, FragmentSplashBindi
 
     override fun init() {
         super.init()
-        startSplashAnimation()
+
+        if (viewModel.sharedPreferences.getString("lat", "").isNullOrEmpty()) {
+            mBinding.buttonExplore.show()
+            viewModel.navigateDashboard = false
+        } else {
+            mBinding.buttonExplore.hide()
+            viewModel.navigateDashboard = true
+        }
+
+        startSplashAnimation(viewModel.navigateDashboard)
 
         mBinding.buttonExplore.setOnClickListener {
-            endSplashAnimation()
+            endSplashAnimation(viewModel.navigateDashboard)
         }
 
         mBinding.rootView.setOnClickListener {
-            endSplashAnimation()
+            endSplashAnimation(viewModel.navigateDashboard)
         }
     }
 
-    private fun startSplashAnimation() {
+    private fun startSplashAnimation(navigateToDashboard: Boolean) {
         disposable.add(
             RxAnimation.sequentially(
                 RxAnimation.together(
@@ -66,12 +77,16 @@ class SplashFragment : BaseFragment<SplashFragmentViewModel, FragmentSplashBindi
 
                 mBinding.imageViewMainCloud.fadeIn(500L),
                 mBinding.buttonExplore.fadeIn(1000L)
-            )
+            ).doOnTerminate {
+                findNavController().graph.startDestination = R.id.dashboardFragment // Little bit tricky solution :)
+                if (navigateToDashboard)
+                    endSplashAnimation(navigateToDashboard)
+            }
                 .subscribe()
         )
     }
 
-    private fun endSplashAnimation() {
+    private fun endSplashAnimation(navigateToDashboard: Boolean) {
         disposable.add(
             RxAnimation.sequentially(
                 RxAnimation.together(
@@ -95,13 +110,17 @@ class SplashFragment : BaseFragment<SplashFragmentViewModel, FragmentSplashBindi
                 mBinding.buttonExplore.fadeOut(300L),
                 mBinding.rootView.backgroundColor(
                     Color.parseColor("#5D50FE"),
-                    Color.parseColor("#FFFFFF"), duration = 750L
+                    Color.parseColor("#FFFFFF"),
+                    duration = 750L
                 )
             )
                 .doOnTerminate {
                     findNavController().graph.startDestination = R.id.dashboardFragment // Little bit tricky solution :)
-                    findNavController()
-                        .navigate(SplashFragmentDirections.actionSplashFragmentToDashboardFragment())
+                    if (navigateToDashboard)
+                        findNavController()
+                            .navigate(SplashFragmentDirections.actionSplashFragmentToDashboardFragment())
+                    else
+                        findNavController().navigate(R.id.action_splashFragment_to_searchFragment)
                 }
                 .subscribe()
 

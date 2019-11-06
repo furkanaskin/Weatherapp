@@ -37,7 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
-                app:defaultQueryHint="@string/search" />
+                app:defaultQueryHint="@string/start_typing" />
 
         </com.google.android.material.card.MaterialCardView>
 
@@ -63,6 +63,5 @@
                 android:layout_margin="24dp"
                 app:visibility="@{viewState.loading}" />
         </RelativeLayout>
-
     </RelativeLayout>
 </layout>

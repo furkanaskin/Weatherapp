@@ -21,6 +21,8 @@ data class CitiesForSearchEntity(
     val coord: CoordEntity?,
     @ColumnInfo(name = "fullName")
     val name: String?,
+    @ColumnInfo(name = "county")
+    val county: String?,
     @ColumnInfo(name = "importance")
     val importance: Int?,
     @PrimaryKey
@@ -33,15 +35,17 @@ data class CitiesForSearchEntity(
         importance = hitsItem?.importance,
         administrative = hitsItem?.administrative?.first(),
         coord = CoordEntity(hitsItem?.geoloc),
-        name = hitsItem?.localeNames?.first().plus(", ") + hitsItem?.county?.first(),
+        name = hitsItem?.localeNames?.first(),
+        county = hitsItem?.county?.first(),
         id = hitsItem?.objectID.toString()
     )
 
     fun getFullName(): SpannableString {
         return spannable {
-            bold(name.toString()).plus(", ") +
-                italic(administrative.toString()).plus(", ") +
-                italic(country.toString())
+            bold(name ?: "").plus(", ") +
+                bold(county ?: "").plus(", ") +
+                italic(administrative ?: "").plus(", ") +
+                italic(country ?: "")
         }
     }
 }
