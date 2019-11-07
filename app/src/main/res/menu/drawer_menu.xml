@@ -10,7 +10,7 @@
     <item android:title="@string/more">
         <menu>
             <item
-                android:id="@+id/nav_finish"
+                android:id="@+id/aboutApp"
                 android:title="@string/about_app" />
         </menu>
     </item>

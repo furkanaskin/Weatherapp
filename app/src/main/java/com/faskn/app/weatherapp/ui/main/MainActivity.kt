@@ -1,6 +1,8 @@
 package com.faskn.app.weatherapp.ui.main
 
+import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -21,7 +23,9 @@ import com.faskn.app.weatherapp.utils.extensions.show
 import com.google.android.material.navigation.NavigationView
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
+import org.jetbrains.anko.alert
 import javax.inject.Inject
+
 
 class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>(MainActivityViewModel::class.java), HasSupportFragmentInjector, NavigationView.OnNavigationItemSelectedListener {
 
@@ -70,8 +74,8 @@ class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>(Ma
 
     private fun setupNavigation() {
         val appBarConfig = AppBarConfiguration(
-            setOf(R.id.dashboardFragment),
-            binding.drawerLayout
+                setOf(R.id.dashboardFragment),
+                binding.drawerLayout
         )
 
         val navController = findNavController(R.id.container_fragment)
@@ -116,6 +120,23 @@ class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>(Ma
         when (item.itemId) {
             android.R.id.home ->
                 binding.drawerLayout.openDrawer(GravityCompat.START)
+            R.id.aboutApp -> {
+                binding.drawerLayout.closeDrawer(GravityCompat.START)
+                alert {
+                    ctx.setTheme(R.style.Theme_MaterialComponents_Light_Dialog)
+                    title = "Weatherapp"
+                    message = "Weatherapp is a simple forecast app, which uses some APIs to fetch 5 day / 3 hour forecast data from the OpenWeatherMap and to fetch places,cities,counties,coords etc. from Algolia Places. The main goal of this app is to be a sample of how to build an high quality Android application that uses the Architecture components, Dagger etc. in Kotlin."
+                    positiveButton("See on Github") {
+                        val url = "https://github.com/furkanaskin/Weatherapp"
+                        val i = Intent(Intent.ACTION_VIEW)
+                        i.data = Uri.parse(url)
+                        startActivity(i)
+                    }
+                    negativeButton("Dismiss") {
+
+                    }
+                }.show()
+            }
         }
         return item.onNavDestinationSelected(findNavController(R.id.container_fragment)) || super.onOptionsItemSelected(item)
     }
