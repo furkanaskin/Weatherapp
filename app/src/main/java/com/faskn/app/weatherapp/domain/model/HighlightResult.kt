@@ -1,12 +1,14 @@
 package com.faskn.app.weatherapp.domain.model
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class HighlightResult(
 
-    @field:SerializedName("country")
+    @Json(name = "country")
     val country: Country? = null,
 
-    @field:SerializedName("name")
+    @Json(name = "name")
     val name: Name? = null
 )

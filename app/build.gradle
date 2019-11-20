@@ -108,9 +108,11 @@ dependencies {
     implementation rootProject.ext.rxAnimations
     implementation rootProject.ext.retrofit
     implementation rootProject.ext.okHttp
-    implementation rootProject.ext.gson
+    implementation rootProject.ext.moshi
+    implementation rootProject.ext.moshiConverter
+    implementation rootProject.ext.moshiKotlin
+    kapt rootProject.ext.moshiKapt
     implementation rootProject.ext.rxJavaAdapter
-    implementation rootProject.ext.gsonConverter
     implementation rootProject.ext.picasso
     implementation rootProject.ext.coroutinesCore
     implementation rootProject.ext.anko

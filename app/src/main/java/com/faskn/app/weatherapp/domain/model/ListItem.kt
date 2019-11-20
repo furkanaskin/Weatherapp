@@ -2,7 +2,8 @@ package com.faskn.app.weatherapp.domain.model
 
 import android.graphics.Color
 import android.os.Parcelable
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlinx.android.parcel.Parcelize
@@ -11,33 +12,34 @@ import org.threeten.bp.LocalDate
 import org.threeten.bp.format.TextStyle
 
 @Parcelize
+@JsonClass(generateAdapter = true)
 data class ListItem(
 
-    @field:SerializedName("dt")
+    @Json(name = "dt")
     val dt: Long?,
 
-    @field:SerializedName("rain")
+    @Json(name = "rain")
     val rain: Rain?,
 
-    @field:SerializedName("dt_txt")
+    @Json(name = "dt_txt")
     val dtTxt: String?,
 
-    @field:SerializedName("snow")
+    @Json(name = "snow")
     val snow: Snow?,
 
-    @field:SerializedName("weather")
+    @Json(name = "weather")
     val weather: List<WeatherItem?>?,
 
-    @field:SerializedName("main")
+    @Json(name = "main")
     val main: Main?,
 
-    @field:SerializedName("clouds")
+    @Json(name = "clouds")
     val clouds: Clouds?,
 
-    @field:SerializedName("sys")
+    @Json(name = "sys")
     val sys: Sys?,
 
-    @field:SerializedName("wind")
+    @Json(name = "wind")
     val wind: Wind?
 ) : Parcelable {
     fun getWeatherItem(): WeatherItem? {

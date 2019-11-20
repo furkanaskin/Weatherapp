@@ -1,15 +1,17 @@
 package com.faskn.app.weatherapp.domain.model
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class Country(
 
-    @field:SerializedName("matchLevel")
+    @Json(name = "matchLevel")
     val matchLevel: String? = null,
 
-    @field:SerializedName("value")
+    @Json(name = "value")
     val value: String? = null,
 
-    @field:SerializedName("matchedWords")
+    @Json(name = "matchedWords")
     val matchedWords: List<Any?>? = null
 )

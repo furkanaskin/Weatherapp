@@ -1,15 +1,17 @@
 package com.faskn.app.weatherapp.domain.model
 
 import android.os.Parcelable
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
+@JsonClass(generateAdapter = true)
 data class Wind(
 
-    @field:SerializedName("deg")
+    @Json(name = "deg")
     val deg: Double?,
 
-    @field:SerializedName("speed")
+    @Json(name = "speed")
     val speed: Double?
 ) : Parcelable

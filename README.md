@@ -30,7 +30,7 @@ Weatherapp is a simple forecast app, which uses some APIs to fetch 5 day / 3 hou
 <li><a href="https://github.com/google/dagger">Dagger 2</a></li>
 <li><a href="https://square.github.io/retrofit/">Retrofit</a></li>
 <li><a href="https://github.com/square/okhttp">OkHttp</a></li>
-<li><a href="https://github.com/google/gson">Gson</a></li>
+<li><a href="https://github.com/square/moshi">Moshi</a></li>
 <li><a href="https://github.com/facebook/stetho">Stetho</a></li>
 <li><a href="https://github.com/Kotlin/anko">Anko</a></li>
 <li><a href="https://github.com/square/picasso">Picasso</a></li>

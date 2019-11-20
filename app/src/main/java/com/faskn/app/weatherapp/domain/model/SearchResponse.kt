@@ -1,9 +1,11 @@
 package com.faskn.app.weatherapp.domain.model
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class SearchResponse(
 
-    @field:SerializedName("hits")
+    @Json(name = "hits")
     val hits: List<HitsItem?>? = null
 )

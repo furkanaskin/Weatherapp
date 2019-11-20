@@ -48,7 +48,6 @@ ext {
     retrofitVersion = '2.5.0'
     okHttpVersion = '3.14.1'
     picassoVersion = '2.71828'
-    gsonVersion = '2.8.5'
     lifecycle_version = "1.1.1"
     coroutines_version = "1.2.0"
     anko_version = "0.10.8"
@@ -65,6 +64,8 @@ ext {
     firebaseDatabaseVersion = "18.0.0"
     firebaseMessagingVersion = "20.0.0"
     algoliaVersion = "3.+"
+    moshiConverterVersion = "2.6.2"
+    moshiVersion = "1.9.2"
 
     //supportLib
     supportv4 = "androidx.legacy:legacy-support-v4:$support_version"
@@ -116,9 +117,12 @@ ext {
     //net
     retrofit = "com.squareup.retrofit2:retrofit:$retrofitVersion"
     okHttp = "com.squareup.okhttp3:okhttp:$okHttpVersion"
-    gson = "com.google.code.gson:gson:$gsonVersion"
     rxJavaAdapter = "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
-    gsonConverter = "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+
+    moshiConverter = "com.squareup.retrofit2:converter-moshi:$moshiConverterVersion"
+    moshi = "com.squareup.moshi:moshi:$moshiVersion"
+    moshiKotlin = "com.squareup.moshi:moshi-kotlin:$moshiVersion"
+    moshiKapt = "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
 
     //coroutines
     coroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"

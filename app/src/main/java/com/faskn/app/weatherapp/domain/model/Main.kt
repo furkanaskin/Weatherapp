@@ -1,34 +1,36 @@
 package com.faskn.app.weatherapp.domain.model
 
 import android.os.Parcelable
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
+@JsonClass(generateAdapter = true)
 data class Main(
 
-    @field:SerializedName("temp")
+    @Json(name = "temp")
     val temp: Double?,
 
-    @field:SerializedName("temp_min")
+    @Json(name = "temp_min")
     var tempMin: Double?,
 
-    @field:SerializedName("grnd_level")
+    @Json(name = "grnd_level")
     val grndLevel: Double?,
 
-    @field:SerializedName("temp_kf")
+    @Json(name = "temp_kf")
     val tempKf: Double?,
 
-    @field:SerializedName("humidity")
+    @Json(name = "humidity")
     val humidity: Int?,
 
-    @field:SerializedName("pressure")
+    @Json(name = "pressure")
     val pressure: Double?,
 
-    @field:SerializedName("sea_level")
+    @Json(name = "sea_level")
     val seaLevel: Double?,
 
-    @field:SerializedName("temp_max")
+    @Json(name = "temp_max")
     var tempMax: Double?
 ) : Parcelable {
 

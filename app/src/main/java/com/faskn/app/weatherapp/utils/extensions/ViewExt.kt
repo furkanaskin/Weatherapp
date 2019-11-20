@@ -56,7 +56,6 @@ fun View.show() {
     visibility = VISIBLE
 }
 
-
 fun View.showKeyboard(activity: Activity) {
     val inputManager: InputMethodManager = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     inputManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)

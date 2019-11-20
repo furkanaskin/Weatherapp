@@ -1,45 +1,47 @@
 package com.faskn.app.weatherapp.domain.model
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class HitsItem(
 
-    @field:SerializedName("country")
+    @Json(name = "country")
     val country: String? = null,
 
-    @field:SerializedName("country_code")
+    @Json(name = "country_code")
     val countryCode: String? = null,
 
-    @field:SerializedName("is_city")
+    @Json(name = "is_city")
     val isCity: Boolean? = null,
 
-    @field:SerializedName("is_country")
+    @Json(name = "is_country")
     val isCountry: Boolean? = null,
 
-    @field:SerializedName("administrative")
+    @Json(name = "administrative")
     val administrative: List<String?>? = null,
 
-    @field:SerializedName("admin_level")
+    @Json(name = "admin_level")
     val adminLevel: Int? = null,
 
-    @field:SerializedName("postcode")
+    @Json(name = "postcode")
     val postcode: List<String?>? = null,
 
-    @field:SerializedName("county")
+    @Json(name = "county")
     val county: List<String?>? = null,
 
-    @field:SerializedName("_geoloc")
+    @Json(name = "_geoloc")
     val geoloc: Geoloc? = null,
 
-    @field:SerializedName("importance")
+    @Json(name = "importance")
     val importance: Int? = null,
 
-    @field:SerializedName("objectID")
+    @Json(name = "objectID")
     val objectID: String? = null,
 
-    @field:SerializedName("is_suburb")
+    @Json(name = "is_suburb")
     val isSuburb: Boolean? = null,
 
-    @field:SerializedName("locale_names")
+    @Json(name = "locale_names")
     val localeNames: List<String?>? = null
 )

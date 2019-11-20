@@ -23,9 +23,8 @@ import com.faskn.app.weatherapp.utils.extensions.show
 import com.google.android.material.navigation.NavigationView
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
-import org.jetbrains.anko.alert
 import javax.inject.Inject
-
+import org.jetbrains.anko.alert
 
 class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>(MainActivityViewModel::class.java), HasSupportFragmentInjector, NavigationView.OnNavigationItemSelectedListener {
 
@@ -57,13 +56,13 @@ class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>(Ma
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.toolbar_menu, menu)
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return when (item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
             R.id.menuItemSearch -> {
                 findNavController(R.id.container_fragment).navigate(R.id.searchFragment)
                 true
@@ -74,8 +73,8 @@ class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>(Ma
 
     private fun setupNavigation() {
         val appBarConfig = AppBarConfiguration(
-                setOf(R.id.dashboardFragment),
-                binding.drawerLayout
+            setOf(R.id.dashboardFragment),
+            binding.drawerLayout
         )
 
         val navController = findNavController(R.id.container_fragment)
@@ -133,7 +132,6 @@ class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>(Ma
                         startActivity(i)
                     }
                     negativeButton("Dismiss") {
-
                     }
                 }.show()
             }
