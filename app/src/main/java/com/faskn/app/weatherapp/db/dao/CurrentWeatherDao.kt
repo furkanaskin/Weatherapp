@@ -25,4 +25,7 @@ interface CurrentWeatherDao {
 
     @Query("DELETE FROM CurrentWeather")
     fun deleteCurrentWeather()
+
+    @Query("Select count(*) from CurrentWeather")
+    fun getCount(): Int
 }

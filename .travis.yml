@@ -1,0 +1,43 @@
+---
+language: android
+jdk: oraclejdk8
+sudo: false
+os: linux
+dist: trusty
+
+branches:
+  only:
+    - dev
+
+env:
+  global:
+    - ANDROID_TARGET=android-28
+    - ANDROID_ABI=armeabi-v7a
+
+android:
+  components:
+    - tools
+    - platform-tools
+    - build-tools-29.0.1
+    - android-29
+    - extra-google-m2repository
+    - extra-android-m2repository
+    - extra-android-support
+
+    # Specify at least one system image,
+    # if you need to run emulator(s) during your tests
+    - sys-img-armeabi-v7a-android-16
+    - sys-img-armeabi-v7a-android-21
+    - sys-img-armeabi-v7a-android-22
+    - sys-img-armeabi-v7a-android-25
+
+licenses:
+  - 'android-sdk-license-.+'
+  - 'google-gdk-license-.+'
+  - 'android-sdk-preview-license-.+'
+
+script:
+  - ./gradlew runUnitTests
+  - ./gradlew connectedCheck
+after_success:
+  - bash <(curl -s https://codecov.io/bash)

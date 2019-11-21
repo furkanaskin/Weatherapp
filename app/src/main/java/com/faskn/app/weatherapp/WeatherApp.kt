@@ -2,6 +2,7 @@ package com.faskn.app.weatherapp
 
 import android.app.Activity
 import android.app.Application
+import android.os.Build
 import com.facebook.stetho.Stetho
 import com.faskn.app.weatherapp.di.AppInjector
 import com.jakewharton.threetenabp.AndroidThreeTen
@@ -21,12 +22,16 @@ class WeatherApp : Application(), HasActivityInjector {
     override fun onCreate() {
         super.onCreate()
 
-        if (BuildConfig.DEBUG) {
+        if (BuildConfig.DEBUG && !isRoboUnitTest()) {
             Timber.plant(Timber.DebugTree())
+            Stetho.initializeWithDefaults(this)
         }
 
         AppInjector.init(this)
-        Stetho.initializeWithDefaults(this)
         AndroidThreeTen.init(this)
+    }
+
+    private fun isRoboUnitTest(): Boolean {
+        return "robolectric" == Build.FINGERPRINT
     }
 }

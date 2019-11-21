@@ -4,6 +4,7 @@ apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs"
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'org.jlleitschuh.gradle.ktlint'
+apply from: 'buildscripts/jacoco.gradle'
 
 buildscript {
     repositories {
@@ -27,7 +28,7 @@ repositories {
 android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion "28.0.3"
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
         applicationId "com.faskn.weatherApp.weatherapp"
@@ -45,9 +46,11 @@ android {
             shrinkResources true
             debuggable false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            testCoverageEnabled false
         }
         debug {
             ext.enableCrashlytics = false
+            testCoverageEnabled true
         }
     }
     sourceSets {
@@ -77,6 +80,9 @@ android {
     }
     androidExtensions {
         experimental = true
+    }
+    testOptions.unitTests {
+        includeAndroidResources = true
     }
 }
 
@@ -130,7 +136,22 @@ dependencies {
     implementation rootProject.ext.stethoUrlConnection
     implementation 'com.google.firebase:firebase-analytics:17.2.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation "com.sun.xml.bind:jaxb-core:2.2.11"
+    implementation "com.sun.xml.bind:jaxb-impl:2.2.11"
+    implementation "javax.activation:activation:1.1.1"
+
+    testImplementation rootProject.ext.junit
+    testImplementation rootProject.ext.junitTestExt
+    androidTestImplementation  rootProject.ext.androidxTestRunner
+    androidTestImplementation  rootProject.ext.androidxTestRules
+    androidTestImplementation  rootProject.ext.espressoCore
+    testImplementation  rootProject.ext.truthExt
+    testImplementation  rootProject.ext.truth
+    testImplementation  rootProject.ext.mockK
+    testImplementation  rootProject.ext.coreTesting
+    testImplementation  rootProject.ext.robolectric
 }
+
 repositories {
     mavenCentral()
 }
@@ -150,6 +171,10 @@ ktlint {
         exclude("**/generated/**")
         include("**/kotlin/**")
     }
+}
+
+task runUnitTests(dependsOn: [':app:testDebugUnitTest']) {
+    description 'Run all unit tests'
 }
 
 apply plugin: 'com.google.gms.google-services'
