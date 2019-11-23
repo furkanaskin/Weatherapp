@@ -25,4 +25,7 @@ interface CitiesForSearchDao {
 
     @Query("DELETE FROM CitiesForSearch")
     fun deleteCities()
+
+    @Query("Select count(*) from CitiesForSearch")
+    fun getCount(): Int
 }
