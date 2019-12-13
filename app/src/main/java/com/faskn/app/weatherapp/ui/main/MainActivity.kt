@@ -23,8 +23,8 @@ import com.faskn.app.weatherapp.utils.extensions.show
 import com.google.android.material.navigation.NavigationView
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
-import javax.inject.Inject
 import org.jetbrains.anko.alert
+import javax.inject.Inject
 
 class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>(MainActivityViewModel::class.java), HasSupportFragmentInjector, NavigationView.OnNavigationItemSelectedListener {
 
@@ -73,8 +73,8 @@ class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>(Ma
 
     private fun setupNavigation() {
         val appBarConfig = AppBarConfiguration(
-            setOf(R.id.dashboardFragment),
-            binding.drawerLayout
+                setOf(R.id.dashboardFragment),
+                binding.drawerLayout
         )
 
         val navController = findNavController(R.id.container_fragment)
@@ -123,15 +123,15 @@ class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>(Ma
                 binding.drawerLayout.closeDrawer(GravityCompat.START)
                 alert {
                     ctx.setTheme(R.style.Theme_MaterialComponents_Light_Dialog)
-                    title = "Weatherapp"
-                    message = "Weatherapp is a simple forecast app, which uses some APIs to fetch 5 day / 3 hour forecast data from the OpenWeatherMap and to fetch places,cities,counties,coords etc. from Algolia Places. The main goal of this app is to be a sample of how to build an high quality Android application that uses the Architecture components, Dagger etc. in Kotlin."
-                    positiveButton("See on Github") {
-                        val url = "https://github.com/furkanaskin/Weatherapp"
+                    title = getString(R.string.app_name)
+                    message = getString(R.string.about_app_full_text)
+                    positiveButton(getString(R.string.see_on_github)) {
+                        val url = getString(R.string.github_url)
                         val i = Intent(Intent.ACTION_VIEW)
                         i.data = Uri.parse(url)
                         startActivity(i)
                     }
-                    negativeButton("Dismiss") {
+                    negativeButton(getString(R.string.dismiss)) {
                     }
                 }.show()
             }

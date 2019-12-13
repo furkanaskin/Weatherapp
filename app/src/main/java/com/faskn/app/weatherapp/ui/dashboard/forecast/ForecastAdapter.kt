@@ -4,10 +4,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.ViewCompat
-import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
-import com.faskn.app.weatherapp.R
 import com.faskn.app.weatherapp.core.BaseAdapter
 import com.faskn.app.weatherapp.databinding.ItemForecastBinding
 import com.faskn.app.weatherapp.domain.model.ListItem
@@ -19,9 +17,8 @@ import com.faskn.app.weatherapp.domain.model.ListItem
 class ForecastAdapter(private val callBack: (ListItem, View, View, View, View, View) -> Unit) : BaseAdapter<ListItem>(diffCallback) {
 
     override fun createBinding(parent: ViewGroup, viewType: Int): ViewDataBinding {
-        val mBinding = DataBindingUtil.inflate<ItemForecastBinding>(
+        val mBinding = ItemForecastBinding.inflate(
             LayoutInflater.from(parent.context),
-            R.layout.item_forecast,
             parent,
             false
         )
@@ -30,12 +27,21 @@ class ForecastAdapter(private val callBack: (ListItem, View, View, View, View, V
 
         mBinding.rootView.setOnClickListener {
             mBinding.viewModel?.item?.get()?.let {
+
                 ViewCompat.setTransitionName(mBinding.cardView, "weatherItem")
                 ViewCompat.setTransitionName(mBinding.imageViewForecastIcon, "weatherItemForecastIcon")
                 ViewCompat.setTransitionName(mBinding.textViewDayOfWeek, "weatherItemDayOfWeek")
                 ViewCompat.setTransitionName(mBinding.textViewTemp, "weatherItemTemp")
                 ViewCompat.setTransitionName(mBinding.linearLayoutTempMaxMin, "weatherItemTempMaxMin")
-                callBack.invoke(it, mBinding.cardView, mBinding.imageViewForecastIcon, mBinding.textViewDayOfWeek, mBinding.textViewTemp, mBinding.linearLayoutTempMaxMin)
+
+                callBack.invoke(
+                    it,
+                    mBinding.cardView,
+                    mBinding.imageViewForecastIcon,
+                    mBinding.textViewDayOfWeek,
+                    mBinding.textViewTemp,
+                    mBinding.linearLayoutTempMaxMin
+                )
             }
         }
         return mBinding

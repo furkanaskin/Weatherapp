@@ -4,7 +4,6 @@ import android.widget.EditText
 import android.widget.ImageView
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.faskn.app.weatherapp.R
@@ -16,6 +15,7 @@ import com.faskn.app.weatherapp.domain.usecase.SearchCitiesUseCase
 import com.faskn.app.weatherapp.ui.main.MainActivity
 import com.faskn.app.weatherapp.ui.search.result.SearchResultAdapter
 import com.faskn.app.weatherapp.utils.extensions.hideKeyboard
+import com.faskn.app.weatherapp.utils.extensions.observeWith
 import com.faskn.app.weatherapp.utils.extensions.tryCatch
 
 class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>(SearchViewModel::class.java), Injectable {
@@ -31,21 +31,20 @@ class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>(Sear
         initSearchResultsAdapter()
         initSearchView()
 
-        viewModel.getSearchViewState().observe(
-            viewLifecycleOwner,
-            Observer {
-                mBinding.viewState = it
-                it.data?.let { results -> initSearchResultsRecyclerView(results) }
-            }
-        )
+        viewModel.getSearchViewState().observeWith(
+                viewLifecycleOwner
+        ) {
+            mBinding.viewState = it
+            it.data?.let { results -> initSearchResultsRecyclerView(results) }
+        }
     }
 
     private fun initSearchView() {
         val searchEditText: EditText = mBinding.searchView.findViewById(R.id.search_src_text)
         activity?.applicationContext?.let { ContextCompat.getColor(it, R.color.mainTextColor) }
-            ?.let { searchEditText.setTextColor(it) }
+                ?.let { searchEditText.setTextColor(it) }
         activity?.applicationContext?.let { ContextCompat.getColor(it, android.R.color.darker_gray) }
-            ?.let { searchEditText.setHintTextColor(it) }
+                ?.let { searchEditText.setHintTextColor(it) }
         mBinding.searchView.isActivated = true
         mBinding.searchView.setIconifiedByDefault(false)
         mBinding.searchView.isIconified = false
@@ -73,16 +72,17 @@ class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>(Sear
     private fun initSearchResultsAdapter() {
         val adapter = SearchResultAdapter { item ->
             item.coord?.let {
-                viewModel.saveCoordsToSharedPref(it)?.subscribe { t1, t2 ->
+                viewModel.saveCoordsToSharedPref(it)
+                        ?.subscribe { _, _ ->
 
-                    tryCatch(
-                        tryBlock = {
-                            mBinding.searchView.hideKeyboard((activity as MainActivity))
+                            tryCatch(
+                                    tryBlock = {
+                                        mBinding.searchView.hideKeyboard((activity as MainActivity))
+                                    }
+                            )
+
+                            findNavController().navigate(R.id.action_searchFragment_to_dashboardFragment)
                         }
-                    )
-
-                    findNavController().navigate(R.id.action_searchFragment_to_dashboardFragment)
-                }
             }
         }
 

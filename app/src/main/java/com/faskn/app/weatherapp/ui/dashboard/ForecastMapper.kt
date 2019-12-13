@@ -13,7 +13,7 @@ class ForecastMapper @Inject constructor() : Mapper<List<ListItem>, List<ListIte
         val days = arrayListOf<String>()
         val mappedArray = arrayListOf<ListItem>()
 
-        type.forEachIndexed { index, listItem ->
+        type.forEachIndexed { _, listItem ->
             if (days.contains(listItem.dtTxt?.substringBefore(" ")).not()) // Add day to days
                 listItem.dtTxt?.substringBefore(" ")?.let { days.add(it) }
         }

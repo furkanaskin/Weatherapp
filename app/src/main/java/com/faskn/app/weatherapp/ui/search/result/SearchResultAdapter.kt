@@ -2,10 +2,8 @@ package com.faskn.app.weatherapp.ui.search.result
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
-import com.faskn.app.weatherapp.R
 import com.faskn.app.weatherapp.core.BaseAdapter
 import com.faskn.app.weatherapp.databinding.ItemSearchResultBinding
 import com.faskn.app.weatherapp.db.entity.CitiesForSearchEntity
@@ -17,9 +15,8 @@ import com.faskn.app.weatherapp.db.entity.CitiesForSearchEntity
 class SearchResultAdapter(private val callBack: (CitiesForSearchEntity) -> Unit) : BaseAdapter<CitiesForSearchEntity>(diffCallback) {
 
     override fun createBinding(parent: ViewGroup, viewType: Int): ViewDataBinding {
-        val mBinding = DataBindingUtil.inflate<ItemSearchResultBinding>(
+        val mBinding = ItemSearchResultBinding.inflate(
             LayoutInflater.from(parent.context),
-            R.layout.item_search_result,
             parent,
             false
         )

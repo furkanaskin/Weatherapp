@@ -15,8 +15,8 @@ class SearchCitiesLocalDataSource @Inject constructor(private val citiesForSearc
     fun getCityByName(cityName: String?): LiveData<List<CitiesForSearchEntity>> = citiesForSearchDao.getCityByName(cityName)
 
     fun insertCities(response: SearchResponse) {
-        response.hits?.forEach {
-            citiesForSearchDao.insertCity(CitiesForSearchEntity(it))
-        }
+        response.hits
+            ?.map { CitiesForSearchEntity(it) }
+            ?.let { citiesForSearchDao.insertCities(it) }
     }
 }

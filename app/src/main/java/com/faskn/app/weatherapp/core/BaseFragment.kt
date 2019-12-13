@@ -28,6 +28,7 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding>(private va
     }
 
     open fun init() {}
+
     @LayoutRes
     abstract fun getLayoutRes(): Int
 

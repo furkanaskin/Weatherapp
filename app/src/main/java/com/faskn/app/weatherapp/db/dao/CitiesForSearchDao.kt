@@ -23,6 +23,9 @@ interface CitiesForSearchDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertCity(citiesForSearchEntity: CitiesForSearchEntity)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertCities(cities: List<CitiesForSearchEntity>)
+
     @Query("DELETE FROM CitiesForSearch")
     fun deleteCities()
 

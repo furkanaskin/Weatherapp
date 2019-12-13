@@ -2,6 +2,7 @@ package com.faskn.app.weatherapp.repo
 
 import NetworkBoundResource
 import androidx.lifecycle.LiveData
+import com.faskn.app.weatherapp.core.Constants.NetworkService.RATE_LIMITER_TYPE
 import com.faskn.app.weatherapp.db.entity.CitiesForSearchEntity
 import com.faskn.app.weatherapp.domain.datasource.searchCities.SearchCitiesLocalDataSource
 import com.faskn.app.weatherapp.domain.datasource.searchCities.SearchCitiesRemoteDataSource
@@ -16,7 +17,10 @@ import javax.inject.Inject
  * Created by Furkan on 2019-10-31
  */
 
-class SearchCitiesRepository @Inject constructor(private val searchCitiesLocalDataSource: SearchCitiesLocalDataSource, private val searchCitiesRemoteDataSource: SearchCitiesRemoteDataSource) {
+class SearchCitiesRepository @Inject constructor(
+    private val searchCitiesLocalDataSource: SearchCitiesLocalDataSource,
+    private val searchCitiesRemoteDataSource: SearchCitiesRemoteDataSource
+) {
 
     private val rateLimiter = RateLimiter<String>(1, TimeUnit.SECONDS)
 
@@ -37,9 +41,5 @@ class SearchCitiesRepository @Inject constructor(private val searchCitiesLocalDa
 
             override fun onFetchFailed() = rateLimiter.reset(RATE_LIMITER_TYPE)
         }.asLiveData
-    }
-
-    companion object {
-        private const val RATE_LIMITER_TYPE = "data"
     }
 }

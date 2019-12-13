@@ -2,7 +2,6 @@ package com.faskn.app.weatherapp.ui.weather_detail
 
 import android.transition.TransitionInflater
 import androidx.activity.OnBackPressedCallback
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.faskn.app.weatherapp.R
@@ -11,6 +10,7 @@ import com.faskn.app.weatherapp.databinding.FragmentWeatherDetailBinding
 import com.faskn.app.weatherapp.di.Injectable
 import com.faskn.app.weatherapp.domain.model.ListItem
 import com.faskn.app.weatherapp.ui.weather_detail.weatherHourOfDay.WeatherHourOfDayAdapter
+import com.faskn.app.weatherapp.utils.extensions.observeWith
 import com.mikhaellopez.rxanimation.RxAnimation
 import com.mikhaellopez.rxanimation.fadeOut
 import com.mikhaellopez.rxanimation.resize
@@ -22,9 +22,7 @@ class WeatherDetailFragment : BaseFragment<WeatherDetailViewModel, FragmentWeath
     private val weatherDetailFragmentArgs: WeatherDetailFragmentArgs by navArgs()
     var disposable = CompositeDisposable()
 
-    override fun getLayoutRes(): Int {
-        return R.layout.fragment_weather_detail
-    }
+    override fun getLayoutRes(): Int = R.layout.fragment_weather_detail
 
     override fun initViewModel() {
         mBinding.viewModel = viewModel
@@ -32,22 +30,24 @@ class WeatherDetailFragment : BaseFragment<WeatherDetailViewModel, FragmentWeath
 
     override fun init() {
         super.init()
+
         viewModel.weatherItem.set(weatherDetailFragmentArgs.weatherItem)
         viewModel.selectedDayDate = weatherDetailFragmentArgs.weatherItem.dtTxt?.substringBefore(" ")
 
-        viewModel.getForecastLiveData().observe(
-            viewLifecycleOwner,
-            Observer {
-                viewModel.selectedDayForecastLiveData.postValue(it.list?.filter { it.dtTxt?.substringBefore(" ") == viewModel.selectedDayDate })
-            }
-        )
+        viewModel.getForecastLiveData().observeWith(viewLifecycleOwner) {
+            viewModel.selectedDayForecastLiveData
+                .postValue(
+                    it.list?.filter { item ->
+                        item.dtTxt?.substringBefore(" ") == viewModel.selectedDayDate
+                    }
+                )
+        }
 
-        viewModel.selectedDayForecastLiveData.observe(
-            viewLifecycleOwner,
-            Observer {
-                initWeatherHourOfDayAdapter(it)
-            }
-        )
+        viewModel.selectedDayForecastLiveData.observeWith(
+            viewLifecycleOwner
+        ) {
+            initWeatherHourOfDayAdapter(it)
+        }
 
         val transition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
         sharedElementEnterTransition = transition
@@ -69,6 +69,7 @@ class WeatherDetailFragment : BaseFragment<WeatherDetailViewModel, FragmentWeath
 
     private fun initWeatherHourOfDayAdapter(list: List<ListItem>) {
         val adapter = WeatherHourOfDayAdapter { item ->
+            // TODO - onClick
         }
 
         mBinding.recyclerViewHourOfDay.adapter = adapter
@@ -96,7 +97,6 @@ class WeatherDetailFragment : BaseFragment<WeatherDetailViewModel, FragmentWeath
 
     override fun onDestroy() {
         super.onDestroy()
-
         disposable.clear()
     }
 }

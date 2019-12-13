@@ -60,7 +60,7 @@ data class CurrentWeatherEntity(
 
     private fun getDateTime(s: Long): DayOfWeek? {
         return try {
-            val sdf = SimpleDateFormat("dd/MM/yyyy")
+            val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.US)
             val netDate = Date(s * 1000)
             val formattedDate = sdf.format(netDate)
 

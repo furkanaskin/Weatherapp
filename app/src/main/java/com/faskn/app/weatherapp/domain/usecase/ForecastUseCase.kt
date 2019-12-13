@@ -1,8 +1,11 @@
 package com.faskn.app.weatherapp.domain.usecase
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
+import com.faskn.app.weatherapp.core.Constants
 import com.faskn.app.weatherapp.db.entity.ForecastEntity
 import com.faskn.app.weatherapp.repo.ForecastRepository
+import com.faskn.app.weatherapp.ui.dashboard.ForecastViewState
 import com.faskn.app.weatherapp.utils.UseCaseLiveData
 import com.faskn.app.weatherapp.utils.domain.Resource
 import javax.inject.Inject
@@ -11,19 +14,31 @@ import javax.inject.Inject
  * Created by Furkan on 2019-10-21
  */
 
-class ForecastUseCase @Inject internal constructor(private val repository: ForecastRepository) : UseCaseLiveData<Resource<ForecastEntity>, ForecastUseCase.ForecastParams, ForecastRepository>() {
+class ForecastUseCase @Inject internal constructor(private val repository: ForecastRepository) : UseCaseLiveData<ForecastViewState, ForecastUseCase.ForecastParams, ForecastRepository>() {
 
     override fun getRepository(): ForecastRepository {
         return repository
     }
 
-    override fun buildUseCaseObservable(params: ForecastParams?): LiveData<Resource<ForecastEntity>> {
-        return repository.loadForecastByCoord(
-            params?.lat?.toDouble() ?: 0.0,
-            params?.lon?.toDouble() ?: 0.0,
-            params?.fetchRequired
-                ?: false,
-            units = params?.units ?: "metric"
+    override fun buildUseCaseObservable(params: ForecastParams?): LiveData<ForecastViewState> {
+        return Transformations.map(
+            repository.loadForecastByCoord(
+                params?.lat?.toDouble() ?: 0.0,
+                params?.lon?.toDouble() ?: 0.0,
+                params?.fetchRequired
+                    ?: false,
+                units = params?.units ?: Constants.Coords.METRIC
+            )
+        ) {
+            return@map onForecastResultReady(it)
+        }
+    }
+
+    private fun onForecastResultReady(resource: Resource<ForecastEntity>): ForecastViewState {
+        return ForecastViewState(
+            status = resource.status,
+            error = resource.message,
+            data = resource.data
         )
     }
 

@@ -20,6 +20,7 @@ class WeatherDetailViewModel @Inject constructor(private val forecastLocalDataSo
     private var forecastLiveData: LiveData<ForecastEntity> = MutableLiveData()
     var selectedDayDate: String? = null
     var selectedDayForecastLiveData: MutableLiveData<List<ListItem>> = MutableLiveData()
+
     fun getForecastLiveData() = forecastLiveData
 
     init {

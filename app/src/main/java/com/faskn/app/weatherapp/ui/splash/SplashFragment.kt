@@ -4,6 +4,7 @@ import android.graphics.Color
 import androidx.navigation.fragment.findNavController
 import com.faskn.app.weatherapp.R
 import com.faskn.app.weatherapp.core.BaseFragment
+import com.faskn.app.weatherapp.core.Constants
 import com.faskn.app.weatherapp.databinding.FragmentSplashBinding
 import com.faskn.app.weatherapp.di.Injectable
 import com.faskn.app.weatherapp.utils.extensions.hide
@@ -24,7 +25,7 @@ class SplashFragment : BaseFragment<SplashFragmentViewModel, FragmentSplashBindi
     override fun init() {
         super.init()
 
-        if (viewModel.sharedPreferences.getString("lat", "").isNullOrEmpty()) {
+        if (viewModel.sharedPreferences.getString(Constants.Coords.LON, "").isNullOrEmpty()) {
             mBinding.buttonExplore.show()
             viewModel.navigateDashboard = false
         } else {

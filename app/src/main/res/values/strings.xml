@@ -15,4 +15,8 @@
     <string name="about_app">About app</string>
     <string name="search">Search</string>
     <string name="start_typing">Start typing for find your location…</string>
+    <string name="about_app_full_text">Weatherapp is a simple forecast app, which uses some APIs to fetch 5 day / 3 hour forecast data from the OpenWeatherMap and to fetch places,cities,counties,coords etc. from Algolia Places. The main goal of this app is to be a sample of how to build an high quality Android application that uses the Architecture components, Dagger etc. in Kotlin.</string>
+    <string name="github_url">https://github.com/furkanaskin/Weatherapp</string>
+    <string name="see_on_github">See on Github</string>
+    <string name="dismiss">Dismiss</string>
 </resources>

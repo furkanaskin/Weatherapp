@@ -1,4 +1,4 @@
-import android.util.Log
+
 import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
@@ -29,10 +29,8 @@ abstract class NetworkBoundResource<ResultType, RequestType>
             result.removeSource(dbSource)
             if (shouldFetch(data)) {
                 fetchFromNetwork(dbSource)
-                Log.d("NetworkBoundResource", "Network called")
             } else {
                 result.addSource(dbSource) { newData -> result.setValue(Resource.success(newData)) }
-                Log.d("NetworkBoundResource", "DB called")
             }
         }
     }
@@ -52,7 +50,6 @@ abstract class NetworkBoundResource<ResultType, RequestType>
                 override fun onSuccess(requestType: RequestType) {
                     result.removeSource(dbSource)
                     saveResultAndReInit(requestType)
-                    Log.d("NetworkBoundResource", "Network called success")
                 }
 
                 override fun onError(e: Throwable) {
@@ -62,7 +59,6 @@ abstract class NetworkBoundResource<ResultType, RequestType>
                         result.setValue(Resource.error(e.message.toString(), newData))
                     }
                     mDisposable!!.dispose()
-                    Log.d("NetworkBoundResource", "Network called error")
                 }
             })
     }
@@ -83,12 +79,10 @@ abstract class NetworkBoundResource<ResultType, RequestType>
                 override fun onComplete() {
                     result.addSource(loadFromDb()) { newData -> result.setValue(Resource.success(newData)) }
                     mDisposable!!.dispose()
-                    Log.d("NetworkBoundResource", "Network called reinit")
                 }
 
                 override fun onError(e: Throwable) {
                     mDisposable!!.dispose()
-                    Log.d("NetworkBoundResource", "Network called error reinit")
                 }
             })
     }
