@@ -19,14 +19,20 @@ import javax.inject.Inject
 
 class SearchViewModel @Inject internal constructor(private val useCase: SearchCitiesUseCase, private val pref: SharedPreferences) : BaseViewModel() {
 
-    var useCaseParams: MutableLiveData<SearchCitiesUseCase.SearchCitiesParams> = MutableLiveData()
-
+    private val _searchParams: MutableLiveData<SearchCitiesUseCase.SearchCitiesParams> = MutableLiveData()
+    val searchParams: LiveData<SearchCitiesUseCase.SearchCitiesParams> get() = _searchParams
     fun getSearchViewState() = searchViewState
 
-    private var searchViewState: LiveData<SearchViewState> = Transformations.switchMap(
-            useCaseParams
+    private val searchViewState: LiveData<SearchViewState> = Transformations.switchMap(
+        _searchParams
     ) {
         return@switchMap useCase.execute(it)
+    }
+
+    fun setSearchParams(params: SearchCitiesUseCase.SearchCitiesParams) {
+        if (_searchParams.value == params)
+            return
+        _searchParams.value = params
     }
 
     fun saveCoordsToSharedPref(coordEntity: CoordEntity): Single<String>? {
@@ -35,7 +41,7 @@ class SearchViewModel @Inject internal constructor(private val useCase: SearchCi
             pref.edit().putString(Constants.Coords.LON, coordEntity.lon.toString()).apply()
             it.onSuccess("")
         }
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
     }
 }

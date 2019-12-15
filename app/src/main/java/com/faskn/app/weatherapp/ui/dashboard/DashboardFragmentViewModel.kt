@@ -15,20 +15,35 @@ import javax.inject.Inject
 
 class DashboardFragmentViewModel @Inject internal constructor(private val forecastUseCase: ForecastUseCase, private val currentWeatherUseCase: CurrentWeatherUseCase, var sharedPreferences: SharedPreferences) : BaseViewModel() {
 
-    var forecastParams: MutableLiveData<ForecastUseCase.ForecastParams> = MutableLiveData()
-    var currentWeatherParams: MutableLiveData<CurrentWeatherUseCase.CurrentWeatherParams> = MutableLiveData()
+    private val _forecastParams: MutableLiveData<ForecastUseCase.ForecastParams> = MutableLiveData()
+    val forecastParams: LiveData<ForecastUseCase.ForecastParams> get() = _forecastParams
+
+    private val _currentWeatherParams: MutableLiveData<CurrentWeatherUseCase.CurrentWeatherParams> = MutableLiveData()
+    val currentWeatherParams: LiveData<CurrentWeatherUseCase.CurrentWeatherParams> get() = _currentWeatherParams
 
     fun getForecastViewState() = forecastViewState
     fun getCurrentWeatherViewState() = currentWeatherViewState
 
     private val forecastViewState: LiveData<ForecastViewState> = Transformations.switchMap(
-        forecastParams
+        _forecastParams
     ) {
         return@switchMap forecastUseCase.execute(it)
     }
     private val currentWeatherViewState: LiveData<CurrentWeatherViewState> = Transformations.switchMap(
-        currentWeatherParams
+        _currentWeatherParams
     ) {
         return@switchMap currentWeatherUseCase.execute(it)
+    }
+
+    fun setForecastParams(params: ForecastUseCase.ForecastParams) {
+        if (_forecastParams.value == params)
+            return
+        _forecastParams.value = params
+    }
+
+    fun setCurrentWeatherParams(params: CurrentWeatherUseCase.CurrentWeatherParams) {
+        if (_currentWeatherParams.value == params)
+            return
+        _currentWeatherParams.value = params
     }
 }

@@ -32,8 +32,8 @@ class DashboardFragment : BaseFragment<DashboardFragmentViewModel, FragmentDashb
         val lon: String? = viewModel.sharedPreferences.getString(Constants.Coords.LON, "")
 
         if (lat?.isNotEmpty() == true && lon?.isNotEmpty() == true) {
-            viewModel.currentWeatherParams.postValue(CurrentWeatherUseCase.CurrentWeatherParams(lat, lon, isNetworkAvailable(requireContext()), Constants.Coords.METRIC))
-            viewModel.forecastParams.postValue(ForecastUseCase.ForecastParams(lat, lon, isNetworkAvailable(requireContext()), Constants.Coords.METRIC))
+            viewModel.setCurrentWeatherParams(CurrentWeatherUseCase.CurrentWeatherParams(lat, lon, isNetworkAvailable(requireContext()), Constants.Coords.METRIC))
+            viewModel.setForecastParams(ForecastUseCase.ForecastParams(lat, lon, isNetworkAvailable(requireContext()), Constants.Coords.METRIC))
         }
 
         viewModel.getForecastViewState().observeWith(

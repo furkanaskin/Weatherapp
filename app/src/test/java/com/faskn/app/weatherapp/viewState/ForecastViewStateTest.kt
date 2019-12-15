@@ -1,8 +1,8 @@
-package com.faskn.app.weatherapp
+package com.faskn.app.weatherapp.viewState
 
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.faskn.app.weatherapp.ui.search.SearchViewState
+import com.faskn.app.weatherapp.ui.dashboard.ForecastViewState
 import com.faskn.app.weatherapp.utils.domain.Status
 import com.google.common.truth.Truth
 import org.junit.Test
@@ -13,14 +13,14 @@ import org.robolectric.annotation.Config
  * Created by Furkan on 2019-11-26
  */
 
-@Config(sdk = [Build.VERSION_CODES.O_MR1])
+@Config(sdk = [Build.VERSION_CODES.P])
 @RunWith(AndroidJUnit4::class)
-class SearchViewStateTest {
+class ForecastViewStateTest {
 
     @Test
     fun `should return loading true when status is loading`() {
         // Given
-        val givenViewState = SearchViewState(status = Status.LOADING)
+        val givenViewState = ForecastViewState(status = Status.LOADING)
 
         // When
         val actualResult = givenViewState.isLoading()
@@ -32,7 +32,7 @@ class SearchViewStateTest {
     @Test
     fun `should not return loading false when status is error`() {
         // Given
-        val givenViewState = SearchViewState(status = Status.SUCCESS)
+        val givenViewState = ForecastViewState(status = Status.SUCCESS)
 
         // When
         val actualResult = givenViewState.isLoading()
@@ -44,7 +44,7 @@ class SearchViewStateTest {
     @Test
     fun `should not return loading false when status is success`() {
         // Given
-        val givenViewState = SearchViewState(status = Status.ERROR)
+        val givenViewState = ForecastViewState(status = Status.ERROR)
 
         // When
         val actualResult = givenViewState.isLoading()
@@ -57,7 +57,7 @@ class SearchViewStateTest {
     fun `should return correct error message when status is error`() {
         // Given
         val givenViewState =
-            SearchViewState(
+            ForecastViewState(
                 status = Status.ERROR,
                 error = "500 Internal Server Error"
             )
@@ -73,7 +73,7 @@ class SearchViewStateTest {
     fun `should return true for error placeholder visibility  when status is error`() {
         // Given
         val givenViewState =
-            SearchViewState(
+            ForecastViewState(
                 status = Status.ERROR,
                 error = "500 Internal Server Error"
             )

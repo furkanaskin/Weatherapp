@@ -19,7 +19,7 @@ object Constants {
         const val SEARCH_API_KEY = "029766644cb160efa51f2a32284310eb"
     }
 
-    object Coords{
+    object Coords {
         const val LAT = "lat"
         const val LON = "lon"
         const val METRIC = "metric"

@@ -6,9 +6,9 @@ import com.faskn.app.weatherapp.domain.model.SearchResponse
 import com.faskn.app.weatherapp.utils.extensions.tryCatch
 import com.squareup.moshi.Moshi
 import io.reactivex.Single
-import timber.log.Timber
 import java.net.UnknownHostException
 import javax.inject.Inject
+import timber.log.Timber
 
 /**
  * Created by Furkan on 2019-10-31
@@ -19,22 +19,22 @@ class SearchCitiesRemoteDataSource @Inject constructor(private val client: Place
     fun getCityWithQuery(query: String): Single<SearchResponse> {
         return Single.create { single ->
             val algoliaQuery = PlacesQuery(query)
-                    .setLanguage("en")
-                    .setHitsPerPage(25)
+                .setLanguage("en")
+                .setHitsPerPage(25)
 
             client.searchAsync(algoliaQuery) { json, exception ->
                 if (exception == null) {
                     tryCatch(
-                            tryBlock = {
-                                val adapter = moshi.adapter<SearchResponse>(SearchResponse::class.java)
-                                val data = adapter.fromJson(json.toString())
+                        tryBlock = {
+                            val adapter = moshi.adapter<SearchResponse>(SearchResponse::class.java)
+                            val data = adapter.fromJson(json.toString())
 
-                                if (data?.hits != null)
-                                    single.onSuccess(data)
-                            },
-                            catchBlock = {
-                                Timber.e(it, it.message)
-                            }
+                            if (data?.hits != null)
+                                single.onSuccess(data)
+                        },
+                        catchBlock = {
+                            Timber.e(it, it.message)
+                        }
                     )
                 } else
                     single.onError(UnknownHostException())

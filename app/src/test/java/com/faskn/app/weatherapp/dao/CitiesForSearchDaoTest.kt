@@ -1,4 +1,4 @@
-package com.faskn.app.weatherapp
+package com.faskn.app.weatherapp.dao
 
 import android.os.Build
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
@@ -9,6 +9,7 @@ import com.faskn.app.weatherapp.db.WeatherDatabase
 import com.faskn.app.weatherapp.db.dao.CitiesForSearchDao
 import com.faskn.app.weatherapp.db.entity.CitiesForSearchEntity
 import com.faskn.app.weatherapp.db.entity.CoordEntity
+import com.faskn.app.weatherapp.util.getOrAwaitValue
 import com.google.common.truth.Truth
 import org.junit.After
 import org.junit.Before
@@ -21,7 +22,7 @@ import org.robolectric.annotation.Config
  * Created by Furkan on 2019-11-22
  */
 
-@Config(sdk = [Build.VERSION_CODES.O_MR1])
+@Config(sdk = [Build.VERSION_CODES.P])
 @RunWith(AndroidJUnit4::class)
 class CitiesForSearchDaoTest {
 

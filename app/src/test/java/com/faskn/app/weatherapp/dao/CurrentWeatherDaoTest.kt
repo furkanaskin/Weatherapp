@@ -1,4 +1,4 @@
-package com.faskn.app.weatherapp
+package com.faskn.app.weatherapp.dao
 
 import android.os.Build
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
@@ -10,6 +10,7 @@ import com.faskn.app.weatherapp.db.dao.CurrentWeatherDao
 import com.faskn.app.weatherapp.db.entity.CurrentWeatherEntity
 import com.faskn.app.weatherapp.db.entity.MainEntity
 import com.faskn.app.weatherapp.domain.model.WeatherItem
+import com.faskn.app.weatherapp.util.getOrAwaitValue
 import com.google.common.truth.Truth
 import org.junit.After
 import org.junit.Before
@@ -22,7 +23,7 @@ import org.robolectric.annotation.Config
  * Created by Furkan on 2019-11-22
  */
 
-@Config(sdk = [Build.VERSION_CODES.O_MR1])
+@Config(sdk = [Build.VERSION_CODES.P])
 @RunWith(AndroidJUnit4::class)
 class CurrentWeatherDaoTest {
 

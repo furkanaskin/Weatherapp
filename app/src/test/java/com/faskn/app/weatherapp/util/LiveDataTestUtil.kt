@@ -1,4 +1,4 @@
-package com.faskn.app.weatherapp
+package com.faskn.app.weatherapp.util
 
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData

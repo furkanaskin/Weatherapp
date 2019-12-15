@@ -22,13 +22,13 @@ class CurrentWeatherUseCase @Inject internal constructor(private val repository:
 
     override fun buildUseCaseObservable(params: CurrentWeatherParams?): LiveData<CurrentWeatherViewState> {
         return Transformations.map(
-                repository.loadCurrentWeatherByGeoCords(
-                        params?.lat?.toDouble() ?: 0.0,
-                        params?.lon?.toDouble() ?: 0.0,
-                        params?.fetchRequired
-                                ?: false,
-                        units = params?.units ?: Constants.Coords.METRIC
-                )
+            repository.loadCurrentWeatherByGeoCords(
+                params?.lat?.toDouble() ?: 0.0,
+                params?.lon?.toDouble() ?: 0.0,
+                params?.fetchRequired
+                    ?: false,
+                units = params?.units ?: Constants.Coords.METRIC
+            )
         ) {
             return@map onCurrentWeatherResultReady(it)
         }
@@ -36,16 +36,16 @@ class CurrentWeatherUseCase @Inject internal constructor(private val repository:
 
     private fun onCurrentWeatherResultReady(resource: Resource<CurrentWeatherEntity>): CurrentWeatherViewState {
         return CurrentWeatherViewState(
-                status = resource.status,
-                error = resource.message,
-                data = resource.data
+            status = resource.status,
+            error = resource.message,
+            data = resource.data
         )
     }
 
     class CurrentWeatherParams(
-            val lat: String = "",
-            val lon: String = "",
-            val fetchRequired: Boolean,
-            val units: String
+        val lat: String = "",
+        val lon: String = "",
+        val fetchRequired: Boolean,
+        val units: String
     ) : Params()
 }

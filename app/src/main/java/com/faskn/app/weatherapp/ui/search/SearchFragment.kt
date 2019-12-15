@@ -32,7 +32,7 @@ class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>(Sear
         initSearchView()
 
         viewModel.getSearchViewState().observeWith(
-                viewLifecycleOwner
+            viewLifecycleOwner
         ) {
             mBinding.viewState = it
             it.data?.let { results -> initSearchResultsRecyclerView(results) }
@@ -42,9 +42,9 @@ class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>(Sear
     private fun initSearchView() {
         val searchEditText: EditText = mBinding.searchView.findViewById(R.id.search_src_text)
         activity?.applicationContext?.let { ContextCompat.getColor(it, R.color.mainTextColor) }
-                ?.let { searchEditText.setTextColor(it) }
+            ?.let { searchEditText.setTextColor(it) }
         activity?.applicationContext?.let { ContextCompat.getColor(it, android.R.color.darker_gray) }
-                ?.let { searchEditText.setHintTextColor(it) }
+            ?.let { searchEditText.setHintTextColor(it) }
         mBinding.searchView.isActivated = true
         mBinding.searchView.setIconifiedByDefault(false)
         mBinding.searchView.isIconified = false
@@ -55,14 +55,14 @@ class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>(Sear
         mBinding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(newText: String): Boolean {
                 if (newText.isNotEmpty() && newText.count() > 2) {
-                    viewModel.useCaseParams.postValue(SearchCitiesUseCase.SearchCitiesParams(newText))
+                    viewModel.setSearchParams(SearchCitiesUseCase.SearchCitiesParams(newText))
                 }
                 return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (newText?.isNotEmpty() == true && newText.count() > 2) {
-                    viewModel.useCaseParams.postValue(SearchCitiesUseCase.SearchCitiesParams(newText))
+                    viewModel.setSearchParams(SearchCitiesUseCase.SearchCitiesParams(newText))
                 }
                 return true
             }
@@ -73,16 +73,16 @@ class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>(Sear
         val adapter = SearchResultAdapter { item ->
             item.coord?.let {
                 viewModel.saveCoordsToSharedPref(it)
-                        ?.subscribe { _, _ ->
+                    ?.subscribe { _, _ ->
 
-                            tryCatch(
-                                    tryBlock = {
-                                        mBinding.searchView.hideKeyboard((activity as MainActivity))
-                                    }
-                            )
+                        tryCatch(
+                            tryBlock = {
+                                mBinding.searchView.hideKeyboard((activity as MainActivity))
+                            }
+                        )
 
-                            findNavController().navigate(R.id.action_searchFragment_to_dashboardFragment)
-                        }
+                        findNavController().navigate(R.id.action_searchFragment_to_dashboardFragment)
+                    }
             }
         }
 

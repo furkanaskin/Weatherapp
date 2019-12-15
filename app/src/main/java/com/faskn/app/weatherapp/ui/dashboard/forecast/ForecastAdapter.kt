@@ -27,7 +27,6 @@ class ForecastAdapter(private val callBack: (ListItem, View, View, View, View, V
 
         mBinding.rootView.setOnClickListener {
             mBinding.viewModel?.item?.get()?.let {
-
                 ViewCompat.setTransitionName(mBinding.cardView, "weatherItem")
                 ViewCompat.setTransitionName(mBinding.imageViewForecastIcon, "weatherItemForecastIcon")
                 ViewCompat.setTransitionName(mBinding.textViewDayOfWeek, "weatherItemDayOfWeek")
