@@ -13,7 +13,6 @@ import com.squareup.picasso.Picasso
 
 @BindingAdapter("app:visibility")
 fun setVisibilty(view: View, isVisible: Boolean) {
-    view.hide()
     if (isVisible) {
         view.show()
     } else {

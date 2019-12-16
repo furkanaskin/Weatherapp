@@ -32,7 +32,7 @@ class SearchViewModel @Inject internal constructor(private val useCase: SearchCi
     fun setSearchParams(params: SearchCitiesUseCase.SearchCitiesParams) {
         if (_searchParams.value == params)
             return
-        _searchParams.value = params
+        _searchParams.postValue(params)
     }
 
     fun saveCoordsToSharedPref(coordEntity: CoordEntity): Single<String>? {

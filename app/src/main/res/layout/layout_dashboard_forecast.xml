@@ -16,6 +16,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@{viewState.data.getColor()}"
         android:fitsSystemWindows="true"
+        app:visibility="@{!viewState.isLoading()}"
         app:cardCornerRadius="24dp"
         app:cardElevation="8dp">
 
