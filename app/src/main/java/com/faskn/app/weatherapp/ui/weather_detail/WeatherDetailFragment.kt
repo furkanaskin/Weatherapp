@@ -34,7 +34,7 @@ class WeatherDetailFragment : BaseFragment<WeatherDetailViewModel, FragmentWeath
         viewModel.weatherItem.set(weatherDetailFragmentArgs.weatherItem)
         viewModel.selectedDayDate = weatherDetailFragmentArgs.weatherItem.dtTxt?.substringBefore(" ")
 
-        viewModel.getForecastLiveData().observeWith(viewLifecycleOwner) {
+        viewModel.getForecast().observeWith(viewLifecycleOwner) {
             viewModel.selectedDayForecastLiveData
                 .postValue(
                     it.list?.filter { item ->

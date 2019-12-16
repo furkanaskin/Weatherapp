@@ -57,12 +57,12 @@ class WeatherDetailViewModelTest {
     }
 
     @Test
-    fun `insert forecast and when getForecastLiveData called the livedata result must be Forecastentity`() {
+    fun `insert forecast and when getForecast called the livedata result must be ForecastEntity`() {
         // When
         forecastLocalDataSource.insertForecast(createSampleForecast())
 
         // Then
-        val result = weatherDetailViewModel.getForecastLiveData().getOrAwaitValue()
+        val result = weatherDetailViewModel.getForecast().getOrAwaitValue()
         Truth.assertThat(result.city?.cityName).isEqualTo("Istanbul")
     }
 

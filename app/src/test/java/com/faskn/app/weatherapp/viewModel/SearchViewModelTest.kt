@@ -65,8 +65,8 @@ class SearchViewModelTest {
         val forecastViewStateSlots = mutableListOf<SearchViewState>()
         verify { viewStateObserver.onChanged(capture(forecastViewStateSlots)) }
 
-        val errorState = forecastViewStateSlots[0]
-        Truth.assertThat(errorState.status).isEqualTo(Status.LOADING)
+        val loadingState = forecastViewStateSlots[0]
+        Truth.assertThat(loadingState.status).isEqualTo(Status.LOADING)
     }
 
     @Test
@@ -107,7 +107,7 @@ class SearchViewModelTest {
         val forecastViewStateSlots = mutableListOf<SearchViewState>()
         verify { viewStateObserver.onChanged(capture(forecastViewStateSlots)) }
 
-        val errorState = forecastViewStateSlots[0]
-        Truth.assertThat(errorState.status).isEqualTo(Status.SUCCESS)
+        val successState = forecastViewStateSlots[0]
+        Truth.assertThat(successState.status).isEqualTo(Status.SUCCESS)
     }
 }

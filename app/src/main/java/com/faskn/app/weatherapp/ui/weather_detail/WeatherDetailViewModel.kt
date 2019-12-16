@@ -3,7 +3,6 @@ package com.faskn.app.weatherapp.ui.weather_detail
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import com.faskn.app.weatherapp.core.BaseViewModel
 import com.faskn.app.weatherapp.db.entity.ForecastEntity
 import com.faskn.app.weatherapp.domain.datasource.forecast.ForecastLocalDataSource
@@ -23,20 +22,8 @@ class WeatherDetailViewModel @Inject constructor(private val forecastLocalDataSo
 
     fun getForecastLiveData() = forecastLiveData
 
-    init {
-        getForecast()
-    }
 
-    private fun getForecast(): LiveData<ForecastEntity> {
-        forecastLiveData =
-            Transformations.switchMap(
-                forecastLocalDataSource.getForecast()
-            ) {
-                val forecastLiveData = MutableLiveData<ForecastEntity>()
-                forecastLiveData.value = it
-                return@switchMap forecastLiveData
-            }
-
-        return forecastLiveData
+    fun getForecast(): LiveData<ForecastEntity> {
+        return forecastLocalDataSource.getForecast()
     }
 }

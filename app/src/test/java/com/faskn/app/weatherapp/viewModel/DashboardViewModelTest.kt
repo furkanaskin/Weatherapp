@@ -70,8 +70,8 @@ class DashboardViewModelTest {
         val forecastViewStateSlots = mutableListOf<ForecastViewState>()
         verify { viewStateObserver.onChanged(capture(forecastViewStateSlots)) }
 
-        val errorState = forecastViewStateSlots[0]
-        Truth.assertThat(errorState.status).isEqualTo(Status.LOADING)
+        val loadingState = forecastViewStateSlots[0]
+        Truth.assertThat(loadingState.status).isEqualTo(Status.LOADING)
     }
 
     @Test
@@ -112,8 +112,8 @@ class DashboardViewModelTest {
         val forecastViewStateSlots = mutableListOf<ForecastViewState>()
         verify { viewStateObserver.onChanged(capture(forecastViewStateSlots)) }
 
-        val errorState = forecastViewStateSlots[0]
-        Truth.assertThat(errorState.status).isEqualTo(Status.SUCCESS)
+        val successState = forecastViewStateSlots[0]
+        Truth.assertThat(successState.status).isEqualTo(Status.SUCCESS)
     }
 
     @Test
@@ -133,8 +133,8 @@ class DashboardViewModelTest {
         val currentWeatherViewStateSlots = mutableListOf<CurrentWeatherViewState>()
         verify { viewStateObserver.onChanged(capture(currentWeatherViewStateSlots)) }
 
-        val errorState = currentWeatherViewStateSlots[0]
-        Truth.assertThat(errorState.status).isEqualTo(Status.LOADING)
+        val loadingState = currentWeatherViewStateSlots[0]
+        Truth.assertThat(loadingState.status).isEqualTo(Status.LOADING)
     }
 
     @Test
@@ -175,7 +175,7 @@ class DashboardViewModelTest {
         val currentWeatherViewStateSlots = mutableListOf<CurrentWeatherViewState>()
         verify { viewStateObserver.onChanged(capture(currentWeatherViewStateSlots)) }
 
-        val errorState = currentWeatherViewStateSlots[0]
-        Truth.assertThat(errorState.status).isEqualTo(Status.SUCCESS)
+        val successState = currentWeatherViewStateSlots[0]
+        Truth.assertThat(successState.status).isEqualTo(Status.SUCCESS)
     }
 }
