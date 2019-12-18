@@ -4,6 +4,7 @@ import android.os.Build
 import com.faskn.app.weatherapp.dao.CitiesForSearchDaoTest
 import com.faskn.app.weatherapp.dao.CurrentWeatherDaoTest
 import com.faskn.app.weatherapp.dao.ForecastDaoTest
+import com.faskn.app.weatherapp.repo.ForecastRepositoryTest
 import com.faskn.app.weatherapp.viewModel.DashboardViewModelTest
 import com.faskn.app.weatherapp.viewModel.SearchViewModelTest
 import com.faskn.app.weatherapp.viewModel.WeatherDetailViewModelTest
@@ -29,6 +30,7 @@ import org.robolectric.annotation.Config
     ForecastViewStateTest::class,
     SearchViewStateTest::class,
     SearchViewModelTest::class,
-    WeatherDetailViewModelTest::class
+    WeatherDetailViewModelTest::class,
+    ForecastRepositoryTest::class
 )
 class TestSuite

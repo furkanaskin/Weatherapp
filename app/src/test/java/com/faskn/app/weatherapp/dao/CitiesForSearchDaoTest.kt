@@ -7,8 +7,7 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.faskn.app.weatherapp.db.WeatherDatabase
 import com.faskn.app.weatherapp.db.dao.CitiesForSearchDao
-import com.faskn.app.weatherapp.db.entity.CitiesForSearchEntity
-import com.faskn.app.weatherapp.db.entity.CoordEntity
+import com.faskn.app.weatherapp.util.generateCitiesForSearchEntity
 import com.faskn.app.weatherapp.util.getOrAwaitValue
 import com.google.common.truth.Truth
 import org.junit.After
@@ -104,9 +103,5 @@ class CitiesForSearchDaoTest {
 
         // Then
         Truth.assertThat(count).isEqualTo(0)
-    }
-
-    private fun generateCitiesForSearchEntity(id: String, name: String): CitiesForSearchEntity {
-        return CitiesForSearchEntity("Clear", "Turkey", CoordEntity(34.0, 30.0), name, "Beyoglu", 1, id)
     }
 }

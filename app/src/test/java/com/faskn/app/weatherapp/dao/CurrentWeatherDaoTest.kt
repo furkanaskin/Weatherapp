@@ -7,9 +7,7 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.faskn.app.weatherapp.db.WeatherDatabase
 import com.faskn.app.weatherapp.db.dao.CurrentWeatherDao
-import com.faskn.app.weatherapp.db.entity.CurrentWeatherEntity
-import com.faskn.app.weatherapp.db.entity.MainEntity
-import com.faskn.app.weatherapp.domain.model.WeatherItem
+import com.faskn.app.weatherapp.util.generateCurrentWeatherEntity
 import com.faskn.app.weatherapp.util.getOrAwaitValue
 import com.google.common.truth.Truth
 import org.junit.After
@@ -106,11 +104,5 @@ class CurrentWeatherDaoTest {
         currentWeatherDao.deleteCurrentWeather()
         val newCount = currentWeatherDao.getCount()
         Truth.assertThat(newCount).isEqualTo(0)
-    }
-
-    private fun generateCurrentWeatherEntity(name: String, id: Int): CurrentWeatherEntity {
-        val weatherItem = WeatherItem("12d", "clouds", "cloud & sun", 1)
-        val weather = listOf(weatherItem)
-        return CurrentWeatherEntity(1, 2, MainEntity(34.0, 30.0, 2.0, 321.0, 21, 132.0, 12.0, 35.0), null, 3421399123, weather, name, id, "Celciues", null)
     }
 }

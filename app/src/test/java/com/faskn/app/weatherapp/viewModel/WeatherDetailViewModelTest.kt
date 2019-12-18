@@ -8,8 +8,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.faskn.app.weatherapp.db.WeatherDatabase
 import com.faskn.app.weatherapp.db.dao.ForecastDao
 import com.faskn.app.weatherapp.domain.datasource.forecast.ForecastLocalDataSource
-import com.faskn.app.weatherapp.domain.model.*
 import com.faskn.app.weatherapp.ui.weather_detail.WeatherDetailViewModel
+import com.faskn.app.weatherapp.util.createSampleForecastResponse
 import com.faskn.app.weatherapp.util.getOrAwaitValue
 import com.google.common.truth.Truth
 import io.mockk.MockKAnnotations
@@ -59,18 +59,10 @@ class WeatherDetailViewModelTest {
     @Test
     fun `insert forecast and when getForecast called the livedata result must be ForecastEntity`() {
         // When
-        forecastLocalDataSource.insertForecast(createSampleForecast())
+        forecastLocalDataSource.insertForecast(createSampleForecastResponse())
 
         // Then
         val result = weatherDetailViewModel.getForecast().getOrAwaitValue()
         Truth.assertThat(result.city?.cityName).isEqualTo("Istanbul")
-    }
-
-    private fun createSampleForecast(): ForecastResponse {
-        val weatherItem = WeatherItem("12d", "clouds", "cloud & sun", 1)
-        val weather = listOf(weatherItem)
-        val listItem = ListItem(123123, Rain(12.0), "132121", Snow(12.0), weather, Main(34.0, 30.0, 2.0, 321.0, 21, 132.0, 12.0, 35.0), Clouds(1), Sys("a"), Wind(12.0, 12.0))
-        val list = listOf(listItem)
-        return ForecastResponse(City("Turkey", Coord(32.32, 30.30), "Istanbul", 1), null, null, null, list)
     }
 }

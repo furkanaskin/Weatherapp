@@ -22,7 +22,6 @@ class WeatherDetailViewModel @Inject constructor(private val forecastLocalDataSo
 
     fun getForecastLiveData() = forecastLiveData
 
-
     fun getForecast(): LiveData<ForecastEntity> {
         return forecastLocalDataSource.getForecast()
     }

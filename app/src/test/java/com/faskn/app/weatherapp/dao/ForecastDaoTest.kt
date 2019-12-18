@@ -7,10 +7,8 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.faskn.app.weatherapp.db.WeatherDatabase
 import com.faskn.app.weatherapp.db.dao.ForecastDao
-import com.faskn.app.weatherapp.db.entity.CityEntity
-import com.faskn.app.weatherapp.db.entity.CoordEntity
-import com.faskn.app.weatherapp.db.entity.ForecastEntity
-import com.faskn.app.weatherapp.domain.model.*
+import com.faskn.app.weatherapp.util.createSampleForecastResponse
+import com.faskn.app.weatherapp.util.createSampleForecastWithCoord
 import com.faskn.app.weatherapp.util.getOrAwaitValue
 import com.google.common.truth.Truth
 import org.junit.After
@@ -55,7 +53,7 @@ class ForecastDaoTest {
     @Test
     fun `insert a forecast to forecast dao`() {
         // When
-        forecastDao.insertForecast(createSampleForecast(3, "Istanbul"))
+        forecastDao.insertForecast(createSampleForecastResponse(3, "Istanbul"))
 
         // Then
         val value = forecastDao.getForecast().getOrAwaitValue()
@@ -66,8 +64,8 @@ class ForecastDaoTest {
     @Test
     fun `insert two forecast to forecast dao and then delete all after this operations count must be 0`() {
         // When
-        forecastDao.insertForecast(createSampleForecast(3, "Istanbul"))
-        forecastDao.insertForecast(createSampleForecast(4, "Ankara"))
+        forecastDao.insertForecast(createSampleForecastResponse(3, "Istanbul"))
+        forecastDao.insertForecast(createSampleForecastResponse(4, "Ankara"))
 
         val value = forecastDao.getCount()
         Truth.assertThat(value).isEqualTo(2)
@@ -81,12 +79,12 @@ class ForecastDaoTest {
     @Test
     fun `insert a forecast and then update`() {
         // When
-        forecastDao.insertForecast(createSampleForecast(1, "Istanbul"))
+        forecastDao.insertForecast(createSampleForecastResponse(1, "Istanbul"))
         val value = forecastDao.getForecast().getOrAwaitValue()
         Truth.assertThat(value.city?.cityName).isEqualTo("Istanbul")
 
         // Then
-        forecastDao.updateForecast(createSampleForecast(1, "Ankara"))
+        forecastDao.updateForecast(createSampleForecastResponse(1, "Ankara"))
         val updatedValue = forecastDao.getForecast().getOrAwaitValue()
         Truth.assertThat(updatedValue.city?.cityName).isEqualTo("Ankara")
     }
@@ -94,12 +92,12 @@ class ForecastDaoTest {
     @Test
     fun `delete and insert a forecast`() {
         // When
-        forecastDao.insertForecast(createSampleForecast(1, "Istanbul"))
+        forecastDao.insertForecast(createSampleForecastResponse(1, "Istanbul"))
         val count = forecastDao.getCount()
         Truth.assertThat(count).isEqualTo(1)
 
         // Then
-        forecastDao.deleteAndInsert(createSampleForecast(2, "Adana"))
+        forecastDao.deleteAndInsert(createSampleForecastResponse(2, "Adana"))
         val newCount = forecastDao.getCount()
         val value = forecastDao.getForecast().getOrAwaitValue()
         Truth.assertThat(newCount).isEqualTo(1)
@@ -109,12 +107,12 @@ class ForecastDaoTest {
     @Test
     fun `first insert a forecast then delete and count must be zero`() {
         // When
-        forecastDao.insertForecast(createSampleForecast(1, "Kayseri"))
+        forecastDao.insertForecast(createSampleForecastResponse(1, "Kayseri"))
         val count = forecastDao.getCount()
         Truth.assertThat(count).isEqualTo(1)
 
         // Then
-        forecastDao.deleteForecast(createSampleForecast(1, "Kayseri"))
+        forecastDao.deleteForecast(createSampleForecastResponse(1, "Kayseri"))
         val newCount = forecastDao.getCount()
         Truth.assertThat(newCount).isEqualTo(0)
     }
@@ -130,18 +128,5 @@ class ForecastDaoTest {
         // Then
         val value = forecastDao.getForecastByCoord(10.0, 30.0).getOrAwaitValue()
         Truth.assertThat(value.city?.cityName).isEqualTo("Kayseri")
-    }
-
-    private fun createSampleForecast(id: Int, cityName: String): ForecastEntity {
-        val weatherItem = WeatherItem("12d", "clouds", "cloud & sun", 1)
-        val weather = listOf(weatherItem)
-        val listItem = ListItem(123123, Rain(12.0), "132121", Snow(12.0), weather, Main(34.0, 30.0, 2.0, 321.0, 21, 132.0, 12.0, 35.0), Clouds(1), Sys("a"), Wind(12.0, 12.0))
-        val list = listOf(listItem)
-        return ForecastEntity(id, CityEntity("Turkey", CoordEntity(34.0, 30.0), cityName, 34), list)
-    }
-
-    private fun createSampleForecastWithCoord(id: Int, cityName: String, lat: Double, lon: Double): ForecastEntity {
-        val list = emptyList<ListItem>()
-        return ForecastEntity(id, CityEntity("Turkey", CoordEntity(lon, lat), cityName, 34), list)
     }
 }
