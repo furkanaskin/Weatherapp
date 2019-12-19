@@ -14,7 +14,7 @@ import okhttp3.Response
 class DefaultRequestInterceptor @Inject constructor() : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
-        val url = chain.request().url()
+        val url = chain.request().url
             .newBuilder()
             .addQueryParameter(Constants.NetworkService.API_KEY_QUERY, Constants.NetworkService.API_KEY_VALUE)
             .build()

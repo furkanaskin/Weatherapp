@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:756893349752:android:9322929e2a752ae3e5ba8d",
         "android_client_info": {
-          "package_name": "com.faskn.weatherApp.weatherapp"
+          "package_name": "com.faskn.app.weatherapp"
         }
       },
       "oauth_client": [
