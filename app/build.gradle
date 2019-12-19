@@ -120,9 +120,6 @@ dependencies {
     kapt rootProject.ext.moshiKapt
     implementation rootProject.ext.rxJavaAdapter
     implementation rootProject.ext.picasso
-    implementation rootProject.ext.coroutinesCore
-    implementation rootProject.ext.anko
-    implementation rootProject.ext.ankoCoroutines
     implementation rootProject.ext.lifecycleExt
     implementation rootProject.ext.shadowView
     annotationProcessor rootProject.ext.lifecycleAnnotation

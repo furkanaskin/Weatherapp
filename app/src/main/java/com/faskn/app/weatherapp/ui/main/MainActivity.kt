@@ -18,13 +18,13 @@ import androidx.navigation.ui.onNavDestinationSelected
 import com.faskn.app.weatherapp.R
 import com.faskn.app.weatherapp.core.BaseActivity
 import com.faskn.app.weatherapp.databinding.ActivityMainBinding
+import com.faskn.app.weatherapp.utils.extensions.alertDialog
 import com.faskn.app.weatherapp.utils.extensions.hide
 import com.faskn.app.weatherapp.utils.extensions.show
 import com.google.android.material.navigation.NavigationView
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
 import javax.inject.Inject
-import org.jetbrains.anko.alert
 
 class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>(MainActivityViewModel::class.java), HasSupportFragmentInjector, NavigationView.OnNavigationItemSelectedListener {
 
@@ -73,8 +73,8 @@ class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>(Ma
 
     private fun setupNavigation() {
         val appBarConfig = AppBarConfiguration(
-            setOf(R.id.dashboardFragment),
-            binding.drawerLayout
+                setOf(R.id.dashboardFragment),
+                binding.drawerLayout
         )
 
         val navController = findNavController(R.id.container_fragment)
@@ -121,21 +121,23 @@ class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>(Ma
                 binding.drawerLayout.openDrawer(GravityCompat.START)
             R.id.aboutApp -> {
                 binding.drawerLayout.closeDrawer(GravityCompat.START)
-                alert {
-                    ctx.setTheme(R.style.Theme_MaterialComponents_Light_Dialog)
-                    title = getString(R.string.app_name)
-                    message = getString(R.string.about_app_full_text)
-                    positiveButton(getString(R.string.see_on_github)) {
-                        val url = getString(R.string.github_url)
-                        val i = Intent(Intent.ACTION_VIEW)
-                        i.data = Uri.parse(url)
-                        startActivity(i)
-                    }
-                    negativeButton(getString(R.string.dismiss)) {
-                    }
-                }.show()
+                showSeeOnGithubDialog()
             }
         }
         return item.onNavDestinationSelected(findNavController(R.id.container_fragment)) || super.onOptionsItemSelected(item)
+    }
+
+    private fun showSeeOnGithubDialog() {
+        alertDialog {
+            setTitle(getString(R.string.app_name))
+            setMessage(getString(R.string.about_app_full_text))
+            setPositiveButton(getString(R.string.see_on_github)) { _, _ ->
+                val url = getString(R.string.github_url)
+                val i = Intent(Intent.ACTION_VIEW)
+                i.data = Uri.parse(url)
+                startActivity(i)
+            }
+            setNegativeButton(getString(R.string.dismiss), null)
+        }
     }
 }

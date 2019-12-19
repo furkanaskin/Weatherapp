@@ -32,7 +32,6 @@ Weatherapp is a simple forecast app, which uses some APIs to fetch 5 day / 3 hou
 <li><a href="https://github.com/square/okhttp">OkHttp</a></li>
 <li><a href="https://github.com/square/moshi">Moshi</a></li>
 <li><a href="https://github.com/facebook/stetho">Stetho</a></li>
-<li><a href="https://github.com/Kotlin/anko">Anko</a></li>
 <li><a href="https://github.com/square/picasso">Picasso</a></li>
 <li><a href="https://material.io/develop/android/docs/getting-started/">Material Design</a></li>
 <li><a href="https://github.com/lopspower/RxAnimation">RxAnimation</a></li>
