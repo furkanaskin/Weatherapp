@@ -18,7 +18,6 @@ Weatherapp is a simple forecast app, which uses some APIs to fetch 5 day / 3 hou
 ## Libraries and tools 🛠
 
 <li><a href="https://developer.android.com/topic/libraries/architecture/navigation/">Navigation</a></li>
-<li><a href="https://developer.android.com/topic/libraries/architecture/navigation/navigation-pass-data">Navigation SafeArgs</a> </li>
 <li><a href="https://developer.android.com/training/data-storage/shared-preferences">Shared Preferences</a></li>
 <li><a href="https://developer.android.com/topic/libraries/architecture/viewmodel">ViewModel</a></li>
 <li><a href="https://developer.android.com/topic/libraries/architecture/livedata">LiveData</a></li>
@@ -44,7 +43,6 @@ Weatherapp is a simple forecast app, which uses some APIs to fetch 5 day / 3 hou
 ## Testing 🧪
 <li><a href="https://github.com/mockk/mockk">Mockk</a></li>
 <li><a href="https://github.com/google/truth">Truth</a></li>
-<li><a href="https://github.com/robolectric/robolectric">Robolectric</a></li>
 
 ## Architecture
 The app uses MVVM [Model-View-ViewModel] architecture to have a unidirectional flow of data, separation of concern, testability, and a lot more.
@@ -81,4 +79,5 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 </code></pre>
