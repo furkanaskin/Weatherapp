@@ -73,8 +73,8 @@ class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>(Ma
 
     private fun setupNavigation() {
         val appBarConfig = AppBarConfiguration(
-                setOf(R.id.dashboardFragment),
-                binding.drawerLayout
+            setOf(R.id.dashboardFragment),
+            binding.drawerLayout
         )
 
         val navController = findNavController(R.id.container_fragment)
