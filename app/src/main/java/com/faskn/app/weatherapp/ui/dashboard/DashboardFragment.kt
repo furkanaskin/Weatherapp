@@ -80,6 +80,6 @@ class DashboardFragment : BaseFragment<DashboardFragmentViewModel, FragmentDashb
     }
 
     private fun initForecast(list: List<ListItem>) {
-        (mBinding.recyclerForecast.adapter as ForecastAdapter).submitList(ForecastMapper().mapFrom(list))
+        (mBinding.recyclerForecast.adapter as ForecastAdapter).submitList(list)
     }
 }

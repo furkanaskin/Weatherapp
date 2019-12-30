@@ -5,6 +5,7 @@ import androidx.lifecycle.Transformations
 import com.faskn.app.weatherapp.core.Constants
 import com.faskn.app.weatherapp.db.entity.ForecastEntity
 import com.faskn.app.weatherapp.repo.ForecastRepository
+import com.faskn.app.weatherapp.ui.dashboard.ForecastMapper
 import com.faskn.app.weatherapp.ui.dashboard.ForecastViewState
 import com.faskn.app.weatherapp.utils.UseCaseLiveData
 import com.faskn.app.weatherapp.utils.domain.Resource
@@ -35,6 +36,9 @@ class ForecastUseCase @Inject internal constructor(private val repository: Forec
     }
 
     private fun onForecastResultReady(resource: Resource<ForecastEntity>): ForecastViewState {
+        val mappedList = resource.data?.list?.let { ForecastMapper().mapFrom(it) }
+        resource.data?.list = mappedList
+
         return ForecastViewState(
             status = resource.status,
             error = resource.message,
