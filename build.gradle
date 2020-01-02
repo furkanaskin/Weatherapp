@@ -101,6 +101,7 @@ ext {
     //arch-comp Lifecycles, LiveData, and ViewModel
     lifecycleExt = "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
     lifecycleAnnotation = "androidx.lifecycle:lifecycle-compiler:$lifecycleVersion"
+    liveDataKtx = "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
     lifecycleViewModelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleViewModelKtxVersion"
 
     //firebase

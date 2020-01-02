@@ -3,7 +3,7 @@ package com.faskn.app.weatherapp.ui.search
 import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.switchMap
 import com.faskn.app.weatherapp.core.BaseViewModel
 import com.faskn.app.weatherapp.core.Constants
 import com.faskn.app.weatherapp.db.entity.CoordEntity
@@ -20,13 +20,10 @@ import javax.inject.Inject
 class SearchViewModel @Inject internal constructor(private val useCase: SearchCitiesUseCase, private val pref: SharedPreferences) : BaseViewModel() {
 
     private val _searchParams: MutableLiveData<SearchCitiesUseCase.SearchCitiesParams> = MutableLiveData()
-    val searchParams: LiveData<SearchCitiesUseCase.SearchCitiesParams> get() = _searchParams
     fun getSearchViewState() = searchViewState
 
-    private val searchViewState: LiveData<SearchViewState> = Transformations.switchMap(
-        _searchParams
-    ) {
-        return@switchMap useCase.execute(it)
+    private val searchViewState: LiveData<SearchViewState> = _searchParams.switchMap { params ->
+        useCase.execute(params)
     }
 
     fun setSearchParams(params: SearchCitiesUseCase.SearchCitiesParams) {

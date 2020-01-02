@@ -1,7 +1,7 @@
 package com.faskn.app.weatherapp.domain.usecase
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.map
 import com.faskn.app.weatherapp.core.Constants
 import com.faskn.app.weatherapp.db.entity.CurrentWeatherEntity
 import com.faskn.app.weatherapp.repo.CurrentWeatherRepository
@@ -21,16 +21,14 @@ class CurrentWeatherUseCase @Inject internal constructor(private val repository:
     }
 
     override fun buildUseCaseObservable(params: CurrentWeatherParams?): LiveData<CurrentWeatherViewState> {
-        return Transformations.map(
-            repository.loadCurrentWeatherByGeoCords(
-                params?.lat?.toDouble() ?: 0.0,
-                params?.lon?.toDouble() ?: 0.0,
-                params?.fetchRequired
-                    ?: false,
-                units = params?.units ?: Constants.Coords.METRIC
-            )
-        ) {
-            return@map onCurrentWeatherResultReady(it)
+        return repository.loadCurrentWeatherByGeoCords(
+            params?.lat?.toDouble() ?: 0.0,
+            params?.lon?.toDouble() ?: 0.0,
+            params?.fetchRequired
+                ?: false,
+            units = params?.units ?: Constants.Coords.METRIC
+        ).map {
+            onCurrentWeatherResultReady(it)
         }
     }
 

@@ -120,9 +120,10 @@ dependencies {
     kapt rootProject.ext.moshiKapt
     implementation rootProject.ext.rxJavaAdapter
     implementation rootProject.ext.picasso
-    implementation rootProject.ext.lifecycleExt
     implementation rootProject.ext.shadowView
+    implementation rootProject.ext.lifecycleExt
     kapt rootProject.ext.lifecycleAnnotation
+    implementation rootProject.ext.liveDataKtx
     implementation rootProject.ext.lifecycleViewModelKtx
     implementation rootProject.ext.roomRuntime
     kapt rootProject.ext.roomCompiler

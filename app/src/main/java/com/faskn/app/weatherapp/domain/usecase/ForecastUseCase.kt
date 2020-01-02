@@ -1,7 +1,7 @@
 package com.faskn.app.weatherapp.domain.usecase
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.map
 import com.faskn.app.weatherapp.core.Constants
 import com.faskn.app.weatherapp.db.entity.ForecastEntity
 import com.faskn.app.weatherapp.repo.ForecastRepository
@@ -22,16 +22,14 @@ class ForecastUseCase @Inject internal constructor(private val repository: Forec
     }
 
     override fun buildUseCaseObservable(params: ForecastParams?): LiveData<ForecastViewState> {
-        return Transformations.map(
-            repository.loadForecastByCoord(
-                params?.lat?.toDouble() ?: 0.0,
-                params?.lon?.toDouble() ?: 0.0,
-                params?.fetchRequired
-                    ?: false,
-                units = params?.units ?: Constants.Coords.METRIC
-            )
-        ) {
-            return@map onForecastResultReady(it)
+        return repository.loadForecastByCoord(
+            params?.lat?.toDouble() ?: 0.0,
+            params?.lon?.toDouble() ?: 0.0,
+            params?.fetchRequired
+                ?: false,
+            units = params?.units ?: Constants.Coords.METRIC
+        ).map {
+            onForecastResultReady(it)
         }
     }
 

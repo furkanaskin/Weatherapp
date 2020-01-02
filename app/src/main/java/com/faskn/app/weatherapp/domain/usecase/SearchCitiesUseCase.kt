@@ -1,7 +1,7 @@
 package com.faskn.app.weatherapp.domain.usecase
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.map
 import com.faskn.app.weatherapp.db.entity.CitiesForSearchEntity
 import com.faskn.app.weatherapp.repo.SearchCitiesRepository
 import com.faskn.app.weatherapp.ui.search.SearchViewState
@@ -18,12 +18,10 @@ class SearchCitiesUseCase @Inject internal constructor(private val repository: S
     override fun getRepository(): SearchCitiesRepository = repository
 
     override fun buildUseCaseObservable(params: SearchCitiesParams?): LiveData<SearchViewState> {
-        return Transformations.map(
-            repository.loadCitiesByCityName(
-                cityName = params?.city ?: ""
-            )
-        ) {
-            return@map onSearchResultReady(it)
+        return repository.loadCitiesByCityName(
+            cityName = params?.city ?: ""
+        ).map {
+            onSearchResultReady(it)
         }
     }
 
