@@ -1,5 +1,10 @@
 package com.faskn.app.weatherapp.ui.dashboard
 
+import android.os.Bundle
+import android.transition.TransitionInflater
+import android.util.Log
+import android.view.View
+import androidx.core.view.doOnPreDraw
 import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -55,6 +60,11 @@ class DashboardFragment : BaseFragment<DashboardFragmentViewModel, FragmentDashb
         }
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        sharedElementReturnTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+    }
+
     private fun initForecastAdapter() {
         val adapter = ForecastAdapter { item, cardView, forecastIcon, dayOfWeek, temp, tempMaxMin ->
             val action = DashboardFragmentDirections.actionDashboardFragmentToWeatherDetailFragment(item)
@@ -64,11 +74,11 @@ class DashboardFragment : BaseFragment<DashboardFragmentViewModel, FragmentDashb
                     FragmentNavigator.Extras.Builder()
                         .addSharedElements(
                             mapOf(
-                                cardView to "weatherItemCardView",
-                                forecastIcon to "weatherItemForecastIcon",
-                                dayOfWeek to "weatherItemDayOfWeek",
-                                temp to "weatherItemTemp",
-                                tempMaxMin to "weatherItemTempMaxMin"
+                                cardView to cardView.transitionName,
+                                forecastIcon to forecastIcon.transitionName,
+                                dayOfWeek to dayOfWeek.transitionName,
+                                temp to temp.transitionName,
+                                tempMaxMin to tempMaxMin.transitionName
                             )
                         )
                         .build()
@@ -77,6 +87,12 @@ class DashboardFragment : BaseFragment<DashboardFragmentViewModel, FragmentDashb
 
         mBinding.recyclerForecast.adapter = adapter
         mBinding.recyclerForecast.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        postponeEnterTransition()
+        mBinding.recyclerForecast.viewTreeObserver
+                .addOnPreDrawListener {
+                    startPostponedEnterTransition()
+                    true
+                }
     }
 
     private fun initForecast(list: List<ListItem>) {

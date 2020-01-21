@@ -44,6 +44,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="40dp"
+            android:transitionName="@{String.format(@string/cardView, viewModel.item.getDay())}"
             android:backgroundTint="@{viewModel.item.getColor()}"
             app:cardCornerRadius="24dp"
             tools:backgroundTint="@android:color/holo_orange_dark">
@@ -85,7 +86,8 @@
                     android:textColor="@color/white"
                     android:textSize="14sp"
                     android:textStyle="bold"
-                    tools:text="Monday" />
+                    tools:text="Monday"
+                    android:transitionName="@{String.format(@string/dayOfWeek, viewModel.item.getDay())}" />
 
                 <ImageView
                     android:id="@+id/imageViewForecastIcon"
@@ -95,7 +97,8 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="12dp"
                     app:setWeatherIcon="@{viewModel.item.getWeatherItem().icon}"
-                    tools:src="@drawable/ic_splash_big_cloud" />
+                    tools:src="@drawable/ic_splash_big_cloud"
+                    android:transitionName="@{String.format(@string/forecastIcon, viewModel.item.getDay())}"/>
 
                 <TextView
                     android:id="@+id/textViewTemp"
@@ -108,7 +111,8 @@
                     android:textColor="@color/white"
                     android:textSize="26sp"
                     android:textStyle="bold"
-                    tools:text="23°" />
+                    tools:text="23°"
+                    android:transitionName="@{String.format(@string/temp, viewModel.item.getDay())}"/>
 
                 <LinearLayout
                     android:id="@+id/linearLayoutTempMaxMin"
@@ -116,7 +120,8 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/textViewTemp"
                     android:layout_centerHorizontal="true"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:transitionName="@{String.format(@string/tempMaxMin, viewModel.item.getDay())}">
 
                     <TextView
                         android:layout_width="wrap_content"

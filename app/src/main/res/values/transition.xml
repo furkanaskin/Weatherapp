@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!--        Transition name to uniquely identify each view -->
+    <string name="cardView">cardview %s</string>
+    <string name="forecastIcon">forecast %s</string>
+    <string name="dayOfWeek">dayofweek %s</string>
+    <string name="temp">temp %s</string>
+    <string name="tempMaxMin">tempmaxmin %s</string>
+</resources>
