@@ -47,7 +47,7 @@
                 android:layout_marginTop="48dp"
                 android:layout_marginBottom="-32dp"
                 android:backgroundTint="@{viewModel.weatherItem.getColor()}"
-                android:transitionName="weatherItemCardView"
+                android:transitionName="@{String.format(@string/cardView, viewModel.weatherItem.getDay())}"
                 app:cardCornerRadius="24dp"
                 tools:backgroundTint="@color/colorPrimary">
 
@@ -71,7 +71,7 @@
                             android:textColor="@color/white"
                             android:textSize="48sp"
                             android:textStyle="bold"
-                            android:transitionName="weatherItemDayOfWeek" />
+                            android:transitionName="@{String.format(@string/dayOfWeek, viewModel.weatherItem.getDay())}" />
 
                         <ImageView
                             android:id="@+id/imageViewForecastIcon"
@@ -81,7 +81,7 @@
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="12dp"
                             android:layout_marginBottom="12dp"
-                            android:transitionName="weatherItemForecastIcon"
+                            android:transitionName="@{String.format(@string/forecastIcon, viewModel.weatherItem.getDay())}"
                             app:setWeatherIcon="@{viewModel.weatherItem.getWeatherItem().icon}"
                             tools:src="@drawable/a10d_svg" />
 
@@ -95,7 +95,7 @@
                             android:textColor="@color/white"
                             android:textSize="60sp"
                             android:textStyle="bold"
-                            android:transitionName="weatherItemTemp" />
+                            android:transitionName="@{String.format(@string/temp, viewModel.weatherItem.getDay())}" />
 
                         <LinearLayout
                             android:id="@+id/linearLayoutTempMaxMin"
@@ -105,7 +105,7 @@
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="8dp"
                             android:orientation="horizontal"
-                            android:transitionName="weatherItemTempMaxMin">
+                            android:transitionName="@{String.format(@string/tempMaxMin, viewModel.weatherItem.getDay())}">
 
                             <TextView
                                 android:layout_width="wrap_content"

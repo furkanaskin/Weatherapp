@@ -1,6 +1,9 @@
 package com.faskn.app.weatherapp.ui.weather_detail
 
+import android.os.Bundle
 import android.transition.TransitionInflater
+import android.util.Log
+import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -30,7 +33,6 @@ class WeatherDetailFragment : BaseFragment<WeatherDetailViewModel, FragmentWeath
 
     override fun init() {
         super.init()
-
         viewModel.weatherItem.set(weatherDetailFragmentArgs.weatherItem)
         viewModel.selectedDayDate = weatherDetailFragmentArgs.weatherItem.dtTxt?.substringBefore(" ")
 
@@ -49,22 +51,13 @@ class WeatherDetailFragment : BaseFragment<WeatherDetailViewModel, FragmentWeath
             initWeatherHourOfDayAdapter(it)
         }
 
-        val transition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
-        sharedElementEnterTransition = transition
-        sharedElementReturnTransition = transition
-        handleBackPressed()
-
         mBinding.fabClose.setOnClickListener {
-            disposable.add(
-                RxAnimation.together(
-                    mBinding.fabClose.fadeOut(350L),
-                    mBinding.cardView.resize(0, 0, 350L),
-                    mBinding.cardView.translation(-250f, 1000f, 350L)
-                )
-                    .doOnTerminate { findNavController().popBackStack() }
-                    .subscribe()
-            )
+            findNavController().popBackStack()
         }
+
+        val inflateTransition =
+                TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+        sharedElementEnterTransition = inflateTransition
     }
 
     private fun initWeatherHourOfDayAdapter(list: List<ListItem>) {
@@ -74,25 +67,6 @@ class WeatherDetailFragment : BaseFragment<WeatherDetailViewModel, FragmentWeath
 
         mBinding.recyclerViewHourOfDay.adapter = adapter
         (mBinding.recyclerViewHourOfDay.adapter as WeatherHourOfDayAdapter).submitList(list)
-    }
-
-    private fun handleBackPressed() {
-        // This callback will only be called when WeatherDetailFragment is at least Started.
-        val callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                disposable.add(
-                    RxAnimation.together(
-                        mBinding.fabClose.fadeOut(350L),
-                        mBinding.cardView.resize(0, 0, 350L),
-                        mBinding.cardView.translation(-250f, 1000f, 350L)
-                    )
-                        .doOnTerminate { findNavController().popBackStack() }
-                        .subscribe()
-                )
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
-        // The callback can be enabled or disabled here or in handleOnBackPressed()
     }
 
     override fun onDestroy() {
