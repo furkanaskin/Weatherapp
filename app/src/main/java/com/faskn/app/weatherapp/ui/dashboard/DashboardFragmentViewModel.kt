@@ -35,7 +35,7 @@ class DashboardFragmentViewModel @Inject internal constructor(private val foreca
     }
 
     fun setCurrentWeatherParams(params: CurrentWeatherUseCase.CurrentWeatherParams) {
-        if (params.equals(_currentWeatherParams.value))
+        if (_currentWeatherParams.value == params)
             return
         _currentWeatherParams.postValue(params)
     }

@@ -3,10 +3,8 @@ package com.faskn.app.weatherapp.ui.dashboard.forecast
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.ViewCompat
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
-import com.faskn.app.weatherapp.R
 import com.faskn.app.weatherapp.core.BaseAdapter
 import com.faskn.app.weatherapp.databinding.ItemForecastBinding
 import com.faskn.app.weatherapp.domain.model.ListItem
@@ -27,7 +25,7 @@ class ForecastAdapter(private val callBack: (ListItem, View, View, View, View, V
         mBinding.viewModel = viewModel
 
         mBinding.rootView.setOnClickListener {
-            mBinding.viewModel?.item?.get()?.let {/*
+            mBinding.viewModel?.item?.get()?.let { /*
                 ViewCompat.setTransitionName(mBinding.cardView, mBinding.rootView.resources.getString(R.string.cardView, it.getDay()))
                 ViewCompat.setTransitionName(mBinding.imageViewForecastIcon, mBinding.rootView.resources.getString(R.string.forecastIcon, it.getDay()))
                 ViewCompat.setTransitionName(mBinding.textViewDayOfWeek, mBinding.rootView.resources.getString(R.string.dayOfWeek, it.getDay()))

@@ -118,10 +118,9 @@ class SplashFragment : BaseFragment<SplashFragmentViewModel, FragmentSplashBindi
                 .doOnTerminate {
                     findNavController().graph.startDestination = R.id.dashboardFragment // Little bit tricky solution :)
                     if (navigateToDashboard)
-                        findNavController()
-                            .navigate(SplashFragmentDirections.actionSplashFragmentToDashboardFragment())
+                        navigate(R.id.action_splashFragment_to_dashboardFragment)
                     else
-                        findNavController().navigate(R.id.action_splashFragment_to_searchFragment)
+                        navigate(R.id.action_splashFragment_to_searchFragment)
                 }
                 .subscribe()
 

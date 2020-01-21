@@ -1,10 +1,6 @@
 package com.faskn.app.weatherapp.ui.weather_detail
 
-import android.os.Bundle
 import android.transition.TransitionInflater
-import android.util.Log
-import android.view.View
-import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.faskn.app.weatherapp.R
@@ -14,10 +10,6 @@ import com.faskn.app.weatherapp.di.Injectable
 import com.faskn.app.weatherapp.domain.model.ListItem
 import com.faskn.app.weatherapp.ui.weather_detail.weatherHourOfDay.WeatherHourOfDayAdapter
 import com.faskn.app.weatherapp.utils.extensions.observeWith
-import com.mikhaellopez.rxanimation.RxAnimation
-import com.mikhaellopez.rxanimation.fadeOut
-import com.mikhaellopez.rxanimation.resize
-import com.mikhaellopez.rxanimation.translation
 import io.reactivex.disposables.CompositeDisposable
 
 class WeatherDetailFragment : BaseFragment<WeatherDetailViewModel, FragmentWeatherDetailBinding>(WeatherDetailViewModel::class.java), Injectable {
@@ -56,7 +48,7 @@ class WeatherDetailFragment : BaseFragment<WeatherDetailViewModel, FragmentWeath
         }
 
         val inflateTransition =
-                TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
         sharedElementEnterTransition = inflateTransition
     }
 

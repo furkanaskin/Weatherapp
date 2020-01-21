@@ -1,10 +1,6 @@
 package com.faskn.app.weatherapp.ui.dashboard
 
-import android.os.Bundle
 import android.transition.TransitionInflater
-import android.util.Log
-import android.view.View
-import androidx.core.view.doOnPreDraw
 import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -32,6 +28,7 @@ class DashboardFragment : BaseFragment<DashboardFragmentViewModel, FragmentDashb
     override fun init() {
         super.init()
         initForecastAdapter()
+        sharedElementReturnTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
 
         val lat: String? = viewModel.sharedPreferences.getString(Constants.Coords.LAT, "")
         val lon: String? = viewModel.sharedPreferences.getString(Constants.Coords.LON, "")
@@ -60,11 +57,6 @@ class DashboardFragment : BaseFragment<DashboardFragmentViewModel, FragmentDashb
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        sharedElementReturnTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
-    }
-
     private fun initForecastAdapter() {
         val adapter = ForecastAdapter { item, cardView, forecastIcon, dayOfWeek, temp, tempMaxMin ->
             val action = DashboardFragmentDirections.actionDashboardFragmentToWeatherDetailFragment(item)
@@ -89,10 +81,10 @@ class DashboardFragment : BaseFragment<DashboardFragmentViewModel, FragmentDashb
         mBinding.recyclerForecast.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         postponeEnterTransition()
         mBinding.recyclerForecast.viewTreeObserver
-                .addOnPreDrawListener {
-                    startPostponedEnterTransition()
-                    true
-                }
+            .addOnPreDrawListener {
+                startPostponedEnterTransition()
+                true
+            }
     }
 
     private fun initForecast(list: List<ListItem>) {
