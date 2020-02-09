@@ -45,7 +45,7 @@
             android:id="@+id/action_searchFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment"
             app:launchSingleTop="true"
-            app:popUpTo="@+id/dashboardFragment"
+            app:popUpTo="@+id/searchFragment"
             app:popUpToInclusive="true" />
     </fragment>
 </navigation>
