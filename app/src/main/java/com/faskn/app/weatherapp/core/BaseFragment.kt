@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.databinding.library.baseAdapters.BR
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import dagger.android.AndroidInjection
@@ -31,7 +32,7 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding>(@LayoutRes
     open fun init() {}
 
     private val viewModel by lazy {
-        ViewModelProviders.of(this, (activity as? BaseActivity<*, *>)?.viewModelProviderFactory).get(viewModelClass)
+        (activity as? BaseActivity<*, *>)?.viewModelProviderFactory?.let { ViewModelProvider(this, it).get(viewModelClass) }
     }
 
     open fun onInject() {}

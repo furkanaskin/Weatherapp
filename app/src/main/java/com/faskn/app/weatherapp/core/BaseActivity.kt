@@ -28,7 +28,7 @@ abstract class BaseActivity<VM : BaseViewModel, DB : ViewDataBinding>(private va
     }
 
     val viewModel by lazy {
-        ViewModelProviders.of(this, viewModelProviderFactory).get(mViewModelClass)
+        ViewModelProvider(this, viewModelProviderFactory).get(mViewModelClass)
     }
 
     /**
