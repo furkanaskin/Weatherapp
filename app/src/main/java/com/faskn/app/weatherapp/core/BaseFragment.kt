@@ -8,6 +8,7 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.databinding.library.baseAdapters.BR
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
@@ -17,32 +18,27 @@ import dagger.android.AndroidInjection
  * Created by Furkan on 2019-10-16
  */
 
-abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding>(private val mViewModelClass: Class<VM>) : Fragment() {
+abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding>(@LayoutRes val layout: Int, viewModelClass: Class<VM>) : Fragment() {
 
-    lateinit var viewModel: VM
-    open lateinit var mBinding: DB
+    open lateinit var binding: DB
     lateinit var dataBindingComponent: DataBindingComponent
     private fun init(inflater: LayoutInflater, container: ViewGroup) {
-        mBinding = DataBindingUtil.inflate(inflater, getLayoutRes(), container, false)
-        mBinding.lifecycleOwner = viewLifecycleOwner
+        binding = DataBindingUtil.inflate(inflater, layout, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.setVariable(BR.viewModel, viewModel)
     }
 
     open fun init() {}
 
-    @LayoutRes
-    abstract fun getLayoutRes(): Int
-
-    abstract fun initViewModel()
-
-    private fun getViewM(): VM =
-        ViewModelProviders.of(this, (activity as? BaseActivity<*, *>)?.viewModelProviderFactory).get(mViewModelClass)
+    private val viewModel by lazy {
+        ViewModelProviders.of(this, (activity as? BaseActivity<*, *>)?.viewModelProviderFactory).get(viewModelClass)
+    }
 
     open fun onInject() {}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(activity)
         super.onCreate(savedInstanceState)
-        viewModel = getViewM()
     }
 
     override fun onCreateView(
@@ -51,11 +47,9 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding>(private va
         savedInstanceState: Bundle?
     ): View {
         init(inflater, container!!)
-        initViewModel()
         init()
         super.onCreateView(inflater, container, savedInstanceState)
-
-        return mBinding.root
+        return binding.root
     }
 
     open fun refresh() {}

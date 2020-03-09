@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="android.view.View"/>
+
+        <import type="android.view.View" />
+
         <variable
             name="viewState"
             type="com.faskn.app.weatherapp.ui.dashboard.CurrentWeatherViewState" />
@@ -16,10 +18,10 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@{viewState.data.getColor()}"
         android:fitsSystemWindows="true"
-        tools:visibility="invisible"
         android:visibility="@{viewState.isLoading() ? View.INVISIBLE : View.VISIBLE}"
         app:cardCornerRadius="24dp"
-        app:cardElevation="8dp">
+        app:cardElevation="8dp"
+        tools:visibility="invisible">
 
         <RelativeLayout
             android:id="@+id/rootView"

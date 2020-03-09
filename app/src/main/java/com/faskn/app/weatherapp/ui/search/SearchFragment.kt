@@ -18,51 +18,45 @@ import com.faskn.app.weatherapp.utils.extensions.hideKeyboard
 import com.faskn.app.weatherapp.utils.extensions.observeWith
 import com.faskn.app.weatherapp.utils.extensions.tryCatch
 
-class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>(SearchViewModel::class.java), Injectable {
-
-    override fun getLayoutRes(): Int = R.layout.fragment_search
-
-    override fun initViewModel() {
-        mBinding.viewModel = viewModel
-    }
+class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>(R.layout.fragment_search, SearchViewModel::class.java), Injectable {
 
     override fun init() {
         super.init()
         initSearchResultsAdapter()
         initSearchView()
 
-        viewModel.getSearchViewState().observeWith(
+        binding.viewModel?.getSearchViewState()?.observeWith(
             viewLifecycleOwner
         ) {
-            mBinding.viewState = it
+            binding.viewState = it
             it.data?.let { results -> initSearchResultsRecyclerView(results) }
         }
     }
 
     private fun initSearchView() {
-        val searchEditText: EditText = mBinding.searchView.findViewById(R.id.search_src_text)
+        val searchEditText: EditText = binding.searchView.findViewById(R.id.search_src_text)
         activity?.applicationContext?.let { ContextCompat.getColor(it, R.color.mainTextColor) }
             ?.let { searchEditText.setTextColor(it) }
         activity?.applicationContext?.let { ContextCompat.getColor(it, android.R.color.darker_gray) }
             ?.let { searchEditText.setHintTextColor(it) }
-        mBinding.searchView.isActivated = true
-        mBinding.searchView.setIconifiedByDefault(false)
-        mBinding.searchView.isIconified = false
+        binding.searchView.isActivated = true
+        binding.searchView.setIconifiedByDefault(false)
+        binding.searchView.isIconified = false
 
-        val searchViewSearchIcon = mBinding.searchView.findViewById<ImageView>(R.id.search_mag_icon)
+        val searchViewSearchIcon = binding.searchView.findViewById<ImageView>(R.id.search_mag_icon)
         searchViewSearchIcon.setImageResource(R.drawable.ic_search)
 
-        mBinding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(newText: String): Boolean {
                 if (newText.isNotEmpty() && newText.count() > 2) {
-                    viewModel.setSearchParams(SearchCitiesUseCase.SearchCitiesParams(newText))
+                    binding.viewModel?.setSearchParams(SearchCitiesUseCase.SearchCitiesParams(newText))
                 }
                 return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (newText?.isNotEmpty() == true && newText.count() > 2) {
-                    viewModel.setSearchParams(SearchCitiesUseCase.SearchCitiesParams(newText))
+                    binding.viewModel?.setSearchParams(SearchCitiesUseCase.SearchCitiesParams(newText))
                 }
                 return true
             }
@@ -72,12 +66,12 @@ class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>(Sear
     private fun initSearchResultsAdapter() {
         val adapter = SearchResultAdapter { item ->
             item.coord?.let {
-                viewModel.saveCoordsToSharedPref(it)
+                binding.viewModel?.saveCoordsToSharedPref(it)
                     ?.subscribe { _, _ ->
 
                         tryCatch(
                             tryBlock = {
-                                mBinding.searchView.hideKeyboard((activity as MainActivity))
+                                binding.searchView.hideKeyboard((activity as MainActivity))
                             }
                         )
 
@@ -86,11 +80,11 @@ class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>(Sear
             }
         }
 
-        mBinding.recyclerViewSearchResults.adapter = adapter
-        mBinding.recyclerViewSearchResults.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        binding.recyclerViewSearchResults.adapter = adapter
+        binding.recyclerViewSearchResults.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
     }
 
     private fun initSearchResultsRecyclerView(list: List<CitiesForSearchEntity>) {
-        (mBinding.recyclerViewSearchResults.adapter as SearchResultAdapter).submitList(list.distinctBy { it.getFullName() }.sortedBy { it.importance })
+        (binding.recyclerViewSearchResults.adapter as SearchResultAdapter).submitList(list.distinctBy { it.getFullName() }.sortedBy { it.importance })
     }
 }

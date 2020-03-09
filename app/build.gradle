@@ -100,9 +100,6 @@ dependencies {
     implementation rootProject.ext.timber
     implementation rootProject.ext.navigationFragment
     implementation rootProject.ext.navigationUI
-    implementation rootProject.ext.firebaseCore
-    implementation rootProject.ext.firebaseDatabase
-    implementation rootProject.ext.firebaseMessaging
     implementation rootProject.ext.algolia
     implementation rootProject.ext.dagger
     implementation rootProject.ext.daggerSupport
@@ -132,11 +129,7 @@ dependencies {
     implementation rootProject.ext.stethoCore
     implementation rootProject.ext.stethoOkHttp
     implementation rootProject.ext.stethoUrlConnection
-    implementation 'com.google.firebase:firebase-analytics:17.2.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    implementation "com.sun.xml.bind:jaxb-core:2.3.0"
-    implementation "com.sun.xml.bind:jaxb-impl:2.3.0"
-    implementation "javax.activation:activation:1.1.1"
 
     testImplementation rootProject.ext.junit
     testImplementation rootProject.ext.junitTestExt

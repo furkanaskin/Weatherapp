@@ -9,8 +9,8 @@ import androidx.fragment.app.FragmentManager
 import com.faskn.app.weatherapp.WeatherApp
 import com.faskn.app.weatherapp.di.component.DaggerAppComponent
 import dagger.android.AndroidInjection
+import dagger.android.HasAndroidInjector
 import dagger.android.support.AndroidSupportInjection
-import dagger.android.support.HasSupportFragmentInjector
 
 /**
  * Created by Furkan on 2019-10-26
@@ -55,7 +55,7 @@ object AppInjector {
     }
 
     private fun handleActivity(activity: Activity) {
-        if (activity is HasSupportFragmentInjector) {
+        if (activity is HasAndroidInjector) {
             AndroidInjection.inject(activity)
         }
         if (activity is FragmentActivity) {

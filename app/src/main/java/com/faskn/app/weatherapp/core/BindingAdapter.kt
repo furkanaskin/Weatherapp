@@ -2,7 +2,9 @@ package com.faskn.app.weatherapp.core
 
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import com.faskn.app.weatherapp.R
 import com.faskn.app.weatherapp.utils.extensions.hide
 import com.faskn.app.weatherapp.utils.extensions.show
 import com.squareup.picasso.Picasso
@@ -29,4 +31,22 @@ fun setWeatherIcon(view: ImageView, iconPath: String?) {
     val imageid = view.context.resources.getIdentifier(newPath + "_svg", "drawable", view.context.packageName)
     val imageDrawable = view.context.resources.getDrawable(imageid, null)
     view.setImageDrawable(imageDrawable)
+}
+
+@BindingAdapter("app:setErrorView")
+fun setErrorView(view: View, viewState: BaseViewState?) {
+    if (viewState?.shouldShowErrorMessage() == true)
+        view.show()
+    else
+        view.hide()
+
+    view.setOnClickListener { view.hide() }
+}
+
+@BindingAdapter("app:setErrorText")
+fun setErrorText(view: TextView, viewState: BaseViewState?) {
+    if (viewState?.shouldShowErrorMessage() == true)
+        view.text = viewState.getErrorMessage()
+    else
+        view.text = view.context.getString(R.string.unexpected_exception)
 }

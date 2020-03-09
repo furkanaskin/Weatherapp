@@ -19,4 +19,5 @@
     <string name="github_url">https://github.com/furkanaskin/Weatherapp</string>
     <string name="see_on_github">See on Github</string>
     <string name="dismiss">Dismiss</string>
+    <string name="unexpected_exception" />
 </resources>

@@ -1,15 +1,12 @@
 package com.faskn.app.weatherapp.ui.main
 
-import android.content.Intent
 import android.graphics.Color
-import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
 import androidx.core.view.GravityCompat
-import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -18,20 +15,20 @@ import androidx.navigation.ui.onNavDestinationSelected
 import com.faskn.app.weatherapp.R
 import com.faskn.app.weatherapp.core.BaseActivity
 import com.faskn.app.weatherapp.databinding.ActivityMainBinding
-import com.faskn.app.weatherapp.utils.extensions.alertDialog
 import com.faskn.app.weatherapp.utils.extensions.hide
 import com.faskn.app.weatherapp.utils.extensions.show
 import com.google.android.material.navigation.NavigationView
+import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
-import dagger.android.support.HasSupportFragmentInjector
+import dagger.android.HasAndroidInjector
 import javax.inject.Inject
 
-class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>(MainActivityViewModel::class.java), HasSupportFragmentInjector, NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>(MainActivityViewModel::class.java), HasAndroidInjector, NavigationView.OnNavigationItemSelectedListener {
 
     @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
+    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
 
-    override fun supportFragmentInjector() = dispatchingAndroidInjector
+    override fun androidInjector(): AndroidInjector<Any> = dispatchingAndroidInjector
 
     override fun initViewModel(viewModel: MainActivityViewModel) {
         binding.viewModel = viewModel
@@ -121,23 +118,9 @@ class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>(Ma
                 binding.drawerLayout.openDrawer(GravityCompat.START)
             R.id.aboutApp -> {
                 binding.drawerLayout.closeDrawer(GravityCompat.START)
-                showSeeOnGithubDialog()
+                findNavController(R.id.container_fragment).navigate(R.id.githubDialog)
             }
         }
         return item.onNavDestinationSelected(findNavController(R.id.container_fragment)) || super.onOptionsItemSelected(item)
-    }
-
-    private fun showSeeOnGithubDialog() {
-        alertDialog {
-            setTitle(getString(R.string.app_name))
-            setMessage(getString(R.string.about_app_full_text))
-            setPositiveButton(getString(R.string.see_on_github)) { _, _ ->
-                val url = getString(R.string.github_url)
-                val i = Intent(Intent.ACTION_VIEW)
-                i.data = Uri.parse(url)
-                startActivity(i)
-            }
-            setNegativeButton(getString(R.string.dismiss), null)
-        }
     }
 }

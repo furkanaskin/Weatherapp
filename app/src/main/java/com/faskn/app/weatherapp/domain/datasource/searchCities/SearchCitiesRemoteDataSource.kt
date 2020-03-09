@@ -6,7 +6,6 @@ import com.faskn.app.weatherapp.domain.model.SearchResponse
 import com.faskn.app.weatherapp.utils.extensions.tryCatch
 import com.squareup.moshi.Moshi
 import io.reactivex.Single
-import java.net.UnknownHostException
 import javax.inject.Inject
 import timber.log.Timber
 
@@ -33,11 +32,11 @@ class SearchCitiesRemoteDataSource @Inject constructor(private val client: Place
                                 single.onSuccess(data)
                         },
                         catchBlock = {
-                            Timber.e(it, it.message)
+                            Timber.e(it, it.localizedMessage)
                         }
                     )
                 } else
-                    single.onError(UnknownHostException())
+                    single.onError(Throwable("Can't find '$query'. Please try another one."))
             }
         }
     }

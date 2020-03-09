@@ -12,38 +12,32 @@ import com.faskn.app.weatherapp.ui.weather_detail.weatherHourOfDay.WeatherHourOf
 import com.faskn.app.weatherapp.utils.extensions.observeWith
 import io.reactivex.disposables.CompositeDisposable
 
-class WeatherDetailFragment : BaseFragment<WeatherDetailViewModel, FragmentWeatherDetailBinding>(WeatherDetailViewModel::class.java), Injectable {
+class WeatherDetailFragment : BaseFragment<WeatherDetailViewModel, FragmentWeatherDetailBinding>(R.layout.fragment_weather_detail, WeatherDetailViewModel::class.java), Injectable {
 
     private val weatherDetailFragmentArgs: WeatherDetailFragmentArgs by navArgs()
     var disposable = CompositeDisposable()
 
-    override fun getLayoutRes(): Int = R.layout.fragment_weather_detail
-
-    override fun initViewModel() {
-        mBinding.viewModel = viewModel
-    }
-
     override fun init() {
         super.init()
-        viewModel.weatherItem.set(weatherDetailFragmentArgs.weatherItem)
-        viewModel.selectedDayDate = weatherDetailFragmentArgs.weatherItem.dtTxt?.substringBefore(" ")
+        binding.viewModel?.weatherItem?.set(weatherDetailFragmentArgs.weatherItem)
+        binding.viewModel?.selectedDayDate = weatherDetailFragmentArgs.weatherItem.dtTxt?.substringBefore(" ")
 
-        viewModel.getForecast().observeWith(viewLifecycleOwner) {
-            viewModel.selectedDayForecastLiveData
-                .postValue(
+        binding.viewModel?.getForecast()?.observeWith(viewLifecycleOwner) {
+            binding.viewModel?.selectedDayForecastLiveData
+                ?.postValue(
                     it.list?.filter { item ->
-                        item.dtTxt?.substringBefore(" ") == viewModel.selectedDayDate
+                        item.dtTxt?.substringBefore(" ") == binding.viewModel?.selectedDayDate
                     }
                 )
         }
 
-        viewModel.selectedDayForecastLiveData.observeWith(
+        binding.viewModel?.selectedDayForecastLiveData?.observeWith(
             viewLifecycleOwner
         ) {
             initWeatherHourOfDayAdapter(it)
         }
 
-        mBinding.fabClose.setOnClickListener {
+        binding.fabClose.setOnClickListener {
             findNavController().popBackStack()
         }
 
@@ -57,8 +51,8 @@ class WeatherDetailFragment : BaseFragment<WeatherDetailViewModel, FragmentWeath
             // TODO - onClick
         }
 
-        mBinding.recyclerViewHourOfDay.adapter = adapter
-        (mBinding.recyclerViewHourOfDay.adapter as WeatherHourOfDayAdapter).submitList(list)
+        binding.recyclerViewHourOfDay.adapter = adapter
+        (binding.recyclerViewHourOfDay.adapter as WeatherHourOfDayAdapter).submitList(list)
     }
 
     override fun onDestroy() {

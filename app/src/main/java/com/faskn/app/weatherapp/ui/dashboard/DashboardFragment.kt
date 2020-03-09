@@ -17,41 +17,35 @@ import com.faskn.app.weatherapp.ui.main.MainActivity
 import com.faskn.app.weatherapp.utils.extensions.isNetworkAvailable
 import com.faskn.app.weatherapp.utils.extensions.observeWith
 
-class DashboardFragment : BaseFragment<DashboardFragmentViewModel, FragmentDashboardBinding>(DashboardFragmentViewModel::class.java), Injectable {
-
-    override fun getLayoutRes() = R.layout.fragment_dashboard
-
-    override fun initViewModel() {
-        mBinding.viewModel = viewModel
-    }
+class DashboardFragment : BaseFragment<DashboardFragmentViewModel, FragmentDashboardBinding>(R.layout.fragment_dashboard, DashboardFragmentViewModel::class.java), Injectable {
 
     override fun init() {
         super.init()
         initForecastAdapter()
         sharedElementReturnTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
 
-        val lat: String? = viewModel.sharedPreferences.getString(Constants.Coords.LAT, "")
-        val lon: String? = viewModel.sharedPreferences.getString(Constants.Coords.LON, "")
+        val lat: String? = binding.viewModel?.sharedPreferences?.getString(Constants.Coords.LAT, "")
+        val lon: String? = binding.viewModel?.sharedPreferences?.getString(Constants.Coords.LON, "")
 
         if (lat?.isNotEmpty() == true && lon?.isNotEmpty() == true) {
-            viewModel.setCurrentWeatherParams(CurrentWeatherUseCase.CurrentWeatherParams(lat, lon, isNetworkAvailable(requireContext()), Constants.Coords.METRIC))
-            viewModel.setForecastParams(ForecastUseCase.ForecastParams(lat, lon, isNetworkAvailable(requireContext()), Constants.Coords.METRIC))
+            binding.viewModel?.setCurrentWeatherParams(CurrentWeatherUseCase.CurrentWeatherParams(lat, lon, isNetworkAvailable(requireContext()), Constants.Coords.METRIC))
+            binding.viewModel?.setForecastParams(ForecastUseCase.ForecastParams(lat, lon, isNetworkAvailable(requireContext()), Constants.Coords.METRIC))
         }
 
-        viewModel.getForecastViewState().observeWith(
+        binding.viewModel?.getForecastViewState()?.observeWith(
             viewLifecycleOwner
         ) {
-            with(mBinding) {
+            with(binding) {
                 viewState = it
                 it.data?.list?.let { forecasts -> initForecast(forecasts) }
                 (activity as MainActivity).viewModel.toolbarTitle.set(it.data?.city?.getCityAndCountry())
             }
         }
 
-        viewModel.getCurrentWeatherViewState().observeWith(
+        binding.viewModel?.getCurrentWeatherViewState()?.observeWith(
             viewLifecycleOwner
         ) {
-            with(mBinding) {
+            with(binding) {
                 containerForecast.viewState = it
             }
         }
@@ -77,10 +71,10 @@ class DashboardFragment : BaseFragment<DashboardFragmentViewModel, FragmentDashb
                 )
         }
 
-        mBinding.recyclerForecast.adapter = adapter
-        mBinding.recyclerForecast.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.recyclerForecast.adapter = adapter
+        binding.recyclerForecast.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         postponeEnterTransition()
-        mBinding.recyclerForecast.viewTreeObserver
+        binding.recyclerForecast.viewTreeObserver
             .addOnPreDrawListener {
                 startPostponedEnterTransition()
                 true
@@ -88,6 +82,6 @@ class DashboardFragment : BaseFragment<DashboardFragmentViewModel, FragmentDashb
     }
 
     private fun initForecast(list: List<ListItem>) {
-        (mBinding.recyclerForecast.adapter as ForecastAdapter).submitList(list)
+        (binding.recyclerForecast.adapter as ForecastAdapter).submitList(list)
     }
 }

@@ -12,35 +12,29 @@ import com.faskn.app.weatherapp.utils.extensions.show
 import com.mikhaellopez.rxanimation.*
 import io.reactivex.disposables.CompositeDisposable
 
-class SplashFragment : BaseFragment<SplashFragmentViewModel, FragmentSplashBinding>(SplashFragmentViewModel::class.java), Injectable {
+class SplashFragment : BaseFragment<SplashFragmentViewModel, FragmentSplashBinding>(R.layout.fragment_splash, SplashFragmentViewModel::class.java), Injectable {
 
     var disposable = CompositeDisposable()
-
-    override fun getLayoutRes() = R.layout.fragment_splash
-
-    override fun initViewModel() {
-        mBinding.viewModel = viewModel
-    }
 
     override fun init() {
         super.init()
 
-        if (viewModel.sharedPreferences.getString(Constants.Coords.LON, "").isNullOrEmpty()) {
-            mBinding.buttonExplore.show()
-            viewModel.navigateDashboard = false
+        if (binding.viewModel?.sharedPreferences?.getString(Constants.Coords.LON, "").isNullOrEmpty()) {
+            binding.buttonExplore.show()
+            binding.viewModel?.navigateDashboard = false
         } else {
-            mBinding.buttonExplore.hide()
-            viewModel.navigateDashboard = true
+            binding.buttonExplore.hide()
+            binding.viewModel?.navigateDashboard = true
         }
 
-        startSplashAnimation(viewModel.navigateDashboard)
+        binding.viewModel?.navigateDashboard?.let { startSplashAnimation(it) }
 
-        mBinding.buttonExplore.setOnClickListener {
-            endSplashAnimation(viewModel.navigateDashboard)
+        binding.buttonExplore.setOnClickListener {
+            binding.viewModel?.navigateDashboard?.let { it1 -> endSplashAnimation(it1) }
         }
 
-        mBinding.rootView.setOnClickListener {
-            endSplashAnimation(viewModel.navigateDashboard)
+        binding.rootView.setOnClickListener {
+            binding.viewModel?.navigateDashboard?.let { it1 -> endSplashAnimation(it1) }
         }
     }
 
@@ -48,36 +42,36 @@ class SplashFragment : BaseFragment<SplashFragmentViewModel, FragmentSplashBindi
         disposable.add(
             RxAnimation.sequentially(
                 RxAnimation.together(
-                    mBinding.imageViewBottomDrawable.translationY(500f),
-                    mBinding.imageViewEllipse.fadeOut(0L),
-                    mBinding.imageViewBottomDrawable.fadeOut(0L),
-                    mBinding.imageViewBigCloud.translationX(-500F, 0L),
-                    mBinding.imageViewSmallCloud.translationX(500f, 0L),
-                    mBinding.imageViewBottomDrawableShadow.translationY(500f),
-                    mBinding.imageViewMainCloud.fadeOut(0L),
-                    mBinding.buttonExplore.fadeOut(0L),
-                    mBinding.imageViewBottomDrawableShadow.fadeOut(0L)
+                    binding.imageViewBottomDrawable.translationY(500f),
+                    binding.imageViewEllipse.fadeOut(0L),
+                    binding.imageViewBottomDrawable.fadeOut(0L),
+                    binding.imageViewBigCloud.translationX(-500F, 0L),
+                    binding.imageViewSmallCloud.translationX(500f, 0L),
+                    binding.imageViewBottomDrawableShadow.translationY(500f),
+                    binding.imageViewMainCloud.fadeOut(0L),
+                    binding.buttonExplore.fadeOut(0L),
+                    binding.imageViewBottomDrawableShadow.fadeOut(0L)
                 ),
 
                 RxAnimation.together(
-                    mBinding.imageViewBottomDrawable.fadeIn(1000L),
-                    mBinding.imageViewBottomDrawable.translationY(-1f),
-                    mBinding.imageViewBottomDrawableShadow.fadeIn(1250L),
-                    mBinding.imageViewBottomDrawableShadow.translationY(-1f)
+                    binding.imageViewBottomDrawable.fadeIn(1000L),
+                    binding.imageViewBottomDrawable.translationY(-1f),
+                    binding.imageViewBottomDrawableShadow.fadeIn(1250L),
+                    binding.imageViewBottomDrawableShadow.translationY(-1f)
                 ),
 
                 RxAnimation.together(
-                    mBinding.imageViewEllipse.fadeIn(1000L),
-                    mBinding.imageViewEllipse.translationY(-50F, 1000L)
+                    binding.imageViewEllipse.fadeIn(1000L),
+                    binding.imageViewEllipse.translationY(-50F, 1000L)
                 ),
 
                 RxAnimation.together(
-                    mBinding.imageViewBigCloud.translationX(-15f, 1000L),
-                    mBinding.imageViewSmallCloud.translationX(25f, 1000L)
+                    binding.imageViewBigCloud.translationX(-15f, 1000L),
+                    binding.imageViewSmallCloud.translationX(25f, 1000L)
                 ),
 
-                mBinding.imageViewMainCloud.fadeIn(500L),
-                mBinding.buttonExplore.fadeIn(1000L)
+                binding.imageViewMainCloud.fadeIn(500L),
+                binding.buttonExplore.fadeIn(1000L)
             ).doOnTerminate {
                 findNavController().graph.startDestination = R.id.dashboardFragment // Little bit tricky solution :)
                 if (navigateToDashboard)
@@ -91,25 +85,25 @@ class SplashFragment : BaseFragment<SplashFragmentViewModel, FragmentSplashBindi
         disposable.add(
             RxAnimation.sequentially(
                 RxAnimation.together(
-                    mBinding.imageViewBottomDrawable.fadeOut(300L),
-                    mBinding.imageViewBottomDrawable.translationY(100f),
-                    mBinding.imageViewBottomDrawableShadow.fadeOut(300L),
-                    mBinding.imageViewBottomDrawableShadow.translationY(100f)
+                    binding.imageViewBottomDrawable.fadeOut(300L),
+                    binding.imageViewBottomDrawable.translationY(100f),
+                    binding.imageViewBottomDrawableShadow.fadeOut(300L),
+                    binding.imageViewBottomDrawableShadow.translationY(100f)
                 ),
 
                 RxAnimation.together(
-                    mBinding.imageViewEllipse.fadeOut(300L),
-                    mBinding.imageViewEllipse.translationY(500F, 300L)
+                    binding.imageViewEllipse.fadeOut(300L),
+                    binding.imageViewEllipse.translationY(500F, 300L)
                 ),
 
                 RxAnimation.together(
-                    mBinding.imageViewBigCloud.translationX(500f, 300L),
-                    mBinding.imageViewSmallCloud.translationX(-500f, 300L)
+                    binding.imageViewBigCloud.translationX(500f, 300L),
+                    binding.imageViewSmallCloud.translationX(-500f, 300L)
                 ),
 
-                mBinding.imageViewMainCloud.fadeOut(300L),
-                mBinding.buttonExplore.fadeOut(300L),
-                mBinding.rootView.backgroundColor(
+                binding.imageViewMainCloud.fadeOut(300L),
+                binding.buttonExplore.fadeOut(300L),
+                binding.rootView.backgroundColor(
                     Color.parseColor("#5D50FE"),
                     Color.parseColor("#FFFFFF"),
                     duration = 750L

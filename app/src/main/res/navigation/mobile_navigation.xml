@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
     app:startDestination="@id/splashFragment">
 
@@ -48,4 +49,9 @@
             app:popUpTo="@+id/searchFragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <dialog
+        android:id="@+id/githubDialog"
+        android:name="com.faskn.app.weatherapp.utils.GithubDialog"
+        android:label="fragment_github_dialog"
+        tools:layout="@layout/fragment_github_dialog" />
 </navigation>
