@@ -4,6 +4,7 @@
 <a href="https://ktlint.github.io/"><img src="https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg" alt="ktlint" /></a>
 [![Travis CI](https://img.shields.io/travis/furkanaskin/weatherapp?logo=travis)](https://travis-ci.com/furkanaskin/Weatherapp)
 [![Android Weekly](https://img.shields.io/badge/Android%20Weekly-%23393-06a9f9)](https://androidweekly.net/issues/issue-393)
+[![Student Gallery](https://img.shields.io/badge/Part%20of-Student%20Gallery-9cf?logo=github)](https://education.github.com/pack/gallery)
 # Weatherapp
 ![appicon](https://user-images.githubusercontent.com/22769589/68296145-f7305d80-00a4-11ea-9cbe-24b18222bfa9.png)
 
