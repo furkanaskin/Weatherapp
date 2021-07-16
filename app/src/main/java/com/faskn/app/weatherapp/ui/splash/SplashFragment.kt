@@ -24,7 +24,9 @@ class SplashFragment :
     override fun init() {
         super.init()
 
-        if (binding.viewModel?.sharedPreferences?.getString(Constants.Coords.LON, "").isNullOrEmpty()) {
+        if (binding.viewModel?.sharedPreferences?.getString(Constants.Coords.LON, "")
+                .isNullOrEmpty()
+        ) {
             binding.buttonExplore.show()
             binding.viewModel?.navigateDashboard = false
         } else {
@@ -78,7 +80,7 @@ class SplashFragment :
                 binding.imageViewMainCloud.fadeIn(500L),
                 binding.buttonExplore.fadeIn(1000L)
             ).doOnTerminate {
-                findNavController().graph.startDestination = R.id.dashboardFragment // Little bit tricky solution :)
+                findNavController().graph.setStartDestination(R.id.dashboardFragment) // Little bit tricky solution :)
                 if (navigateToDashboard) {
                     endSplashAnimation(navigateToDashboard)
                 }
@@ -116,7 +118,7 @@ class SplashFragment :
                 )
             )
                 .doOnTerminate {
-                    findNavController().graph.startDestination = R.id.dashboardFragment // Little bit tricky solution :)
+                    findNavController().graph.setStartDestination(R.id.dashboardFragment) // Little bit tricky solution :)
                     if (navigateToDashboard) {
                         navigate(R.id.action_splashFragment_to_dashboardFragment)
                     } else {

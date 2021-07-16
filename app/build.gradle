@@ -73,8 +73,10 @@ android {
         buildConfig = true
         dataBinding = true
     }
-    testOptions.unitTests {
-        includeAndroidResources = true
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
     }
 }
 

@@ -11,7 +11,7 @@ buildscript {
         classpath 'com.google.gms:google-services:4.3.8'
         classpath 'com.android.tools.build:gradle:4.2.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.2.1"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.3.5"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -35,45 +35,45 @@ allprojects {
 ext {
 
     buildToolsVersion = '30.0.2'
-    compileSdkVersion = 29
-    targetSdkVersion = 29
+    compileSdkVersion = 30
+    targetSdkVersion = 30
     minSdkVersion = 21
 
     support_version = '1.0.0'
     appCompatVersion = '1.3.0'
     coreKtxVersion = '1.6.0'
-    rxJavaVersion = '2.2.18'
+    rxJavaVersion = '2.2.21'
     rxKotlinVersion = '2.4.0'
     rxAndroidVersion = '2.1.1'
     rxAnimationsVersion = '1.0.0'
     timberVersion = '4.7.1'
     daggerVersion = '2.37'
-    retrofitVersion = '2.7.2'
-    okHttpVersion = '4.4.1'
+    retrofitVersion = '2.9.0'
+    okHttpVersion = '5.0.0-alpha.2'
     picassoVersion = '2.71828'
     lifecycle_version = '1.1.1'
-    navigationVersion = '2.3.0-alpha03'
-    threetenabpVersion = '1.2.2'
-    stethoVersion = '1.5.1'
+    navigationVersion = '2.4.0-alpha04'
+    threetenabpVersion = '1.3.1'
+    stethoVersion = '1.6.0'
     legacySupportv4Version = '1.0.0'
-    lifecycleViewModelKtxVersion = '2.3.0-alpha01'
+    lifecycleViewModelKtxVersion = '2.4.0-alpha02'
     lifecycleVersion = '2.2.0'
     roomVersion = '2.3.0'
     shadowViewVersion = '0.0.3'
     algoliaVersion = '3.+'
     moshiConverterVersion = '2.9.0'
     moshiVersion = "1.12.0"
-    materialDesignVersion = "1.0.0"
+    materialDesignVersion = '1.4.0'
 
     coreTestingVersion = '2.1.0'
-    mockKVersion = '1.9.3'
-    truthExtVersion = '1.3.0-alpha03'
-    truthVersion = '1.0'
-    androidxTestRunnerVersion = '1.3.0-alpha03'
-    espressoCoreVersion = '3.3.0-alpha03'
+    mockKVersion = '1.12.0'
+    truthExtVersion = '1.4.0'
+    truthVersion = '1.1.3'
+    androidxTestRunnerVersion = '1.4.0'
+    espressoCoreVersion = '3.4.0'
     junitVersion = '4.12'
     junitExtVersion = '1.1.1'
-    robolectricVersion = '4.3.1'
+    robolectricVersion = '4.6.1'
 
     //kotlin
     kotlinJdk8 = "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
