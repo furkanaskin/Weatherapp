@@ -13,7 +13,10 @@ import timber.log.Timber
  * Created by Furkan on 2019-10-31
  */
 
-class SearchCitiesRemoteDataSource @Inject constructor(private val client: PlacesClient, private val moshi: Moshi) {
+class SearchCitiesRemoteDataSource @Inject constructor(
+    private val client: PlacesClient,
+    private val moshi: Moshi
+) {
 
     fun getCityWithQuery(query: String): Single<SearchResponse> {
         return Single.create { single ->
@@ -28,15 +31,17 @@ class SearchCitiesRemoteDataSource @Inject constructor(private val client: Place
                             val adapter = moshi.adapter<SearchResponse>(SearchResponse::class.java)
                             val data = adapter.fromJson(json.toString())
 
-                            if (data?.hits != null)
+                            if (data?.hits != null) {
                                 single.onSuccess(data)
+                            }
                         },
                         catchBlock = {
                             Timber.e(it, it.localizedMessage)
                         }
                     )
-                } else
+                } else {
                     single.onError(Throwable("Can't find '$query'. Please try another one."))
+                }
             }
         }
     }

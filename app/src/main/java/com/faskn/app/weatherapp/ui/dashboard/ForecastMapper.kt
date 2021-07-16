@@ -14,8 +14,10 @@ class ForecastMapper @Inject constructor() : Mapper<List<ListItem>, List<ListIte
         val mappedArray = arrayListOf<ListItem>()
 
         type.forEachIndexed { _, listItem ->
-            if (days.contains(listItem.dtTxt?.substringBefore(" ")).not()) // Add day to days
+            // Add day to days
+            if (days.contains(listItem.dtTxt?.substringBefore(" ")).not()) {
                 listItem.dtTxt?.substringBefore(" ")?.let { days.add(it) }
+            }
         }
 
         days.forEach { day ->
@@ -23,8 +25,8 @@ class ForecastMapper @Inject constructor() : Mapper<List<ListItem>, List<ListIte
             // Find min and max temp values each of the day
             val array = type.filter { it.dtTxt?.substringBefore(" ").equals(day) }
 
-            val minTemp = array.minBy { it.main?.tempMin ?: 0.0 }?.main?.tempMin
-            val maxTemp = array.maxBy { it.main?.tempMax ?: 0.0 }?.main?.tempMax
+            val minTemp = array.minByOrNull { it.main?.tempMin ?: 0.0 }?.main?.tempMin
+            val maxTemp = array.maxByOrNull { it.main?.tempMax ?: 0.0 }?.main?.tempMax
 
             array.forEach {
                 it.main?.tempMin = minTemp // Set min

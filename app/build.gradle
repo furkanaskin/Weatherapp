@@ -2,9 +2,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs"
-apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-parcelize'
 apply plugin: 'org.jlleitschuh.gradle.ktlint'
-apply from: 'buildscripts/jacoco.gradle'
 
 buildscript {
     repositories {
@@ -12,7 +11,7 @@ buildscript {
     }
 
     dependencies {
-        classpath "org.jlleitschuh.gradle:ktlint-gradle:9.0.0"
+        classpath "org.jlleitschuh.gradle:ktlint-gradle:9.4.1"
     }
 }
 
@@ -24,6 +23,7 @@ repositories {
     maven { url 'https://maven.fabric.io/public' }
     maven { url 'https://jitpack.io' }
     maven { url 'https://maven.google.com' }
+    mavenCentral()
 }
 
 android {
@@ -69,18 +69,9 @@ android {
         exclude 'META-INF/atomicfu.kotlin_module'
         exclude 'META-INF/rxjava.properties'
     }
-    dataBinding {
-        enabled = true
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-    androidExtensions {
-        experimental = true
+    buildFeatures {
+        buildConfig = true
+        dataBinding = true
     }
     testOptions.unitTests {
         includeAndroidResources = true
@@ -102,8 +93,9 @@ dependencies {
     implementation rootProject.ext.navigationUI
     implementation rootProject.ext.algolia
     implementation rootProject.ext.dagger
+    implementation rootProject.ext.daggerAndroid
     implementation rootProject.ext.daggerSupport
-    kapt rootProject.ext.daggerApt
+    kapt rootProject.ext.daggerKapt
     kapt rootProject.ext.daggerAnnotation
     implementation rootProject.ext.rxJava
     implementation rootProject.ext.rxKotlin
@@ -124,12 +116,11 @@ dependencies {
     implementation rootProject.ext.lifecycleViewModelKtx
     implementation rootProject.ext.roomRuntime
     kapt rootProject.ext.roomCompiler
-    kapt rootProject.ext.dataBindingCompilerKapt
-    annotationProcessor rootProject.ext.dataBindingCompilerAnnotation
     implementation rootProject.ext.stethoCore
     implementation rootProject.ext.stethoOkHttp
     implementation rootProject.ext.stethoUrlConnection
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation rootProject.ext.kotlinJdk8
+    implementation rootProject.ext.kotlinReflect
 
     testImplementation rootProject.ext.junit
     testImplementation rootProject.ext.junitTestExt
@@ -143,14 +134,10 @@ dependencies {
     testImplementation rootProject.ext.robolectric
 }
 
-repositories {
-    mavenCentral()
-}
-
 ktlint {
     debug = true
     verbose = true
-    android = false
+    android = true
     outputToConsole = true
     ignoreFailures = true
     enableExperimentalRules = true
@@ -161,6 +148,7 @@ ktlint {
     filter {
         exclude("**/generated/**")
         include("**/kotlin/**")
+        include("**/java/**")
     }
 }
 

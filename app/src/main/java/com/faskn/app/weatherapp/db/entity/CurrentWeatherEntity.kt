@@ -7,7 +7,7 @@ import com.faskn.app.weatherapp.domain.model.CurrentWeatherResponse
 import com.faskn.app.weatherapp.domain.model.WeatherItem
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 import org.threeten.bp.DayOfWeek
 import org.threeten.bp.LocalDate
 

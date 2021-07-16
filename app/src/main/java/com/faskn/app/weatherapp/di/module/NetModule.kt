@@ -73,6 +73,9 @@ class NetModule {
     @Provides
     @Singleton
     fun providePlacesClient(): PlacesClient {
-        return PlacesClient(Constants.AlgoliaKeys.APPLICATION_ID, Constants.AlgoliaKeys.SEARCH_API_KEY)
+        return PlacesClient(
+            Constants.AlgoliaKeys.APPLICATION_ID,
+            Constants.AlgoliaKeys.SEARCH_API_KEY
+        )
     }
 }

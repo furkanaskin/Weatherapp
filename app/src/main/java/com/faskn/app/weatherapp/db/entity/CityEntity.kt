@@ -6,7 +6,7 @@ import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.Ignore
 import com.faskn.app.weatherapp.domain.model.City
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 /**
  * Created by Furkan on 2019-10-22
@@ -34,9 +34,10 @@ data class CityEntity(
     )
 
     fun getCityAndCountry(): String {
-        return if (cityCountry.equals("none"))
+        return if (cityCountry.equals("none")) {
             "$cityName"
-        else
+        } else {
             "$cityName, $cityCountry"
+        }
     }
 }
