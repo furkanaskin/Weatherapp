@@ -41,27 +41,29 @@ abstract class NetworkBoundResource<ResultType, RequestType>
         createCall()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : SingleObserver<RequestType> {
-                override fun onSubscribe(d: Disposable) {
-                    if (!d.isDisposed) {
-                        mDisposable = d
+            .subscribe(
+                object : SingleObserver<RequestType> {
+                    override fun onSubscribe(d: Disposable) {
+                        if (!d.isDisposed) {
+                            mDisposable = d
+                        }
+                    }
+
+                    override fun onSuccess(requestType: RequestType) {
+                        result.removeSource(dbSource)
+                        saveResultAndReInit(requestType)
+                    }
+
+                    override fun onError(e: Throwable) {
+                        onFetchFailed()
+                        result.removeSource(dbSource)
+                        result.addSource(dbSource) { newData ->
+                            result.setValue(Resource.error(e.message.toString(), newData))
+                        }
+                        mDisposable!!.dispose()
                     }
                 }
-
-                override fun onSuccess(requestType: RequestType) {
-                    result.removeSource(dbSource)
-                    saveResultAndReInit(requestType)
-                }
-
-                override fun onError(e: Throwable) {
-                    onFetchFailed()
-                    result.removeSource(dbSource)
-                    result.addSource(dbSource) { newData ->
-                        result.setValue(Resource.error(e.message.toString(), newData))
-                    }
-                    mDisposable!!.dispose()
-                }
-            })
+            )
     }
 
     @MainThread
@@ -70,22 +72,24 @@ abstract class NetworkBoundResource<ResultType, RequestType>
             .fromCallable { saveCallResult(response) }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : CompletableObserver {
-                override fun onSubscribe(d: Disposable) {
-                    if (!d.isDisposed) {
-                        mDisposable = d
+            .subscribe(
+                object : CompletableObserver {
+                    override fun onSubscribe(d: Disposable) {
+                        if (!d.isDisposed) {
+                            mDisposable = d
+                        }
+                    }
+
+                    override fun onComplete() {
+                        result.addSource(loadFromDb()) { newData -> result.setValue(Resource.success(newData)) }
+                        mDisposable!!.dispose()
+                    }
+
+                    override fun onError(e: Throwable) {
+                        mDisposable!!.dispose()
                     }
                 }
-
-                override fun onComplete() {
-                    result.addSource(loadFromDb()) { newData -> result.setValue(Resource.success(newData)) }
-                    mDisposable!!.dispose()
-                }
-
-                override fun onError(e: Throwable) {
-                    mDisposable!!.dispose()
-                }
-            })
+            )
     }
 
     @WorkerThread

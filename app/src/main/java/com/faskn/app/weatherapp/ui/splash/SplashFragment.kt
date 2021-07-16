@@ -25,7 +25,7 @@ class SplashFragment :
         super.init()
 
         if (binding.viewModel?.sharedPreferences?.getString(Constants.Coords.LON, "")
-                .isNullOrEmpty()
+            .isNullOrEmpty()
         ) {
             binding.buttonExplore.show()
             binding.viewModel?.navigateDashboard = false
