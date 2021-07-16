@@ -49,7 +49,20 @@ fun <T> LiveData<T>.getOrAwaitValue(
 fun createSampleForecastResponse(id: Int, cityName: String): ForecastEntity {
     val weatherItem = WeatherItem("12d", "clouds", "cloud & sun", 1)
     val weather = listOf(weatherItem)
-    val listItem = ListItem(123123, Rain(12.0), "132121", Snow(12.0), weather, Main(34.0, 30.0, 2.0, 321.0, 21, 132.0, 12.0, 35.0), Clouds(1), Sys("a"), Wind(12.0, 12.0))
+    val listItem = ListItem(
+        123123, Rain(12.0), "132121", Snow(12.0), weather,
+        Main(
+            34.0,
+            30.0,
+            2.0,
+            321.0,
+            21,
+            132.0,
+            12.0,
+            35.0
+        ),
+        Clouds(1), Sys("a"), Wind(12.0, 12.0)
+    )
     val list = listOf(listItem)
     return ForecastEntity(id, CityEntity("Turkey", CoordEntity(34.0, 30.0), cityName, 34), list)
 }
@@ -72,17 +85,52 @@ fun generateCurrentWeatherEntity(name: String, id: Int): CurrentWeatherEntity {
 fun createSampleForecastResponse(): ForecastResponse {
     val weatherItem = WeatherItem("12d", "clouds", "cloud & sun", 1)
     val weather = listOf(weatherItem)
-    val listItem = ListItem(123123, Rain(12.0), "132121", Snow(12.0), weather, Main(34.0, 30.0, 2.0, 321.0, 21, 132.0, 12.0, 35.0), Clouds(1), Sys("a"), Wind(12.0, 12.0))
+    val listItem = ListItem(
+        123123, Rain(12.0), "132121", Snow(12.0), weather,
+        Main(
+            34.0,
+            30.0,
+            2.0,
+            321.0,
+            21,
+            132.0,
+            12.0,
+            35.0
+        ),
+        Clouds(1), Sys("a"), Wind(12.0, 12.0)
+    )
     val list = listOf(listItem)
-    return ForecastResponse(City("Turkey", Coord(32.32, 30.30), "Istanbul", 10), null, null, null, list)
+    return ForecastResponse(
+        City("Turkey", Coord(32.32, 30.30), "Istanbul", 10),
+        null,
+        null,
+        null,
+        list
+    )
 }
 
 fun createSampleCurrentWeatherResponse(): CurrentWeatherResponse {
     val weatherItem = WeatherItem("12d", "clouds", "cloud & sun", 1)
     val weather = listOf(weatherItem)
-    return CurrentWeatherResponse(null, null, Main(34.0, 30.0, 2.0, 321.0, 21, 132.0, 12.0, 35.0), Clouds(1), Sys("a"), null, Coord(32.32, 30.30), weather, "Istanbul", null, 10, null, null)
+    return CurrentWeatherResponse(
+        null, null, Main(34.0, 30.0, 2.0, 321.0, 21, 132.0, 12.0, 35.0),
+        Clouds(
+            1
+        ),
+        Sys("a"), null, Coord(32.32, 30.30), weather, "Istanbul", null, 10, null, null
+    )
 }
 
 fun generateSampleSearchCitiesResponse(): SearchResponse {
-    return SearchResponse(listOf(HitsItem("Turkey", null, isCity = true, isCountry = false, administrative = listOf("İstanbul"), adminLevel = null, postcode = null, county = listOf("Beyoğlu"), geoloc = null, importance = null, objectID = "10", isSuburb = null, localeNames = null)))
+    return SearchResponse(
+        listOf(
+            HitsItem(
+                "Turkey", null, isCity = true, isCountry = false,
+                administrative = listOf(
+                    "İstanbul"
+                ),
+                adminLevel = null, postcode = null, county = listOf("Beyoğlu"), geoloc = null, importance = null, objectID = "10", isSuburb = null, localeNames = null
+            )
+        )
+    )
 }

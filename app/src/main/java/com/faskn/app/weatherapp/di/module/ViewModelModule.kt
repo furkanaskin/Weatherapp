@@ -39,7 +39,9 @@ abstract class ViewModelModule {
     @IntoMap
     @Binds
     @ViewModelKey(DashboardFragmentViewModel::class)
-    abstract fun provideDashboardFragmentViewModel(dashboardFragmentViewModel: DashboardFragmentViewModel): ViewModel
+    abstract fun provideDashboardFragmentViewModel(
+        dashboardFragmentViewModel: DashboardFragmentViewModel
+    ): ViewModel
 
     @IntoMap
     @Binds
@@ -54,7 +56,9 @@ abstract class ViewModelModule {
     @IntoMap
     @Binds
     @ViewModelKey(WeatherHourOfDayItemViewModel::class)
-    abstract fun provideWeatherHourOfDayItemViewModel(weatherHourOfDayItemViewModel: WeatherHourOfDayItemViewModel): ViewModel
+    abstract fun provideWeatherHourOfDayItemViewModel(
+        weatherHourOfDayItemViewModel: WeatherHourOfDayItemViewModel
+    ): ViewModel
 
     @IntoMap
     @Binds
@@ -64,5 +68,7 @@ abstract class ViewModelModule {
     @IntoMap
     @Binds
     @ViewModelKey(SearchResultItemViewModel::class)
-    abstract fun provideSearchResultItemViewModel(searchResultItemViewModel: SearchResultItemViewModel): ViewModel
+    abstract fun provideSearchResultItemViewModel(
+        searchResultItemViewModel: SearchResultItemViewModel
+    ): ViewModel
 }

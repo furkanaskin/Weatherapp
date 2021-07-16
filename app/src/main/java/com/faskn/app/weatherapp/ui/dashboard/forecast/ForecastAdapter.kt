@@ -13,7 +13,9 @@ import com.faskn.app.weatherapp.domain.model.ListItem
  * Created by Furkan on 2019-10-25
  */
 
-class ForecastAdapter(private val callBack: (ListItem, View, View, View, View, View) -> Unit) : BaseAdapter<ListItem>(diffCallback) {
+class ForecastAdapter(private val callBack: (ListItem, View, View, View, View, View) -> Unit) : BaseAdapter<ListItem>(
+    diffCallback
+) {
 
     override fun createBinding(parent: ViewGroup, viewType: Int): ViewDataBinding {
         val mBinding = ItemForecastBinding.inflate(

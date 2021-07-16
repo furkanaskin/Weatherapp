@@ -97,7 +97,9 @@ class ForecastRepositoryTest {
         val mockedObserver: Observer<Resource<ForecastEntity>> = mockk(relaxUnitFun = true)
 
         // When
-        every { forecastRemoteDataSource.getForecastByGeoCords(lat, lon, Constants.Coords.METRIC) } returns Single.just(createSampleForecastResponse())
+        every { forecastRemoteDataSource.getForecastByGeoCords(lat, lon, Constants.Coords.METRIC) } returns Single.just(
+            createSampleForecastResponse()
+        )
         every { forecastLocalDataSource.insertForecast(createSampleForecastResponse()) } just runs
         every { forecastLocalDataSource.getForecast() } returns forecastLiveData
 

@@ -23,7 +23,12 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import javax.inject.Inject
 
-class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>(MainActivityViewModel::class.java), HasAndroidInjector, NavigationView.OnNavigationItemSelectedListener {
+class MainActivity :
+    BaseActivity<MainActivityViewModel, ActivityMainBinding>(
+        MainActivityViewModel::class.java
+    ),
+    HasAndroidInjector,
+    NavigationView.OnNavigationItemSelectedListener {
 
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
@@ -109,7 +114,10 @@ class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>(Ma
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return NavigationUI.navigateUp(findNavController(R.id.container_fragment), binding.drawerLayout)
+        return NavigationUI.navigateUp(
+            findNavController(R.id.container_fragment),
+            binding.drawerLayout
+        )
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -121,6 +129,8 @@ class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>(Ma
                 findNavController(R.id.container_fragment).navigate(R.id.githubDialog)
             }
         }
-        return item.onNavDestinationSelected(findNavController(R.id.container_fragment)) || super.onOptionsItemSelected(item)
+        return item.onNavDestinationSelected(findNavController(R.id.container_fragment)) || super.onOptionsItemSelected(
+            item
+        )
     }
 }

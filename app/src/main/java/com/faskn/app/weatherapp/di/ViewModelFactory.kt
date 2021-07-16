@@ -14,7 +14,9 @@ import javax.inject.Singleton
  * reference : https://github.com/googlesamples/android-architecture-components
  */
 @Singleton
-class ViewModelFactory @Inject constructor(private val viewModelMap: Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>) :
+class ViewModelFactory @Inject constructor(
+    private val viewModelMap: Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>
+) :
     ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")

@@ -10,9 +10,13 @@ import javax.inject.Inject
  * Created by Furkan on 2019-10-31
  */
 
-class SearchCitiesLocalDataSource @Inject constructor(private val citiesForSearchDao: CitiesForSearchDao) {
+class SearchCitiesLocalDataSource @Inject constructor(
+    private val citiesForSearchDao: CitiesForSearchDao
+) {
 
-    fun getCityByName(cityName: String?): LiveData<List<CitiesForSearchEntity>> = citiesForSearchDao.getCityByName(cityName)
+    fun getCityByName(cityName: String?): LiveData<List<CitiesForSearchEntity>> = citiesForSearchDao.getCityByName(
+        cityName
+    )
 
     fun insertCities(response: SearchResponse) {
         response.hits

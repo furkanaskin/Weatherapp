@@ -46,7 +46,10 @@ class CurrentWeatherRepositoryTest {
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
-        currentWeatherRepository = CurrentWeatherRepository(currentWeatherRemoteDataSource, currentWeatherLocalDataSource)
+        currentWeatherRepository = CurrentWeatherRepository(
+            currentWeatherRemoteDataSource,
+            currentWeatherLocalDataSource
+        )
     }
 
     @Test
@@ -61,7 +64,13 @@ class CurrentWeatherRepositoryTest {
 
         // When
         every { currentWeatherLocalDataSource.getCurrentWeather() } returns currentWeatherLiveData
-        every { currentWeatherRemoteDataSource.getCurrentWeatherByGeoCords(lat, lon, Constants.Coords.METRIC) } returns
+        every {
+            currentWeatherRemoteDataSource.getCurrentWeatherByGeoCords(
+                lat,
+                lon,
+                Constants.Coords.METRIC
+            )
+        } returns
             Single.just(createSampleCurrentWeatherResponse())
 
         currentWeatherRepository
@@ -73,7 +82,13 @@ class CurrentWeatherRepositoryTest {
          */
 
         // Make sure network wasn't called
-        verify { currentWeatherRemoteDataSource.getCurrentWeatherByGeoCords(lat, lon, Constants.Coords.METRIC) wasNot called }
+        verify {
+            currentWeatherRemoteDataSource.getCurrentWeatherByGeoCords(
+                lat,
+                lon,
+                Constants.Coords.METRIC
+            ) wasNot called
+        }
         // Make sure db called
         verify { currentWeatherLocalDataSource.getCurrentWeather() }
 
@@ -98,8 +113,18 @@ class CurrentWeatherRepositoryTest {
         val mockedObserver: Observer<Resource<CurrentWeatherEntity>> = mockk(relaxUnitFun = true)
 
         // When
-        every { currentWeatherRemoteDataSource.getCurrentWeatherByGeoCords(lat, lon, Constants.Coords.METRIC) } returns Single.just(createSampleCurrentWeatherResponse())
-        every { currentWeatherLocalDataSource.insertCurrentWeather(createSampleCurrentWeatherResponse()) } just runs
+        every {
+            currentWeatherRemoteDataSource.getCurrentWeatherByGeoCords(
+                lat,
+                lon,
+                Constants.Coords.METRIC
+            )
+        } returns Single.just(createSampleCurrentWeatherResponse())
+        every {
+            currentWeatherLocalDataSource.insertCurrentWeather(
+                createSampleCurrentWeatherResponse()
+            )
+        } just runs
         every { currentWeatherLocalDataSource.getCurrentWeather() } returns currentWeatherLiveData
 
         currentWeatherRepository
@@ -111,7 +136,13 @@ class CurrentWeatherRepositoryTest {
          */
 
         // Make sure network called
-        verify { currentWeatherRemoteDataSource.getCurrentWeatherByGeoCords(lat, lon, Constants.Coords.METRIC) }
+        verify {
+            currentWeatherRemoteDataSource.getCurrentWeatherByGeoCords(
+                lat,
+                lon,
+                Constants.Coords.METRIC
+            )
+        }
         // Make sure db called
         verify { currentWeatherLocalDataSource.getCurrentWeather() }
 

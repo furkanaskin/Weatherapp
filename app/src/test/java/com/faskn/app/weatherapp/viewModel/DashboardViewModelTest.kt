@@ -50,7 +50,11 @@ class DashboardViewModelTest {
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
-        dashboardFragmentViewModel = DashboardFragmentViewModel(forecastUseCase, currentWeatherUseCase, sharedPreferences)
+        dashboardFragmentViewModel = DashboardFragmentViewModel(
+            forecastUseCase,
+            currentWeatherUseCase,
+            sharedPreferences
+        )
     }
 
     @Test
@@ -64,7 +68,9 @@ class DashboardViewModelTest {
 
         // When
         every { forecastUseCase.execute(any()) } returns viewStateLiveData
-        dashboardFragmentViewModel.setForecastParams(ForecastUseCase.ForecastParams("30", "32", true, "metric"))
+        dashboardFragmentViewModel.setForecastParams(
+            ForecastUseCase.ForecastParams("30", "32", true, "metric")
+        )
 
         // Then
         val forecastViewStateSlots = mutableListOf<ForecastViewState>()
@@ -85,7 +91,9 @@ class DashboardViewModelTest {
 
         // When
         every { forecastUseCase.execute(any()) } returns viewStateLiveData
-        dashboardFragmentViewModel.setForecastParams(ForecastUseCase.ForecastParams("30", "32", true, "metric"))
+        dashboardFragmentViewModel.setForecastParams(
+            ForecastUseCase.ForecastParams("30", "32", true, "metric")
+        )
 
         // Then
         val forecastViewStateSlots = mutableListOf<ForecastViewState>()
@@ -106,7 +114,9 @@ class DashboardViewModelTest {
 
         // When
         every { forecastUseCase.execute(any()) } returns viewStateLiveData
-        dashboardFragmentViewModel.setForecastParams(ForecastUseCase.ForecastParams("30", "32", true, "metric"))
+        dashboardFragmentViewModel.setForecastParams(
+            ForecastUseCase.ForecastParams("30", "32", true, "metric")
+        )
 
         // Then
         val forecastViewStateSlots = mutableListOf<ForecastViewState>()
@@ -127,7 +137,9 @@ class DashboardViewModelTest {
 
         // When
         every { currentWeatherUseCase.execute(any()) } returns viewStateLiveData
-        dashboardFragmentViewModel.setCurrentWeatherParams(CurrentWeatherUseCase.CurrentWeatherParams("30", "32", true, "metric"))
+        dashboardFragmentViewModel.setCurrentWeatherParams(
+            CurrentWeatherUseCase.CurrentWeatherParams("30", "32", true, "metric")
+        )
 
         // Then
         val currentWeatherViewStateSlots = mutableListOf<CurrentWeatherViewState>()
@@ -148,7 +160,9 @@ class DashboardViewModelTest {
 
         // When
         every { currentWeatherUseCase.execute(any()) } returns viewStateLiveData
-        dashboardFragmentViewModel.setCurrentWeatherParams(CurrentWeatherUseCase.CurrentWeatherParams("30", "32", true, "metric"))
+        dashboardFragmentViewModel.setCurrentWeatherParams(
+            CurrentWeatherUseCase.CurrentWeatherParams("30", "32", true, "metric")
+        )
 
         // Then
         val currentWeatherViewStateSlots = mutableListOf<CurrentWeatherViewState>()
@@ -169,7 +183,9 @@ class DashboardViewModelTest {
 
         // When
         every { currentWeatherUseCase.execute(any()) } returns viewStateLiveData
-        dashboardFragmentViewModel.setCurrentWeatherParams(CurrentWeatherUseCase.CurrentWeatherParams("30", "32", true, "metric"))
+        dashboardFragmentViewModel.setCurrentWeatherParams(
+            CurrentWeatherUseCase.CurrentWeatherParams("30", "32", true, "metric")
+        )
 
         // Then
         val currentWeatherViewStateSlots = mutableListOf<CurrentWeatherViewState>()

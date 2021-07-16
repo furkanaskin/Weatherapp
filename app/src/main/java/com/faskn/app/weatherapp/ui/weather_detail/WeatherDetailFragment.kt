@@ -12,7 +12,12 @@ import com.faskn.app.weatherapp.ui.weather_detail.weatherHourOfDay.WeatherHourOf
 import com.faskn.app.weatherapp.utils.extensions.observeWith
 import io.reactivex.disposables.CompositeDisposable
 
-class WeatherDetailFragment : BaseFragment<WeatherDetailViewModel, FragmentWeatherDetailBinding>(R.layout.fragment_weather_detail, WeatherDetailViewModel::class.java), Injectable {
+class WeatherDetailFragment :
+    BaseFragment<WeatherDetailViewModel, FragmentWeatherDetailBinding>(
+        R.layout.fragment_weather_detail,
+        WeatherDetailViewModel::class.java
+    ),
+    Injectable {
 
     private val weatherDetailFragmentArgs: WeatherDetailFragmentArgs by navArgs()
     var disposable = CompositeDisposable()
@@ -20,7 +25,9 @@ class WeatherDetailFragment : BaseFragment<WeatherDetailViewModel, FragmentWeath
     override fun init() {
         super.init()
         binding.viewModel?.weatherItem?.set(weatherDetailFragmentArgs.weatherItem)
-        binding.viewModel?.selectedDayDate = weatherDetailFragmentArgs.weatherItem.dtTxt?.substringBefore(" ")
+        binding.viewModel?.selectedDayDate = weatherDetailFragmentArgs.weatherItem.dtTxt?.substringBefore(
+            " "
+        )
 
         binding.viewModel?.getForecast()?.observeWith(viewLifecycleOwner) {
             binding.viewModel?.selectedDayForecastLiveData

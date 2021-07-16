@@ -13,5 +13,7 @@ class ForecastLocalDataSource @Inject constructor(private val forecastDao: Forec
 
     fun getForecast() = forecastDao.getForecast()
 
-    fun insertForecast(forecast: ForecastResponse) = forecastDao.deleteAndInsert(ForecastEntity(forecast))
+    fun insertForecast(forecast: ForecastResponse) = forecastDao.deleteAndInsert(
+        ForecastEntity(forecast)
+    )
 }
