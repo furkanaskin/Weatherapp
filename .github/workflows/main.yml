@@ -1,4 +1,4 @@
-name: Trippo
+name: Weatherapp
 
 on:
   pull_request:
