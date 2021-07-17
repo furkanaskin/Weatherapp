@@ -2,7 +2,7 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/9499cbb9d3864f9fb289be4bf34b57ce)](https://www.codacy.com/manual/furkanaskin/Weatherapp?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=furkanaskin/Weatherapp&amp;utm_campaign=Badge_Grade)
 <a href="https://android-arsenal.com/api?level=21"><img src="https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat" alt="API" /></a>
 <a href="https://ktlint.github.io/"><img src="https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg" alt="ktlint" /></a>
-[![Travis CI](https://img.shields.io/travis/furkanaskin/weatherapp?logo=travis)](https://travis-ci.com/furkanaskin/Weatherapp)
+![Build Status](https://github.com/furkanaskin/Weatherapp/workflows/Weatherapp/badge.svg)
 [![Android Weekly](https://img.shields.io/badge/Android%20Weekly-%23393-06a9f9)](https://androidweekly.net/issues/issue-393)
 [![Student Gallery](https://img.shields.io/badge/Part%20of-Student%20Gallery-9cf?logo=github)](https://education.github.com/pack/gallery#weatherapp)
 # Weatherapp
