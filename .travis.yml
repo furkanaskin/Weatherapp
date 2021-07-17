@@ -9,6 +9,7 @@ branches:
   only:
     - master
     - dev
+    - feature/setup-github-actions
 
 env:
   global:
