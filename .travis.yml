@@ -35,6 +35,10 @@ licenses:
   - 'android-sdk-license-.+'
   - 'google-gdk-license-.+'
   - 'android-sdk-preview-license-.+'
+ 
+ before_install:
+  - yes | sdkmanager "platforms;android-29"
+  - yes | sdkmanager "build-tools;30.0.2"
 
 before_install:
   - yes | sdkmanager "platforms;android-29"
