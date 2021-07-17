@@ -1,7 +1,7 @@
 ---
 language: android
 jdk: openjdk11
-sudo: true
+sudo: required
 os: linux
 dist: trusty
 
@@ -24,13 +24,16 @@ android:
     - extra-android-m2repository
     - extra-android-support
 
-    # Specify at least one system image,
-    # if you need to run emulator(s) during your tests
     - sys-img-${ANDROID_ABI}-android-21
-    - sys-img-${ANDROID_ABI}-android-22
+    - sys-img-${ANDROID_ABI}-android-23
     - sys-img-${ANDROID_ABI}-android-25
     - sys-img-${ANDROID_ABI}-android-27
     - sys-img-${ANDROID_ABI}-android-29
+
+licenses:
+  - 'android-sdk-license-.+'
+  - 'google-gdk-license-.+'
+  - 'android-sdk-preview-license-.+'
 
 before_install:
   - yes | sdkmanager --licenses
