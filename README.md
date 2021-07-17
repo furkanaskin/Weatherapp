@@ -5,6 +5,7 @@
 ![Build Status](https://github.com/furkanaskin/Weatherapp/workflows/Weatherapp/badge.svg)
 [![Android Weekly](https://img.shields.io/badge/Android%20Weekly-%23393-06a9f9)](https://androidweekly.net/issues/issue-393)
 [![Student Gallery](https://img.shields.io/badge/Part%20of-Student%20Gallery-9cf?logo=github)](https://education.github.com/pack/gallery#weatherapp)
+[![DevLibrary](https://img.shields.io/badge/Part%20of-DevLibrary-9cf?color=4285F4&logoColor=4285F4&logo=google)](https://devlibrary.withgoogle.com/products/android/repos/furkanaskin-Weatherapp)
 # Weatherapp
 ![appicon](https://user-images.githubusercontent.com/22769589/68296145-f7305d80-00a4-11ea-9cbe-24b18222bfa9.png)
 
