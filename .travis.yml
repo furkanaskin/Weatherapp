@@ -13,14 +13,14 @@ branches:
 
 env:
   global:
-    - ANDROID_TARGET=android-30
+    - ANDROID_TARGET=android-29
     - ANDROID_ABI=armeabi-v7a
 
 android:
   components:
     - tools
     - platform-tools
-    - build-tools-30.0.2
+    - build-tools-29.0.2
     - extra-google-m2repository
     - extra-android-m2repository
     - extra-android-support
@@ -35,9 +35,6 @@ licenses:
   - 'android-sdk-license-.+'
   - 'google-gdk-license-.+'
   - 'android-sdk-preview-license-.+'
-
-before_install:
-  - yes | sdkmanager "platforms;android-30"
 
 script:
   - ./gradlew runUnitTests
