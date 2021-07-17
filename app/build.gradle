@@ -158,8 +158,4 @@ ktlint {
     }
 }
 
-task runUnitTests(dependsOn: [':app:testDebugUnitTest']) {
-    description 'Run all unit tests'
-}
-
 apply plugin: 'com.google.gms.google-services'
