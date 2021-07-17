@@ -38,7 +38,7 @@ licenses:
  
  before_install:
   - yes | sdkmanager "platforms;android-29"
-  - yes | sdkmanager "build-tools;30.0.2 "
+  - yes | sdkmanager "build-tools;30.0.2"
 
 script:
   - ./gradlew runUnitTests
