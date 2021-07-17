@@ -13,7 +13,9 @@ import javax.inject.Inject
  * Created by Furkan on 2019-10-26
  */
 
-class WeatherDetailViewModel @Inject constructor(private val forecastLocalDataSource: ForecastLocalDataSource) : BaseViewModel() {
+class WeatherDetailViewModel @Inject constructor(
+    private val forecastLocalDataSource: ForecastLocalDataSource
+) : BaseViewModel() {
 
     var weatherItem: ObservableField<ListItem> = ObservableField()
     private var forecastLiveData: LiveData<ForecastEntity> = MutableLiveData()

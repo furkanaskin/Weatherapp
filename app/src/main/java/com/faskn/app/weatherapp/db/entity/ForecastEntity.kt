@@ -4,7 +4,7 @@ import android.os.Parcelable
 import androidx.room.*
 import com.faskn.app.weatherapp.domain.model.ForecastResponse
 import com.faskn.app.weatherapp.domain.model.ListItem
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 /**
  * Created by Furkan on 2019-10-21

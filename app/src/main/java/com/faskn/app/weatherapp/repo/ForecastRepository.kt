@@ -1,6 +1,5 @@
 package com.faskn.app.weatherapp.repo
 
-import NetworkBoundResource
 import androidx.lifecycle.LiveData
 import com.faskn.app.weatherapp.core.Constants.NetworkService.RATE_LIMITER_TYPE
 import com.faskn.app.weatherapp.db.entity.ForecastEntity
@@ -26,13 +25,19 @@ class ForecastRepository @Inject constructor(
 
     fun loadForecastByCoord(lat: Double, lon: Double, fetchRequired: Boolean, units: String): LiveData<Resource<ForecastEntity>> {
         return object : NetworkBoundResource<ForecastEntity, ForecastResponse>() {
-            override fun saveCallResult(item: ForecastResponse) = forecastLocalDataSource.insertForecast(item)
+            override fun saveCallResult(item: ForecastResponse) = forecastLocalDataSource.insertForecast(
+                item
+            )
 
             override fun shouldFetch(data: ForecastEntity?): Boolean = fetchRequired
 
             override fun loadFromDb(): LiveData<ForecastEntity> = forecastLocalDataSource.getForecast()
 
-            override fun createCall(): Single<ForecastResponse> = forecastRemoteDataSource.getForecastByGeoCords(lat, lon, units)
+            override fun createCall(): Single<ForecastResponse> = forecastRemoteDataSource.getForecastByGeoCords(
+                lat,
+                lon,
+                units
+            )
 
             override fun onFetchFailed() = forecastListRateLimit.reset(RATE_LIMITER_TYPE)
         }.asLiveData

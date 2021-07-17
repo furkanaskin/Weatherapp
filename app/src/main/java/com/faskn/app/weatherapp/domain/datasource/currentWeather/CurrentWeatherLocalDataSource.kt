@@ -9,9 +9,13 @@ import javax.inject.Inject
  * Created by Furkan on 2019-10-24
  */
 
-class CurrentWeatherLocalDataSource @Inject constructor(private val currentWeatherDao: CurrentWeatherDao) {
+class CurrentWeatherLocalDataSource @Inject constructor(
+    private val currentWeatherDao: CurrentWeatherDao
+) {
 
     fun getCurrentWeather() = currentWeatherDao.getCurrentWeather()
 
-    fun insertCurrentWeather(currentWeather: CurrentWeatherResponse) = currentWeatherDao.deleteAndInsert(CurrentWeatherEntity(currentWeather))
+    fun insertCurrentWeather(currentWeather: CurrentWeatherResponse) = currentWeatherDao.deleteAndInsert(
+        CurrentWeatherEntity(currentWeather)
+    )
 }

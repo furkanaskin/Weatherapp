@@ -1,6 +1,5 @@
 package com.faskn.app.weatherapp.repo
 
-import NetworkBoundResource
 import androidx.lifecycle.LiveData
 import com.faskn.app.weatherapp.core.Constants.NetworkService.RATE_LIMITER_TYPE
 import com.faskn.app.weatherapp.db.entity.CitiesForSearchEntity
@@ -26,13 +25,17 @@ class SearchCitiesRepository @Inject constructor(
 
     fun loadCitiesByCityName(cityName: String?): LiveData<Resource<List<CitiesForSearchEntity>>> {
         return object : NetworkBoundResource<List<CitiesForSearchEntity>, SearchResponse>() {
-            override fun saveCallResult(item: SearchResponse) = searchCitiesLocalDataSource.insertCities(item)
+            override fun saveCallResult(item: SearchResponse) = searchCitiesLocalDataSource.insertCities(
+                item
+            )
 
             override fun shouldFetch(data: List<CitiesForSearchEntity>?): Boolean {
                 return data == null || data.isEmpty()
             }
 
-            override fun loadFromDb(): LiveData<List<CitiesForSearchEntity>> = searchCitiesLocalDataSource.getCityByName(cityName)
+            override fun loadFromDb(): LiveData<List<CitiesForSearchEntity>> = searchCitiesLocalDataSource.getCityByName(
+                cityName
+            )
 
             override fun createCall(): Single<SearchResponse> = searchCitiesRemoteDataSource.getCityWithQuery(
                 cityName

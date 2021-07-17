@@ -12,7 +12,9 @@ import com.faskn.app.weatherapp.db.entity.CitiesForSearchEntity
  * Created by Furkan on 2019-11-04
  */
 
-class SearchResultAdapter(private val callBack: (CitiesForSearchEntity) -> Unit) : BaseAdapter<CitiesForSearchEntity>(diffCallback) {
+class SearchResultAdapter(private val callBack: (CitiesForSearchEntity) -> Unit) : BaseAdapter<CitiesForSearchEntity>(
+    diffCallback
+) {
 
     override fun createBinding(parent: ViewGroup, viewType: Int): ViewDataBinding {
         val mBinding = ItemSearchResultBinding.inflate(

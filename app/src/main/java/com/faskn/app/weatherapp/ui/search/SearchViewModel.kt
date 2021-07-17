@@ -17,7 +17,10 @@ import javax.inject.Inject
  * Created by Furkan on 2019-10-31
  */
 
-class SearchViewModel @Inject internal constructor(private val useCase: SearchCitiesUseCase, private val pref: SharedPreferences) : BaseViewModel() {
+class SearchViewModel @Inject internal constructor(
+    private val useCase: SearchCitiesUseCase,
+    private val pref: SharedPreferences
+) : BaseViewModel() {
 
     private val _searchParams: MutableLiveData<SearchCitiesUseCase.SearchCitiesParams> = MutableLiveData()
     fun getSearchViewState() = searchViewState
@@ -27,8 +30,9 @@ class SearchViewModel @Inject internal constructor(private val useCase: SearchCi
     }
 
     fun setSearchParams(params: SearchCitiesUseCase.SearchCitiesParams) {
-        if (_searchParams.value == params)
+        if (_searchParams.value == params) {
             return
+        }
         _searchParams.postValue(params)
     }
 

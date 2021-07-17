@@ -13,7 +13,11 @@ import javax.inject.Inject
  * Created by Furkan on 2019-10-24
  */
 
-class DashboardFragmentViewModel @Inject internal constructor(private val forecastUseCase: ForecastUseCase, private val currentWeatherUseCase: CurrentWeatherUseCase, var sharedPreferences: SharedPreferences) : BaseViewModel() {
+class DashboardFragmentViewModel @Inject internal constructor(
+    private val forecastUseCase: ForecastUseCase,
+    private val currentWeatherUseCase: CurrentWeatherUseCase,
+    var sharedPreferences: SharedPreferences
+) : BaseViewModel() {
 
     private val _forecastParams: MutableLiveData<ForecastUseCase.ForecastParams> = MutableLiveData()
     private val _currentWeatherParams: MutableLiveData<CurrentWeatherUseCase.CurrentWeatherParams> = MutableLiveData()
@@ -29,14 +33,16 @@ class DashboardFragmentViewModel @Inject internal constructor(private val foreca
     }
 
     fun setForecastParams(params: ForecastUseCase.ForecastParams) {
-        if (_forecastParams.value == params)
+        if (_forecastParams.value == params) {
             return
+        }
         _forecastParams.postValue(params)
     }
 
     fun setCurrentWeatherParams(params: CurrentWeatherUseCase.CurrentWeatherParams) {
-        if (_currentWeatherParams.value == params)
+        if (_currentWeatherParams.value == params) {
             return
+        }
         _currentWeatherParams.postValue(params)
     }
 }

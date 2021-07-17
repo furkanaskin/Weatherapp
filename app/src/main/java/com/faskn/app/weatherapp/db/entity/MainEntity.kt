@@ -5,7 +5,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import com.faskn.app.weatherapp.domain.model.Main
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 /**
  * Created by Furkan on 2019-10-24

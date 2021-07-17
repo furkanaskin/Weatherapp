@@ -13,7 +13,9 @@ import javax.inject.Inject
  * Created by Furkan on 2019-10-31
  */
 
-class SearchCitiesUseCase @Inject internal constructor(private val repository: SearchCitiesRepository) : UseCaseLiveData<SearchViewState, SearchCitiesUseCase.SearchCitiesParams, SearchCitiesRepository>() {
+class SearchCitiesUseCase @Inject internal constructor(
+    private val repository: SearchCitiesRepository
+) : UseCaseLiveData<SearchViewState, SearchCitiesUseCase.SearchCitiesParams, SearchCitiesRepository>() {
 
     override fun getRepository(): SearchCitiesRepository = repository
 

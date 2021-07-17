@@ -14,7 +14,9 @@ import javax.inject.Inject
  * Created by Furkan on 2019-10-21
  */
 
-class CurrentWeatherUseCase @Inject internal constructor(private val repository: CurrentWeatherRepository) : UseCaseLiveData<CurrentWeatherViewState, CurrentWeatherUseCase.CurrentWeatherParams, CurrentWeatherRepository>() {
+class CurrentWeatherUseCase @Inject internal constructor(
+    private val repository: CurrentWeatherRepository
+) : UseCaseLiveData<CurrentWeatherViewState, CurrentWeatherUseCase.CurrentWeatherParams, CurrentWeatherRepository>() {
 
     override fun getRepository(): CurrentWeatherRepository {
         return repository

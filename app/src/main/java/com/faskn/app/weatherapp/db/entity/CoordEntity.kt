@@ -6,7 +6,7 @@ import androidx.room.Entity
 import androidx.room.Ignore
 import com.faskn.app.weatherapp.domain.model.Coord
 import com.faskn.app.weatherapp.domain.model.Geoloc
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 /**
  * Created by Furkan on 2019-10-22

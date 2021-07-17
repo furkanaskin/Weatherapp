@@ -19,7 +19,6 @@ import javax.inject.Singleton
         ViewModelModule::class
     ]
 )
-
 interface AppComponent {
     @Component.Builder
     interface Builder {

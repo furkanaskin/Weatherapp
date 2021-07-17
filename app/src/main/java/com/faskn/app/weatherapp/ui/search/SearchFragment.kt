@@ -18,7 +18,12 @@ import com.faskn.app.weatherapp.utils.extensions.hideKeyboard
 import com.faskn.app.weatherapp.utils.extensions.observeWith
 import com.faskn.app.weatherapp.utils.extensions.tryCatch
 
-class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>(R.layout.fragment_search, SearchViewModel::class.java), Injectable {
+class SearchFragment :
+    BaseFragment<SearchViewModel, FragmentSearchBinding>(
+        R.layout.fragment_search,
+        SearchViewModel::class.java
+    ),
+    Injectable {
 
     override fun init() {
         super.init()
@@ -46,21 +51,27 @@ class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>(R.la
         val searchViewSearchIcon = binding.searchView.findViewById<ImageView>(R.id.search_mag_icon)
         searchViewSearchIcon.setImageResource(R.drawable.ic_search)
 
-        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(newText: String): Boolean {
-                if (newText.isNotEmpty() && newText.count() > 2) {
-                    binding.viewModel?.setSearchParams(SearchCitiesUseCase.SearchCitiesParams(newText))
+        binding.searchView.setOnQueryTextListener(
+            object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(newText: String): Boolean {
+                    if (newText.isNotEmpty() && newText.count() > 2) {
+                        binding.viewModel?.setSearchParams(
+                            SearchCitiesUseCase.SearchCitiesParams(newText)
+                        )
+                    }
+                    return false
                 }
-                return false
-            }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                if (newText?.isNotEmpty() == true && newText.count() > 2) {
-                    binding.viewModel?.setSearchParams(SearchCitiesUseCase.SearchCitiesParams(newText))
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    if (newText?.isNotEmpty() == true && newText.count() > 2) {
+                        binding.viewModel?.setSearchParams(
+                            SearchCitiesUseCase.SearchCitiesParams(newText)
+                        )
+                    }
+                    return true
                 }
-                return true
             }
-        })
+        )
     }
 
     private fun initSearchResultsAdapter() {
@@ -75,16 +86,24 @@ class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>(R.la
                             }
                         )
 
-                        findNavController().navigate(R.id.action_searchFragment_to_dashboardFragment)
+                        findNavController().navigate(
+                            R.id.action_searchFragment_to_dashboardFragment
+                        )
                     }
             }
         }
 
         binding.recyclerViewSearchResults.adapter = adapter
-        binding.recyclerViewSearchResults.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        binding.recyclerViewSearchResults.layoutManager = LinearLayoutManager(
+            context,
+            LinearLayoutManager.VERTICAL,
+            false
+        )
     }
 
     private fun initSearchResultsRecyclerView(list: List<CitiesForSearchEntity>) {
-        (binding.recyclerViewSearchResults.adapter as SearchResultAdapter).submitList(list.distinctBy { it.getFullName() }.sortedBy { it.importance })
+        (binding.recyclerViewSearchResults.adapter as SearchResultAdapter).submitList(
+            list.distinctBy { it.getFullName() }.sortedBy { it.importance }
+        )
     }
 }

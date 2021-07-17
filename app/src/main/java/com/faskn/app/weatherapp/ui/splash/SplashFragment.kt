@@ -12,14 +12,21 @@ import com.faskn.app.weatherapp.utils.extensions.show
 import com.mikhaellopez.rxanimation.*
 import io.reactivex.disposables.CompositeDisposable
 
-class SplashFragment : BaseFragment<SplashFragmentViewModel, FragmentSplashBinding>(R.layout.fragment_splash, SplashFragmentViewModel::class.java), Injectable {
+class SplashFragment :
+    BaseFragment<SplashFragmentViewModel, FragmentSplashBinding>(
+        R.layout.fragment_splash,
+        SplashFragmentViewModel::class.java
+    ),
+    Injectable {
 
     var disposable = CompositeDisposable()
 
     override fun init() {
         super.init()
 
-        if (binding.viewModel?.sharedPreferences?.getString(Constants.Coords.LON, "").isNullOrEmpty()) {
+        if (binding.viewModel?.sharedPreferences?.getString(Constants.Coords.LON, "")
+            .isNullOrEmpty()
+        ) {
             binding.buttonExplore.show()
             binding.viewModel?.navigateDashboard = false
         } else {
@@ -73,9 +80,10 @@ class SplashFragment : BaseFragment<SplashFragmentViewModel, FragmentSplashBindi
                 binding.imageViewMainCloud.fadeIn(500L),
                 binding.buttonExplore.fadeIn(1000L)
             ).doOnTerminate {
-                findNavController().graph.startDestination = R.id.dashboardFragment // Little bit tricky solution :)
-                if (navigateToDashboard)
+                findNavController().graph.setStartDestination(R.id.dashboardFragment) // Little bit tricky solution :)
+                if (navigateToDashboard) {
                     endSplashAnimation(navigateToDashboard)
+                }
             }
                 .subscribe()
         )
@@ -110,11 +118,12 @@ class SplashFragment : BaseFragment<SplashFragmentViewModel, FragmentSplashBindi
                 )
             )
                 .doOnTerminate {
-                    findNavController().graph.startDestination = R.id.dashboardFragment // Little bit tricky solution :)
-                    if (navigateToDashboard)
+                    findNavController().graph.setStartDestination(R.id.dashboardFragment) // Little bit tricky solution :)
+                    if (navigateToDashboard) {
                         navigate(R.id.action_splashFragment_to_dashboardFragment)
-                    else
+                    } else {
                         navigate(R.id.action_splashFragment_to_searchFragment)
+                    }
                 }
                 .subscribe()
 

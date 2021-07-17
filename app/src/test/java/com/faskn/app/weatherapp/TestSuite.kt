@@ -20,7 +20,7 @@ import org.robolectric.annotation.Config
  * Created by Furkan on 2019-12-15
  */
 
-@Config(sdk = [Build.VERSION_CODES.P])
+@Config(sdk = [Build.VERSION_CODES.R])
 @RunWith(Suite::class)
 @Suite.SuiteClasses(
     CitiesForSearchDaoTest::class,

@@ -17,7 +17,9 @@ interface CitiesForSearchDao {
     @Query("SELECT * FROM CitiesForSearch")
     fun getCities(): LiveData<List<CitiesForSearchEntity>>
 
-    @Query("SELECT * FROM CitiesForSearch WHERE fullName like '%' || :city || '%'|| '%' ORDER BY fullName DESC")
+    @Query(
+        "SELECT * FROM CitiesForSearch WHERE fullName like '%' || :city || '%'|| '%' ORDER BY fullName DESC"
+    )
     fun getCityByName(city: String? = ""): LiveData<List<CitiesForSearchEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

@@ -5,7 +5,6 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import dagger.android.AndroidInjection
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
@@ -14,7 +13,9 @@ import javax.inject.Inject
  * Created by Furkan on 2019-10-16
  */
 
-abstract class BaseActivity<VM : BaseViewModel, DB : ViewDataBinding>(private val mViewModelClass: Class<VM>) :
+abstract class BaseActivity<VM : BaseViewModel, DB : ViewDataBinding>(
+    private val mViewModelClass: Class<VM>
+) :
     DaggerAppCompatActivity() {
 
     @Inject

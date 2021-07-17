@@ -12,7 +12,9 @@ import com.faskn.app.weatherapp.domain.model.ListItem
  * Created by Furkan on 2019-10-26
  */
 
-class WeatherHourOfDayAdapter(private val callBack: (ListItem) -> Unit) : BaseAdapter<ListItem>(diffCallback) {
+class WeatherHourOfDayAdapter(private val callBack: (ListItem) -> Unit) : BaseAdapter<ListItem>(
+    diffCallback
+) {
 
     override fun createBinding(parent: ViewGroup, viewType: Int): ViewDataBinding {
         val mBinding = ItemWeatherHourOfDayBinding.inflate(

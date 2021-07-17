@@ -18,7 +18,8 @@ class DatabaseModule {
     fun getDatabase(context: Context): WeatherDatabase {
         return Room.databaseBuilder(
             context,
-            WeatherDatabase::class.java, "WeatherApp-DB"
+            WeatherDatabase::class.java,
+            "WeatherApp-DB"
         ).build()
     }
 
