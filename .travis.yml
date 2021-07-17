@@ -1,6 +1,6 @@
 ---
 language: android
-jdk: oraclejdk8
+jdk: oraclejdk11
 sudo: false
 os: linux
 dist: trusty
@@ -13,15 +13,15 @@ branches:
 
 env:
   global:
-    - ANDROID_TARGET=android-30
+    - ANDROID_TARGET=android-29
     - ANDROID_ABI=armeabi-v7a
 
 android:
   components:
     - tools
     - platform-tools
-    - build-tools-30.0.2
-    - android-30
+    - build-tools-29.0.3
+    - android-29
     - extra-google-m2repository
     - extra-android-m2repository
     - extra-android-support
@@ -46,8 +46,12 @@ script:
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
   - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+
 cache:
   directories:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
     - $HOME/.android/build-cache
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
