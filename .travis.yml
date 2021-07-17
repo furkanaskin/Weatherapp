@@ -13,7 +13,6 @@ branches:
 
 env:
   global:
-    - ANDROID_TARGET=android-30
     - ANDROID_ABI=armeabi-v7a
 
 android:
@@ -27,15 +26,15 @@ android:
 
     # Specify at least one system image,
     # if you need to run emulator(s) during your tests
-    - sys-img-armeabi-v7a-android-21
-    - sys-img-armeabi-v7a-android-22
-    - sys-img-armeabi-v7a-android-25
-    - sys-img-armeabi-v7a-android-27
-    - sys-img-armeabi-v7a-android-29
+    - sys-img-${ANDROID_ABI}-android-21
+    - sys-img-${ANDROID_ABI}-android-22
+    - sys-img-${ANDROID_ABI}-android-25
+    - sys-img-${ANDROID_ABI}-android-27
+    - sys-img-${ANDROID_ABI}-android-29
 
 before_install:
-  - yes | sudo sdkmanager --licenses
-  - yes | sudo sdkmanager "platforms;android-30"
+  - yes | sdkmanager --licenses
+  - yes | sdkmanager "platforms;android-30"
 
 script:
   - ./gradlew runUnitTests
