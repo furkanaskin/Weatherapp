@@ -13,6 +13,7 @@ branches:
 
 env:
   global:
+    - ANDROID_TARGET=android-30
     - ANDROID_ABI=armeabi-v7a
 
 android:
@@ -36,7 +37,6 @@ licenses:
   - 'android-sdk-preview-license-.+'
 
 before_install:
-  - yes | sdkmanager --licenses
   - yes | sdkmanager "platforms;android-30"
 
 script:
