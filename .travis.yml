@@ -11,17 +11,20 @@ branches:
     - dev
     - feature/setup-github-actions
 
+before_install:
+  - yes | sdkmanager "platforms;android-30"
+
 env:
   global:
-    - ANDROID_TARGET=android-29
+    - ANDROID_TARGET=android-30
     - ANDROID_ABI=armeabi-v7a
 
 android:
   components:
     - tools
     - platform-tools
-    - build-tools-29.0.3
-    - android-29
+    - build-tools-30.0.2
+    - android-30
     - extra-google-m2repository
     - extra-android-m2repository
     - extra-android-support
