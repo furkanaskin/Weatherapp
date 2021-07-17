@@ -3,7 +3,7 @@ language: android
 jdk: openjdk11
 sudo: false
 os: linux
-dist: trusty
+dist: xenial
 
 branches:
   only:
