@@ -37,6 +37,7 @@ licenses:
   - 'android-sdk-preview-license-.+'
 
 before_install:
+  - yes | sdkmanager --update
   - yes | sdkmanager "platforms;android-30"
 
 script:
