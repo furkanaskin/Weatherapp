@@ -36,6 +36,9 @@ licenses:
   - 'google-gdk-license-.+'
   - 'android-sdk-preview-license-.+'
 
+before_install:
+  - yes | sdkmanager "platforms;android-29"
+
 script:
   - ./gradlew runUnitTests
   - ./gradlew connectedCheck
