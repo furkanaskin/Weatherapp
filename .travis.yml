@@ -11,9 +11,6 @@ branches:
     - dev
     - feature/setup-github-actions
 
-before_install:
-  - yes | sdkmanager "platforms;android-30"
-
 env:
   global:
     - ANDROID_TARGET=android-30
@@ -24,7 +21,6 @@ android:
     - tools
     - platform-tools
     - build-tools-30.0.2
-    - android-30
     - extra-google-m2repository
     - extra-android-m2repository
     - extra-android-support
@@ -36,6 +32,9 @@ android:
     - sys-img-armeabi-v7a-android-25
     - sys-img-armeabi-v7a-android-27
     - sys-img-armeabi-v7a-android-29
+
+before_install:
+  - yes | sdkmanager "platforms;android-30"
 
 licenses:
   - 'android-sdk-license-.+'
