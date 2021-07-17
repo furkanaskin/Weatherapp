@@ -31,19 +31,16 @@ jobs:
 
       - uses: actions/cache@v2
         with:
-          path: ~/.gradle/caches
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
           key: ${{ runner.os }}-gradle-${{ hashFiles('checksum.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
+
+      - name: Run Ktlint
+        run: ./gradlew ktlintCheck
+
+      - name: Run Lint
+        run: ./gradlew lintDebug
 
       - name: Unit Tests
         run: ./gradlew testDebugUnitTest
-
-      - name: Build App
-        run: ./gradlew assembleDebug
-
-      - name: Upload Sample Artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: apk
-          path: app/build/outputs/apk/debug/*.apk
