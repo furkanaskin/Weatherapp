@@ -1,4 +1,4 @@
-<a href="https://github.com/furkanaskin/Weatherapp/issues"><img src="https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat" alt="contributions welcome" /></a>
+<a href="https://github.com/furkanaskin/Weatherapp/blob/dev/CONTRIBUTING.md"><img src="https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat" alt="contributions welcome" /></a>
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/9499cbb9d3864f9fb289be4bf34b57ce)](https://www.codacy.com/manual/furkanaskin/Weatherapp?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=furkanaskin/Weatherapp&amp;utm_campaign=Badge_Grade)
 <a href="https://android-arsenal.com/api?level=21"><img src="https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat" alt="API" /></a>
 <a href="https://ktlint.github.io/"><img src="https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg" alt="ktlint" /></a>
