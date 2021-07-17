@@ -39,7 +39,7 @@
                 tools:text="14:00" />
 
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imageViewForecastIcon"
                 android:layout_width="24dp"
                 android:layout_height="24dp"

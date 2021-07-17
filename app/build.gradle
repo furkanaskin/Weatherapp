@@ -11,7 +11,7 @@ buildscript {
     }
 
     dependencies {
-        classpath "org.jlleitschuh.gradle:ktlint-gradle:10.0.0"
+        classpath "org.jlleitschuh.gradle:ktlint-gradle:10.1.0"
     }
 }
 
@@ -82,6 +82,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    kapt {
+        correctErrorTypes = true
+    }
 }
 
 dependencies {
@@ -141,13 +144,11 @@ dependencies {
 }
 
 ktlint {
-    debug = true
-    verbose = true
     android = true
     outputToConsole = true
     ignoreFailures = true
     enableExperimentalRules = true
-    additionalEditorconfigFile = file("/some/additional/.editorconfig")
+    version = rootProject.ext.ktlint
     kotlinScriptAdditionalPaths {
         include fileTree("scripts/")
     }
