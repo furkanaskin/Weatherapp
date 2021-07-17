@@ -1,8 +1,7 @@
 ---
+sudo: required
 language: android
-jdk: openjdk11
-sudo: true
-os: linux
+jdk: oraclejdk8
 dist: trusty
 
 branches:
@@ -16,29 +15,36 @@ env:
     - ANDROID_ABI=armeabi-v7a
 
 android:
+  licenses:
+    - 'android-sdk-preview-license-.+'
+    - 'android-sdk-license-.+'
+    - 'google-gdk-license-.+'
+ 
   components:
     - tools
-    - platform-tools
     - build-tools-30.0.2
+    - android-30
+    - android-22
+    - extra-google-google_play_services
     - extra-google-m2repository
     - extra-android-m2repository
-    - extra-android-support
-
-    # Specify at least one system image,
-    # if you need to run emulator(s) during your tests
-    - sys-img-${ANDROID_ABI}-android-21
-    - sys-img-${ANDROID_ABI}-android-22
-    - sys-img-${ANDROID_ABI}-android-25
-    - sys-img-${ANDROID_ABI}-android-27
-    - sys-img-${ANDROID_ABI}-android-29
-
+    - sys-img-armeabi-v7a-android-22
+ 
 before_install:
-  - yes | sdkmanager --licenses
+  - chmod +x gradlew
   - yes | sdkmanager "platforms;android-30"
 
 script:
+  - ./gradlew clean build
   - ./gradlew runUnitTests
   - ./gradlew connectedCheck
 
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+
+cache:
+  directories:
+  - $HOME/.gradle/caches/
+  - $HOME/.gradle/wrapper/
+  - $HOME/.android/build-cache
