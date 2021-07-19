@@ -156,9 +156,12 @@ ext {
     stethoOkHttp = "com.facebook.stetho:stetho-okhttp3:$stethoVersion"
     stethoUrlConnection = "com.facebook.stetho:stetho-urlconnection:$stethoVersion"
 
+    //plugins
     ktlint = "0.41.0"
 
     buildTime = new Date().format("yyyy-MM-dd'T'HH:mm'Z'", TimeZone.getTimeZone("UTC"))
+
+    archivesBaseName = "weatherapp"
 }
 
 task clean(type: Delete) {

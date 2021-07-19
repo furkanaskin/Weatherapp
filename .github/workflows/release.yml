@@ -1,0 +1,43 @@
+name: Release
+
+on:
+  workflow_run:
+    workflows: ["Weatherapp"]
+    branches: [master]
+    types: [completed]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install JDK 11
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '11'
+
+      - name: Generate cache key
+        run: ./checksum.sh checksum.txt
+
+      - name: Copy CI gradle.properties
+        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('checksum.txt') }}
+
+      - name: Assemble Debug App
+        uses: ./gradlew clean assembleDebug
+
+      - name: Release a new version
+        uses: softprops/action-gh-release@v1
+        with:
+          files: app/build/outputs/apk/debug/*.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
