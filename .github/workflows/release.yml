@@ -35,9 +35,14 @@ jobs:
       - name: Assemble Debug App
         uses: ./gradlew clean assembleDebug
 
+      - name: Get Release Date
+        id: release-date-generator
+        run: echo "::set-output name=release-date::$(date +%F)"
+
       - name: Release a new version
         uses: softprops/action-gh-release@v1
         with:
           files: app/build/outputs/apk/debug/*.apk
+          name: Release ${{ steps.release-date-generator.outputs.release-date }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
