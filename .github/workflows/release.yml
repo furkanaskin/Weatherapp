@@ -32,7 +32,7 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('checksum.txt') }}
 
       - name: Assemble Debug App
-        uses: ./gradlew clean assembleDebug
+        run: ./gradlew clean assembleDebug
 
       - name: Get Release Date
         id: release-date-generator
