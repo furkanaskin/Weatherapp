@@ -39,6 +39,8 @@ android {
         versionName "1.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField STRING, BUILD_TIME, "\"${rootProject.ext.buildTime}\""
+
+        setProperty("archivesBaseName", "${rootProject.ext.archivesBaseName}")
     }
     buildTypes {
         release {
