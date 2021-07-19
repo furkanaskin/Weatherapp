@@ -1,10 +1,9 @@
 name: Release
 
 on:
-  workflow_run:
-    workflows: ["Weatherapp"]
-    branches: [master]
-    types: [completed]
+  push:
+    branches:
+      - master
 
 jobs:
   build:
