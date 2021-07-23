@@ -2,11 +2,12 @@ name: Release
 
 on:
   push:
-    branches:
-      - master
+    tags:
+      - 'v*.*.*'
 
 jobs:
-  build:
+  release:
+    name: Release
     runs-on: ubuntu-latest
 
     steps:
@@ -32,16 +33,11 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('checksum.txt') }}
 
       - name: Assemble Debug App
-        uses: ./gradlew clean assembleDebug
-
-      - name: Get Release Date
-        id: release-date-generator
-        run: echo "::set-output name=release-date::$(date +%F)"
+        run: ./gradlew clean assembleDebug
 
       - name: Release a new version
         uses: softprops/action-gh-release@v1
         with:
           files: app/build/outputs/apk/debug/*.apk
-          name: Release ${{ steps.release-date-generator.outputs.release-date }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
