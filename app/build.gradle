@@ -4,6 +4,7 @@ apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs"
 apply plugin: 'kotlin-parcelize'
 apply plugin: 'org.jlleitschuh.gradle.ktlint'
+apply plugin: 'dagger.hilt.android.plugin'
 
 buildscript {
     repositories {
@@ -103,11 +104,8 @@ dependencies {
     implementation rootProject.ext.navigationFragment
     implementation rootProject.ext.navigationUI
     implementation rootProject.ext.algolia
-    implementation rootProject.ext.dagger
-    implementation rootProject.ext.daggerAndroid
-    implementation rootProject.ext.daggerSupport
-    kapt rootProject.ext.daggerKapt
-    kapt rootProject.ext.daggerAnnotation
+    implementation rootProject.ext.hilt
+    kapt rootProject.ext.hiltKapt
     implementation rootProject.ext.rxJava
     implementation rootProject.ext.rxKotlin
     implementation rootProject.ext.rxAndroid
