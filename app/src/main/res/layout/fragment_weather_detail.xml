@@ -10,7 +10,6 @@
             type="com.faskn.app.weatherapp.ui.weather_detail.WeatherDetailViewModel" />
     </data>
 
-
     <RelativeLayout
         android:id="@+id/rootView"
         android:layout_width="match_parent"
@@ -29,15 +28,16 @@
                 android:id="@+id/fabClose"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@android:color/transparent"
                 android:elevation="8dp"
                 android:padding="0dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/ic_close"
                 app:borderWidth="0dp"
                 app:layout_anchor="@id/cardView"
                 app:layout_anchorGravity="center_horizontal|top"
-                app:useCompatPadding="true" />
+                app:srcCompat="@drawable/ic_close"
+                app:tint="@null"
+                app:useCompatPadding="true"
+                tools:ignore="ContentDescription" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardView"
