@@ -2,35 +2,26 @@ package com.faskn.app.weatherapp.core
 
 import android.os.Bundle
 import androidx.annotation.LayoutRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
-import dagger.android.AndroidInjection
-import dagger.android.support.DaggerAppCompatActivity
-import javax.inject.Inject
 
 /**
  * Created by Furkan on 2019-10-16
  */
-
 abstract class BaseActivity<VM : BaseViewModel, DB : ViewDataBinding>(
-    private val mViewModelClass: Class<VM>
-) :
-    DaggerAppCompatActivity() {
+    viewModelClass: Class<VM>
+) : AppCompatActivity() {
 
-    @Inject
-    internal lateinit var viewModelProviderFactory: ViewModelProvider.Factory
+    protected lateinit var binding: DB
+
+    val viewModel: VM by lazy {
+        ViewModelProvider(this).get(viewModelClass)
+    }
 
     @LayoutRes
     abstract fun getLayoutRes(): Int
-
-    val binding by lazy {
-        DataBindingUtil.setContentView(this, getLayoutRes()) as DB
-    }
-
-    val viewModel by lazy {
-        ViewModelProvider(this, viewModelProviderFactory).get(mViewModelClass)
-    }
 
     /**
      * If you want to inject Dependency Injection
@@ -39,8 +30,8 @@ abstract class BaseActivity<VM : BaseViewModel, DB : ViewDataBinding>(
     open fun onInject() {}
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
+        binding = DataBindingUtil.setContentView(this, getLayoutRes()) as DB
         initViewModel(viewModel)
         onInject()
         setupBindingLifecycleOwner()

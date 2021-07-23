@@ -17,8 +17,8 @@ import javax.inject.Inject
  */
 
 class SearchCitiesRepository @Inject constructor(
+    private val searchCitiesRemoteDataSource: SearchCitiesRemoteDataSource,
     private val searchCitiesLocalDataSource: SearchCitiesLocalDataSource,
-    private val searchCitiesRemoteDataSource: SearchCitiesRemoteDataSource
 ) {
 
     private val rateLimiter = RateLimiter<String>(1, TimeUnit.SECONDS)
