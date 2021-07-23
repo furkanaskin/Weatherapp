@@ -1,4 +1,4 @@
-package com.faskn.app.weatherapp.di.module
+package com.faskn.app.weatherapp.di
 
 import android.os.Environment
 import com.algolia.search.saas.places.PlacesClient
@@ -7,75 +7,69 @@ import com.faskn.app.weatherapp.core.Constants
 import com.faskn.app.weatherapp.domain.DefaultRequestInterceptor
 import com.faskn.app.weatherapp.domain.WeatherAppAPI
 import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
-import java.util.concurrent.TimeUnit
-import javax.inject.Named
-import javax.inject.Singleton
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
+import java.util.concurrent.TimeUnit
+import javax.inject.Named
+import javax.inject.Singleton
 
+@InstallIn(SingletonComponent::class)
 @Module
-class NetModule {
-    @Singleton
+object NetworkModule {
+
     @Provides
+    @Singleton
     @Named("cached")
-    fun provideOkHttpClient(): OkHttpClient {
-        val cache = Cache(Environment.getDownloadCacheDirectory(), 10 * 1024 * 1024)
-        return OkHttpClient.Builder()
+    fun provideOkHttpClient(): OkHttpClient =
+        OkHttpClient.Builder()
             .addNetworkInterceptor(StethoInterceptor())
             .addInterceptor(DefaultRequestInterceptor())
             .readTimeout(1, TimeUnit.MINUTES)
             .writeTimeout(1, TimeUnit.MINUTES)
-            .cache(cache)
+            .cache(Cache(Environment.getDownloadCacheDirectory(), 10 * 1024 * 1024))
             .build()
-    }
 
-    @Singleton
     @Provides
+    @Singleton
     @Named("non_cached")
-    fun provideNonCachedOkHttpClient(): OkHttpClient {
-        return OkHttpClient.Builder()
+    fun provideNonCachedOkHttpClient(): OkHttpClient =
+        OkHttpClient.Builder()
             .addNetworkInterceptor(StethoInterceptor())
             .addInterceptor(DefaultRequestInterceptor())
             .readTimeout(1, TimeUnit.MINUTES)
             .writeTimeout(1, TimeUnit.MINUTES)
             .build()
-    }
 
     @Provides
     @Singleton
-    fun provideMoshi(): Moshi {
-        return Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
-    }
-
-    @Singleton
-    @Provides
-    fun provideRetrofit(moshi: Moshi, @Named("cached") client: OkHttpClient): Retrofit.Builder {
-        return Retrofit.Builder()
-            .client(client)
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-    }
+    fun provideRetrofit(
+        moshi: Moshi,
+        @Named("cached") client: OkHttpClient,
+    ): Retrofit.Builder = Retrofit.Builder()
+        .client(client)
+        .addConverterFactory(MoshiConverterFactory.create(moshi))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
 
     @Provides
     @Singleton
-    fun provideService(retrofit: Retrofit.Builder): WeatherAppAPI {
-        return retrofit.baseUrl(Constants.NetworkService.BASE_URL)
+    fun provideService(retrofit: Retrofit.Builder): WeatherAppAPI =
+        retrofit.baseUrl(Constants.NetworkService.BASE_URL)
             .build()
             .create(WeatherAppAPI::class.java)
-    }
 
     @Provides
     @Singleton
-    fun providePlacesClient(): PlacesClient {
-        return PlacesClient(
+    fun providePlacesClient(): PlacesClient =
+        PlacesClient(
             Constants.AlgoliaKeys.APPLICATION_ID,
             Constants.AlgoliaKeys.SEARCH_API_KEY
         )
-    }
+
 }

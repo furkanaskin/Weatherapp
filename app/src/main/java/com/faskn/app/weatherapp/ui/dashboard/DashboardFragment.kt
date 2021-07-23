@@ -8,7 +8,6 @@ import com.faskn.app.weatherapp.R
 import com.faskn.app.weatherapp.core.BaseFragment
 import com.faskn.app.weatherapp.core.Constants
 import com.faskn.app.weatherapp.databinding.FragmentDashboardBinding
-import com.faskn.app.weatherapp.di.Injectable
 import com.faskn.app.weatherapp.domain.model.ListItem
 import com.faskn.app.weatherapp.domain.usecase.CurrentWeatherUseCase
 import com.faskn.app.weatherapp.domain.usecase.ForecastUseCase
@@ -16,13 +15,13 @@ import com.faskn.app.weatherapp.ui.dashboard.forecast.ForecastAdapter
 import com.faskn.app.weatherapp.ui.main.MainActivity
 import com.faskn.app.weatherapp.utils.extensions.isNetworkAvailable
 import com.faskn.app.weatherapp.utils.extensions.observeWith
+import dagger.hilt.android.AndroidEntryPoint
 
-class DashboardFragment :
-    BaseFragment<DashboardFragmentViewModel, FragmentDashboardBinding>(
-        R.layout.fragment_dashboard,
-        DashboardFragmentViewModel::class.java
-    ),
-    Injectable {
+@AndroidEntryPoint
+class DashboardFragment : BaseFragment<DashboardFragmentViewModel, FragmentDashboardBinding>(
+    R.layout.fragment_dashboard,
+    DashboardFragmentViewModel::class.java,
+) {
 
     override fun init() {
         super.init()

@@ -7,12 +7,14 @@ import com.faskn.app.weatherapp.core.BaseViewModel
 import com.faskn.app.weatherapp.db.entity.ForecastEntity
 import com.faskn.app.weatherapp.domain.datasource.forecast.ForecastLocalDataSource
 import com.faskn.app.weatherapp.domain.model.ListItem
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 /**
  * Created by Furkan on 2019-10-26
  */
 
+@HiltViewModel
 class WeatherDetailViewModel @Inject constructor(
     private val forecastLocalDataSource: ForecastLocalDataSource
 ) : BaseViewModel() {

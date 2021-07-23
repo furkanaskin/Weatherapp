@@ -7,12 +7,14 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.DataBindingUtil.bind
 import androidx.databinding.ViewDataBinding
 import androidx.databinding.library.baseAdapters.BR
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelLazy
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
-import dagger.android.AndroidInjection
+import java.lang.reflect.ParameterizedType
 
 /**
  * Created by Furkan on 2019-10-16
@@ -23,7 +25,7 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding>(
     viewModelClass: Class<VM>
 ) : Fragment() {
 
-    open lateinit var binding: DB
+    protected lateinit var binding: DB
     lateinit var dataBindingComponent: DataBindingComponent
     private fun init(inflater: LayoutInflater, container: ViewGroup) {
         binding = DataBindingUtil.inflate(inflater, layout, container, false)
@@ -33,21 +35,11 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding>(
 
     open fun init() {}
 
-    private val viewModel by lazy {
-        (activity as? BaseActivity<*, *>)?.viewModelProviderFactory?.let {
-            ViewModelProvider(
-                this,
-                it
-            ).get(viewModelClass)
-        }
+    protected val viewModel: VM by lazy {
+        ViewModelProvider(this).get(viewModelClass)
     }
 
     open fun onInject() {}
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(activity)
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

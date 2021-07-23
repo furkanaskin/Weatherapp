@@ -10,20 +10,19 @@ import com.faskn.app.weatherapp.R
 import com.faskn.app.weatherapp.core.BaseFragment
 import com.faskn.app.weatherapp.databinding.FragmentSearchBinding
 import com.faskn.app.weatherapp.db.entity.CitiesForSearchEntity
-import com.faskn.app.weatherapp.di.Injectable
 import com.faskn.app.weatherapp.domain.usecase.SearchCitiesUseCase
 import com.faskn.app.weatherapp.ui.main.MainActivity
 import com.faskn.app.weatherapp.ui.search.result.SearchResultAdapter
 import com.faskn.app.weatherapp.utils.extensions.hideKeyboard
 import com.faskn.app.weatherapp.utils.extensions.observeWith
 import com.faskn.app.weatherapp.utils.extensions.tryCatch
+import dagger.hilt.android.AndroidEntryPoint
 
-class SearchFragment :
-    BaseFragment<SearchViewModel, FragmentSearchBinding>(
-        R.layout.fragment_search,
-        SearchViewModel::class.java
-    ),
-    Injectable {
+@AndroidEntryPoint
+class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>(
+    R.layout.fragment_search,
+    SearchViewModel::class.java,
+) {
 
     override fun init() {
         super.init()
@@ -42,7 +41,12 @@ class SearchFragment :
         val searchEditText: EditText = binding.searchView.findViewById(R.id.search_src_text)
         activity?.applicationContext?.let { ContextCompat.getColor(it, R.color.mainTextColor) }
             ?.let { searchEditText.setTextColor(it) }
-        activity?.applicationContext?.let { ContextCompat.getColor(it, android.R.color.darker_gray) }
+        activity?.applicationContext?.let {
+            ContextCompat.getColor(
+                it,
+                android.R.color.darker_gray
+            )
+        }
             ?.let { searchEditText.setHintTextColor(it) }
         binding.searchView.isActivated = true
         binding.searchView.setIconifiedByDefault(false)
