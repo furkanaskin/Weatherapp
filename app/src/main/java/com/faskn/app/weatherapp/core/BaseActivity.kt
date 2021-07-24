@@ -23,17 +23,10 @@ abstract class BaseActivity<VM : BaseViewModel, DB : ViewDataBinding>(
     @LayoutRes
     abstract fun getLayoutRes(): Int
 
-    /**
-     * If you want to inject Dependency Injection
-     * on your activity, you can override this.
-     */
-    open fun onInject() {}
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, getLayoutRes()) as DB
         initViewModel(viewModel)
-        onInject()
         setupBindingLifecycleOwner()
     }
 

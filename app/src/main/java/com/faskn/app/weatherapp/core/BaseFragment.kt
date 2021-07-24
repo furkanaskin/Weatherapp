@@ -7,14 +7,11 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.DataBindingUtil.bind
 import androidx.databinding.ViewDataBinding
 import androidx.databinding.library.baseAdapters.BR
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelLazy
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
-import java.lang.reflect.ParameterizedType
 
 /**
  * Created by Furkan on 2019-10-16
@@ -38,8 +35,6 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding>(
     protected val viewModel: VM by lazy {
         ViewModelProvider(this).get(viewModelClass)
     }
-
-    open fun onInject() {}
 
     override fun onCreateView(
         inflater: LayoutInflater,
