@@ -13,9 +13,9 @@ import com.faskn.app.weatherapp.domain.model.ListItem
  * Created by Furkan on 2019-10-25
  */
 
-class ForecastAdapter(private val callBack: (ListItem, View, View, View, View, View) -> Unit) : BaseAdapter<ListItem>(
-    diffCallback
-) {
+class ForecastAdapter(
+    private val callBack: (ListItem, View, View, View, View, View) -> Unit
+) : BaseAdapter<ListItem>(diffCallback) {
 
     override fun createBinding(parent: ViewGroup, viewType: Int): ViewDataBinding {
         val mBinding = ItemForecastBinding.inflate(
@@ -26,7 +26,7 @@ class ForecastAdapter(private val callBack: (ListItem, View, View, View, View, V
         val viewModel = ForecastItemViewModel()
         mBinding.viewModel = viewModel
 
-        mBinding.rootView.setOnClickListener {
+        mBinding.cardView.setOnClickListener {
             mBinding.viewModel?.item?.get()?.let { /*
                 ViewCompat.setTransitionName(mBinding.cardView, mBinding.rootView.resources.getString(R.string.cardView, it.getDay()))
                 ViewCompat.setTransitionName(mBinding.imageViewForecastIcon, mBinding.rootView.resources.getString(R.string.forecastIcon, it.getDay()))
@@ -34,7 +34,7 @@ class ForecastAdapter(private val callBack: (ListItem, View, View, View, View, V
                 ViewCompat.setTransitionName(mBinding.textViewTemp, mBinding.rootView.resources.getString(R.string.temp, it.getDay()))
                 ViewCompat.setTransitionName(mBinding.linearLayoutTempMaxMin, mBinding.rootView.resources.getString(R.string.tempMaxMin, it.getDay()))*/
 
-                callBack.invoke(
+                callBack(
                     it,
                     mBinding.cardView,
                     mBinding.imageViewForecastIcon,

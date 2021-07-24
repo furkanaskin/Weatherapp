@@ -50,6 +50,8 @@ android {
             debuggable false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             testCoverageEnabled false
+
+            signingConfig signingConfigs.debug
         }
         debug {
             ext.enableCrashlytics = false

@@ -32,12 +32,12 @@ jobs:
             ~/.gradle/wrapper
           key: ${{ runner.os }}-gradle-${{ hashFiles('checksum.txt') }}
 
-      - name: Assemble Debug App
-        run: ./gradlew clean assembleDebug
+      - name: Assemble Release App
+        run: ./gradlew clean assembleRelease
 
       - name: Release a new version
         uses: softprops/action-gh-release@v1
         with:
-          files: app/build/outputs/apk/debug/*.apk
+          files: app/build/outputs/apk/release/*.apk
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
