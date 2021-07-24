@@ -57,17 +57,17 @@ object NetworkModule {
     fun provideRetrofit(
         moshi: Moshi,
         @Named("cached") client: OkHttpClient,
-    ): Retrofit.Builder = Retrofit.Builder()
+    ): Retrofit = Retrofit.Builder()
+        .baseUrl(Constants.NetworkService.BASE_URL)
         .client(client)
         .addConverterFactory(MoshiConverterFactory.create(moshi))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
 
     @Provides
     @Singleton
-    fun provideService(retrofit: Retrofit.Builder): WeatherAppAPI =
-        retrofit.baseUrl(Constants.NetworkService.BASE_URL)
-            .build()
-            .create(WeatherAppAPI::class.java)
+    fun provideService(retrofit: Retrofit): WeatherAppAPI =
+        retrofit.create(WeatherAppAPI::class.java)
 
     @Provides
     @Singleton
