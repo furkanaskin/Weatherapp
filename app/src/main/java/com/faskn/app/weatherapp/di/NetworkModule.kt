@@ -31,35 +31,22 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    @Named("cached")
-    fun provideOkHttpClient(cache: Cache): OkHttpClient =
+    fun provideOkHttpClientBuilder(): OkHttpClient.Builder =
         OkHttpClient.Builder()
             .addNetworkInterceptor(StethoInterceptor())
             .addInterceptor(DefaultRequestInterceptor())
             .readTimeout(1, TimeUnit.MINUTES)
             .writeTimeout(1, TimeUnit.MINUTES)
-            .cache(cache)
-            .build()
-
-    @Provides
-    @Singleton
-    @Named("non_cached")
-    fun provideNonCachedOkHttpClient(): OkHttpClient =
-        OkHttpClient.Builder()
-            .addNetworkInterceptor(StethoInterceptor())
-            .addInterceptor(DefaultRequestInterceptor())
-            .readTimeout(1, TimeUnit.MINUTES)
-            .writeTimeout(1, TimeUnit.MINUTES)
-            .build()
 
     @Provides
     @Singleton
     fun provideRetrofit(
         moshi: Moshi,
-        @Named("cached") client: OkHttpClient,
+        okHttpClientBuilder: OkHttpClient.Builder,
+        cache: Cache,
     ): Retrofit = Retrofit.Builder()
         .baseUrl(Constants.NetworkService.BASE_URL)
-        .client(client)
+        .client(okHttpClientBuilder.cache(cache).build())
         .addConverterFactory(MoshiConverterFactory.create(moshi))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
