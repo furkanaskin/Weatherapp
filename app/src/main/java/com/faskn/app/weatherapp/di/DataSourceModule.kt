@@ -22,7 +22,6 @@ import javax.inject.Singleton
 @Module
 object DataSourceModule {
 
-
     @Provides
     @Singleton
     fun provideCurrentWeatherRemoteDataSource(api: WeatherAppAPI) =
