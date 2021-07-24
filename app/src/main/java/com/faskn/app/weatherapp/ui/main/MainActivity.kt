@@ -22,14 +22,9 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>(
+    R.layout.activity_main,
     MainActivityViewModel::class.java
 ), NavigationView.OnNavigationItemSelectedListener {
-
-    override fun initViewModel(viewModel: MainActivityViewModel) {
-        binding.viewModel = viewModel
-    }
-
-    override fun getLayoutRes() = R.layout.activity_main
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
