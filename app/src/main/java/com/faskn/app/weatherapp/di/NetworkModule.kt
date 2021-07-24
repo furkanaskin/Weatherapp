@@ -26,14 +26,19 @@ object NetworkModule {
 
     @Provides
     @Singleton
+    fun provideCache(): Cache =
+        Cache(Environment.getDownloadCacheDirectory(), 10 * 1024 * 1024)
+
+    @Provides
+    @Singleton
     @Named("cached")
-    fun provideOkHttpClient(): OkHttpClient =
+    fun provideOkHttpClient(cache: Cache): OkHttpClient =
         OkHttpClient.Builder()
             .addNetworkInterceptor(StethoInterceptor())
             .addInterceptor(DefaultRequestInterceptor())
             .readTimeout(1, TimeUnit.MINUTES)
             .writeTimeout(1, TimeUnit.MINUTES)
-            .cache(Cache(Environment.getDownloadCacheDirectory(), 10 * 1024 * 1024))
+            .cache(cache)
             .build()
 
     @Provides
