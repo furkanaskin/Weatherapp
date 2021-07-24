@@ -15,7 +15,6 @@
 
     </data>
 
-
     <RelativeLayout
         android:id="@+id/rootView"
         android:layout_width="match_parent"
@@ -40,7 +39,6 @@
                 app:defaultQueryHint="@string/start_typing" />
 
         </com.google.android.material.card.MaterialCardView>
-
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -78,13 +76,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
-                    android:drawableEnd="@android:drawable/stat_notify_error"
                     android:paddingStart="12dp"
                     android:paddingTop="12dp"
                     android:paddingEnd="24dp"
                     android:paddingBottom="12dp"
                     android:textColor="@android:color/white"
                     android:textStyle="bold"
+                    app:drawableEndCompat="@android:drawable/stat_notify_error"
                     app:setErrorText="@{viewState}"
                     tools:text="Status code : 500 Internal server error!" />
 
