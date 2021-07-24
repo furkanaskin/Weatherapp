@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
-import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.databinding.library.baseAdapters.BR
@@ -16,18 +15,20 @@ import androidx.navigation.Navigation
 /**
  * Created by Furkan on 2019-10-16
  */
-
 abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding>(
-    @LayoutRes val layout: Int,
+    @LayoutRes layoutResId: Int,
     viewModelClass: Class<VM>
-) : Fragment() {
+) : Fragment(layoutResId) {
 
     protected lateinit var binding: DB
-    lateinit var dataBindingComponent: DataBindingComponent
-    private fun init(inflater: LayoutInflater, container: ViewGroup) {
-        binding = DataBindingUtil.inflate(inflater, layout, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
-        binding.setVariable(BR.viewModel, viewModel)
+        private set
+
+    private fun init(view: View) {
+        binding = DataBindingUtil.bind(view)!!
+        with(binding) {
+            setVariable(BR.viewModel, viewModel)
+            lifecycleOwner = viewLifecycleOwner
+        }
     }
 
     open fun init() {}
@@ -41,9 +42,8 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding>(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        init(inflater, container!!)
+        init(super.onCreateView(inflater, container, savedInstanceState)!!)
         init()
-        super.onCreateView(inflater, container, savedInstanceState)
         return binding.root
     }
 
