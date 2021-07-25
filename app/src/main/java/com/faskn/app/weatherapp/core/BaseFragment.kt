@@ -16,20 +16,12 @@ import androidx.navigation.Navigation
  * Created by Furkan on 2019-10-16
  */
 abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding>(
-    @LayoutRes layoutResId: Int,
+    @LayoutRes private val layoutResId: Int,
     viewModelClass: Class<VM>
-) : Fragment(layoutResId) {
+) : Fragment() {
 
     protected lateinit var binding: DB
         private set
-
-    private fun init(view: View) {
-        binding = DataBindingUtil.bind(view)!!
-        with(binding) {
-            setVariable(BR.viewModel, viewModel)
-            lifecycleOwner = viewLifecycleOwner
-        }
-    }
 
     open fun init() {}
 
@@ -42,7 +34,11 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding>(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        init(super.onCreateView(inflater, container, savedInstanceState)!!)
+        binding = DataBindingUtil.inflate(inflater, layoutResId, container, false)
+        binding.run {
+            setVariable(BR.viewModel, viewModel)
+            lifecycleOwner = viewLifecycleOwner
+        }
         init()
         return binding.root
     }

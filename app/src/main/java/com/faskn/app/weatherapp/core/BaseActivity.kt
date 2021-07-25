@@ -25,7 +25,7 @@ abstract class BaseActivity<VM : BaseViewModel, DB : ViewDataBinding>(
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, layoutResId) as DB
-        with(binding) {
+        binding.run {
             setVariable(BR.viewModel, viewModel)
             lifecycleOwner = this@BaseActivity
         }
