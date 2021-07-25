@@ -7,12 +7,14 @@ import androidx.lifecycle.switchMap
 import com.faskn.app.weatherapp.core.BaseViewModel
 import com.faskn.app.weatherapp.domain.usecase.CurrentWeatherUseCase
 import com.faskn.app.weatherapp.domain.usecase.ForecastUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 /**
  * Created by Furkan on 2019-10-24
  */
 
+@HiltViewModel
 class DashboardFragmentViewModel @Inject internal constructor(
     private val forecastUseCase: ForecastUseCase,
     private val currentWeatherUseCase: CurrentWeatherUseCase,

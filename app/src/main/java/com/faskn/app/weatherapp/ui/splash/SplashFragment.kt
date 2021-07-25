@@ -6,26 +6,24 @@ import com.faskn.app.weatherapp.R
 import com.faskn.app.weatherapp.core.BaseFragment
 import com.faskn.app.weatherapp.core.Constants
 import com.faskn.app.weatherapp.databinding.FragmentSplashBinding
-import com.faskn.app.weatherapp.di.Injectable
 import com.faskn.app.weatherapp.utils.extensions.hide
 import com.faskn.app.weatherapp.utils.extensions.show
 import com.mikhaellopez.rxanimation.*
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
 
-class SplashFragment :
-    BaseFragment<SplashFragmentViewModel, FragmentSplashBinding>(
-        R.layout.fragment_splash,
-        SplashFragmentViewModel::class.java
-    ),
-    Injectable {
-
+@AndroidEntryPoint
+class SplashFragment : BaseFragment<SplashFragmentViewModel, FragmentSplashBinding>(
+    R.layout.fragment_splash,
+    SplashFragmentViewModel::class.java,
+) {
     var disposable = CompositeDisposable()
 
     override fun init() {
         super.init()
 
         if (binding.viewModel?.sharedPreferences?.getString(Constants.Coords.LON, "")
-            .isNullOrEmpty()
+                .isNullOrEmpty()
         ) {
             binding.buttonExplore.show()
             binding.viewModel?.navigateDashboard = false

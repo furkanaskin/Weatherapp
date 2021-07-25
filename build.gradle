@@ -12,6 +12,7 @@ buildscript {
         classpath 'com.android.tools.build:gradle:4.2.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.4.0-alpha04"
+        classpath "com.google.dagger:hilt-android-gradle-plugin:2.38"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -47,7 +48,7 @@ ext {
     rxAndroidVersion = '2.1.1'
     rxAnimationsVersion = '1.0.0'
     timberVersion = '4.7.1'
-    daggerVersion = '2.37'
+    hiltVersion = '2.38'
     retrofitVersion = '2.9.0'
     okHttpVersion = '5.0.0-alpha.2'
     picassoVersion = '2.71828'
@@ -122,12 +123,9 @@ ext {
     roomRuntime = "androidx.room:room-runtime:$roomVersion"
     roomCompiler = "androidx.room:room-compiler:$roomVersion"
 
-    //dagger
-    dagger = "com.google.dagger:dagger:$daggerVersion"
-    daggerAndroid = "com.google.dagger:dagger-android:$daggerVersion"
-    daggerSupport = "com.google.dagger:dagger-android-support:$daggerVersion"
-    daggerAnnotation = "com.google.dagger:dagger-android-processor:$daggerVersion"
-    daggerKapt = "com.google.dagger:dagger-compiler:$daggerVersion"
+    //di
+    hilt = "com.google.dagger:hilt-android:$hiltVersion"
+    hiltKapt = "com.google.dagger:hilt-compiler:$hiltVersion"
 
     //net
     retrofit = "com.squareup.retrofit2:retrofit:$retrofitVersion"

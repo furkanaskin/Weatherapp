@@ -8,6 +8,7 @@ import com.faskn.app.weatherapp.core.BaseViewModel
 import com.faskn.app.weatherapp.core.Constants
 import com.faskn.app.weatherapp.db.entity.CoordEntity
 import com.faskn.app.weatherapp.domain.usecase.SearchCitiesUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -17,6 +18,7 @@ import javax.inject.Inject
  * Created by Furkan on 2019-10-31
  */
 
+@HiltViewModel
 class SearchViewModel @Inject internal constructor(
     private val useCase: SearchCitiesUseCase,
     private val pref: SharedPreferences

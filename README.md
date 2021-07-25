@@ -9,7 +9,7 @@
 # Weatherapp
 ![appicon](https://user-images.githubusercontent.com/22769589/68296145-f7305d80-00a4-11ea-9cbe-24b18222bfa9.png)
 
-Weatherapp is a simple weather forecast app, which uses some APIs to fetch 5 day / 3 hour forecast data from the [OpenWeatherMap](https://openweathermap.org/forecast5) and to fetch places,cities,counties,coords etc. from [Algolia Places](https://community.algolia.com/places/). The main goal of this app is to be a sample of how to build an high quality Android application that uses the Architecture components, Dagger etc. in Kotlin.
+Weatherapp is a simple weather forecast app, which uses some APIs to fetch 5 day / 3 hour forecast data from the [OpenWeatherMap](https://openweathermap.org/forecast5) and to fetch places,cities,counties,coords etc. from [Algolia Places](https://community.algolia.com/places/). The main goal of this app is to be a sample of how to build an high quality Android application that uses the Architecture components, Hilt etc. in Kotlin.
 
 <h2 id="Outputs">Outputs</h2>
 <p><img height= "200" src="https://user-images.githubusercontent.com/22769589/68296813-82f6b980-00a6-11ea-80bc-7a0e36e6336f.gif" alt="Gif1" />
@@ -26,10 +26,10 @@ Weatherapp is a simple weather forecast app, which uses some APIs to fetch 5 day
 <li><a href="https://developer.android.com/reference/androidx/lifecycle/Transformations">Transformations</a></li>
 <li><a href="https://developer.android.com/topic/libraries/data-binding">Data Binding</a></li>
 <li><a href="https://developer.android.com/topic/libraries/architecture/room">RoomDB</a></li>
+<li><a href="https://developer.android.com/training/dependency-injection/hilt-android">Hilt</a></li>
 <li><a href="https://github.com/ReactiveX/RxJava">RxJava</a></li>
 <li><a href="https://github.com/ReactiveX/RxAndroid">RxAndroid</a></li>
 <li><a href="https://github.com/ReactiveX/RxKotlin">RxKotlin</a></li>
-<li><a href="https://github.com/google/dagger">Dagger 2</a></li>
 <li><a href="https://square.github.io/retrofit/">Retrofit</a></li>
 <li><a href="https://github.com/square/okhttp">OkHttp</a></li>
 <li><a href="https://github.com/square/moshi">Moshi</a></li>

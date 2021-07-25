@@ -5,48 +5,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
-import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.databinding.library.baseAdapters.BR
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
-import dagger.android.AndroidInjection
 
 /**
  * Created by Furkan on 2019-10-16
  */
-
 abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding>(
-    @LayoutRes val layout: Int,
+    @LayoutRes private val layoutResId: Int,
     viewModelClass: Class<VM>
 ) : Fragment() {
 
-    open lateinit var binding: DB
-    lateinit var dataBindingComponent: DataBindingComponent
-    private fun init(inflater: LayoutInflater, container: ViewGroup) {
-        binding = DataBindingUtil.inflate(inflater, layout, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
-        binding.setVariable(BR.viewModel, viewModel)
-    }
+    protected lateinit var binding: DB
+        private set
 
     open fun init() {}
 
-    private val viewModel by lazy {
-        (activity as? BaseActivity<*, *>)?.viewModelProviderFactory?.let {
-            ViewModelProvider(
-                this,
-                it
-            ).get(viewModelClass)
-        }
-    }
-
-    open fun onInject() {}
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(activity)
-        super.onCreate(savedInstanceState)
+    protected val viewModel: VM by lazy {
+        ViewModelProvider(this).get(viewModelClass)
     }
 
     override fun onCreateView(
@@ -54,9 +34,12 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding>(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        init(inflater, container!!)
+        binding = DataBindingUtil.inflate(inflater, layoutResId, container, false)
+        binding.run {
+            setVariable(BR.viewModel, viewModel)
+            lifecycleOwner = viewLifecycleOwner
+        }
         init()
-        super.onCreateView(inflater, container, savedInstanceState)
         return binding.root
     }
 
