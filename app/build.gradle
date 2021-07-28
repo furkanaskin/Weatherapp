@@ -95,23 +95,39 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+    // kotlin
+    implementation Dependencies.kotlinJdk8
+    implementation Dependencies.kotlinReflect
+
+    // android supports
     implementation Dependencies.supportv4
     implementation Dependencies.appCompat
     implementation Dependencies.materialDesign
     implementation Dependencies.recyclerView
     implementation Dependencies.cardView
     implementation Dependencies.coreKtx
-    implementation Dependencies.threetenabp
-    implementation Dependencies.timber
-    implementation Dependencies.navigationFragment
+
+    // architecture components
     implementation Dependencies.navigationUI
-    implementation Dependencies.algolia
+    implementation Dependencies.navigationFragment
+    implementation Dependencies.lifecycleExt
+    kapt Dependencies.lifecycleAnnotation
+    implementation Dependencies.liveDataKtx
+    implementation Dependencies.lifecycleViewModelKtx
+    implementation Dependencies.roomRuntime
+    kapt Dependencies.roomCompiler
+
+    // di
     implementation Dependencies.hilt
     kapt Dependencies.hiltKapt
+
+    // rx
     implementation Dependencies.rxJava
     implementation Dependencies.rxKotlin
     implementation Dependencies.rxAndroid
     implementation Dependencies.rxAnimations
+
+    // network
     implementation Dependencies.retrofit
     implementation Dependencies.okHttp
     implementation Dependencies.moshi
@@ -119,20 +135,26 @@ dependencies {
     implementation Dependencies.moshiKotlin
     kapt Dependencies.moshiKapt
     implementation Dependencies.rxJavaAdapter
+
+    // image
     implementation Dependencies.picasso
-    implementation Dependencies.shadowView
-    implementation Dependencies.lifecycleExt
-    kapt Dependencies.lifecycleAnnotation
-    implementation Dependencies.liveDataKtx
-    implementation Dependencies.lifecycleViewModelKtx
-    implementation Dependencies.roomRuntime
-    kapt Dependencies.roomCompiler
+
+    // debug
     implementation Dependencies.stethoCore
     implementation Dependencies.stethoOkHttp
     implementation Dependencies.stethoUrlConnection
-    implementation Dependencies.kotlinJdk8
-    implementation Dependencies.kotlinReflect
+    implementation Dependencies.timber
 
+    // shadow view
+    implementation Dependencies.shadowView
+
+    // date & time
+    implementation Dependencies.threetenabp
+
+    // search
+    implementation Dependencies.algolia
+
+    // test
     testImplementation Dependencies.junit
     testImplementation Dependencies.junitTestExt
     androidTestImplementation Dependencies.androidxTestRunner
