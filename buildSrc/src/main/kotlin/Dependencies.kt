@@ -1,10 +1,3 @@
-object BuildVersions {
-    const val buildToolsVersion = "30.0.2"
-    const val compileSdkVersion = 30
-    const val targetSdkVersion = 30
-    const val minSdkVersion = 21
-}
-
 object Versions {
     // gradle
     const val googleGradleVersion = "4.3.8"

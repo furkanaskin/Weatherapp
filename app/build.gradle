@@ -28,16 +28,15 @@ repositories {
 }
 
 android {
-
-    compileSdkVersion BuildVersions.compileSdkVersion
-    buildToolsVersion BuildVersions.buildToolsVersion
+    compileSdkVersion Configs.compileSdkVersion
+    buildToolsVersion Configs.buildToolsVersion
 
     defaultConfig {
-        applicationId "com.faskn.app.weatherapp"
-        minSdkVersion BuildVersions.minSdkVersion
-        targetSdkVersion BuildVersions.targetSdkVersion
-        versionCode 2
-        versionName "1.0.0"
+        applicationId Configs.applicationId
+        minSdkVersion Configs.minSdkVersion
+        targetSdkVersion Configs.targetSdkVersion
+        versionCode Configs.versionCode
+        versionName Configs.versionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField STRING, BUILD_TIME, "\"${rootProject.ext.buildTime}\""
 
