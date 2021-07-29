@@ -28,20 +28,19 @@ repositories {
 }
 
 android {
-
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdkVersion Configs.compileSdkVersion
+    buildToolsVersion Configs.buildToolsVersion
 
     defaultConfig {
-        applicationId "com.faskn.app.weatherapp"
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 2
-        versionName "1.0.0"
+        applicationId Configs.applicationId
+        minSdkVersion Configs.minSdkVersion
+        targetSdkVersion Configs.targetSdkVersion
+        versionCode Configs.versionCode
+        versionName Configs.versionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField STRING, BUILD_TIME, "\"${rootProject.ext.buildTime}\""
+        buildConfigField STRING, BUILD_TIME, "\"${Configs.buildTime}\""
 
-        setProperty("archivesBaseName", "${rootProject.ext.archivesBaseName}")
+        setProperty("archivesBaseName", "${Configs.archivesBaseName}")
     }
     buildTypes {
         release {
@@ -95,54 +94,76 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation rootProject.ext.supportv4
-    implementation rootProject.ext.appCompat
-    implementation rootProject.ext.materialDesign
-    implementation rootProject.ext.recyclerView
-    implementation rootProject.ext.cardView
-    implementation rootProject.ext.coreKtx
-    implementation rootProject.ext.threetenabp
-    implementation rootProject.ext.timber
-    implementation rootProject.ext.navigationFragment
-    implementation rootProject.ext.navigationUI
-    implementation rootProject.ext.algolia
-    implementation rootProject.ext.hilt
-    kapt rootProject.ext.hiltKapt
-    implementation rootProject.ext.rxJava
-    implementation rootProject.ext.rxKotlin
-    implementation rootProject.ext.rxAndroid
-    implementation rootProject.ext.rxAnimations
-    implementation rootProject.ext.retrofit
-    implementation rootProject.ext.okHttp
-    implementation rootProject.ext.moshi
-    implementation rootProject.ext.moshiConverter
-    implementation rootProject.ext.moshiKotlin
-    kapt rootProject.ext.moshiKapt
-    implementation rootProject.ext.rxJavaAdapter
-    implementation rootProject.ext.picasso
-    implementation rootProject.ext.shadowView
-    implementation rootProject.ext.lifecycleExt
-    kapt rootProject.ext.lifecycleAnnotation
-    implementation rootProject.ext.liveDataKtx
-    implementation rootProject.ext.lifecycleViewModelKtx
-    implementation rootProject.ext.roomRuntime
-    kapt rootProject.ext.roomCompiler
-    implementation rootProject.ext.stethoCore
-    implementation rootProject.ext.stethoOkHttp
-    implementation rootProject.ext.stethoUrlConnection
-    implementation rootProject.ext.kotlinJdk8
-    implementation rootProject.ext.kotlinReflect
+    // kotlin
+    implementation Dependencies.kotlin
+    implementation Dependencies.kotlinReflect
 
-    testImplementation rootProject.ext.junit
-    testImplementation rootProject.ext.junitTestExt
-    androidTestImplementation rootProject.ext.androidxTestRunner
-    androidTestImplementation rootProject.ext.androidxTestRules
-    androidTestImplementation rootProject.ext.espressoCore
-    testImplementation rootProject.ext.truthExt
-    testImplementation rootProject.ext.truth
-    testImplementation rootProject.ext.mockK
-    testImplementation rootProject.ext.coreTesting
-    testImplementation rootProject.ext.robolectric
+    // android supports
+    implementation Dependencies.supportv4
+    implementation Dependencies.appCompat
+    implementation Dependencies.materialDesign
+    implementation Dependencies.recyclerView
+    implementation Dependencies.cardView
+    implementation Dependencies.coreKtx
+
+    // architecture components
+    implementation Dependencies.navigationUI
+    implementation Dependencies.navigationFragment
+    implementation Dependencies.lifecycleExt
+    kapt Dependencies.lifecycleAnnotation
+    implementation Dependencies.liveDataKtx
+    implementation Dependencies.lifecycleViewModelKtx
+    implementation Dependencies.roomRuntime
+    kapt Dependencies.roomCompiler
+
+    // di
+    implementation Dependencies.hilt
+    kapt Dependencies.hiltKapt
+
+    // rx
+    implementation Dependencies.rxJava
+    implementation Dependencies.rxKotlin
+    implementation Dependencies.rxAndroid
+    implementation Dependencies.rxAnimations
+
+    // network
+    implementation Dependencies.retrofit
+    implementation Dependencies.okHttp
+    implementation Dependencies.moshi
+    implementation Dependencies.moshiConverter
+    implementation Dependencies.moshiKotlin
+    kapt Dependencies.moshiKapt
+    implementation Dependencies.rxJavaAdapter
+
+    // image
+    implementation Dependencies.picasso
+
+    // debug
+    implementation Dependencies.stethoCore
+    implementation Dependencies.stethoOkHttp
+    implementation Dependencies.stethoUrlConnection
+    implementation Dependencies.timber
+
+    // shadow view
+    implementation Dependencies.shadowView
+
+    // date & time
+    implementation Dependencies.threetenabp
+
+    // search
+    implementation Dependencies.algolia
+
+    // test
+    testImplementation Dependencies.junit
+    testImplementation Dependencies.junitTestExt
+    androidTestImplementation Dependencies.androidxTestRunner
+    androidTestImplementation Dependencies.androidxTestRules
+    androidTestImplementation Dependencies.espressoCore
+    testImplementation Dependencies.truthExt
+    testImplementation Dependencies.truth
+    testImplementation Dependencies.mockK
+    testImplementation Dependencies.coreTesting
+    testImplementation Dependencies.robolectric
 }
 
 ktlint {
@@ -150,7 +171,7 @@ ktlint {
     outputToConsole = true
     ignoreFailures = true
     enableExperimentalRules = true
-    version = rootProject.ext.ktlint
+    version = Versions.klintVersion
     kotlinScriptAdditionalPaths {
         include fileTree("scripts/")
     }
