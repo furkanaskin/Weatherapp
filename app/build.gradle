@@ -38,9 +38,9 @@ android {
         versionCode Configs.versionCode
         versionName Configs.versionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField STRING, BUILD_TIME, "\"${rootProject.ext.buildTime}\""
+        buildConfigField STRING, BUILD_TIME, "\"${Configs.buildTime}\""
 
-        setProperty("archivesBaseName", "${rootProject.ext.archivesBaseName}")
+        setProperty("archivesBaseName", "${Configs.archivesBaseName}")
     }
     buildTypes {
         release {

@@ -1,3 +1,6 @@
+import java.text.SimpleDateFormat
+import java.util.*
+
 object Configs {
     const val applicationId = "com.faskn.app.weatherapp"
 
@@ -8,4 +11,12 @@ object Configs {
 
     const val versionCode = 2
     const val versionName = "1.0.0"
+
+    val buildTime = Date().format("yyyy-MM-dd'T'HH:mm'Z'", TimeZone.getTimeZone("UTC"))
+    const val archivesBaseName = "weatherapp"
 }
+
+@Suppress("SimpleDateFormat")
+private fun Date.format(format: String, tz: TimeZone) = SimpleDateFormat(format).apply {
+    timeZone = tz
+}.format(this)
