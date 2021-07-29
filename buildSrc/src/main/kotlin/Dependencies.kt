@@ -54,7 +54,7 @@ object BuildPlugins {
 
 object Dependencies {
     // kotlin
-    const val kotlinJdk8 = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlinVersion}"
+    const val kotlin = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlinVersion}"
     const val kotlinReflect = "org.jetbrains.kotlin:kotlin-reflect:${Versions.kotlinVersion}"
 
     // android support

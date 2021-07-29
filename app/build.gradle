@@ -95,7 +95,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     // kotlin
-    implementation Dependencies.kotlinJdk8
+    implementation Dependencies.kotlin
     implementation Dependencies.kotlinReflect
 
     // android supports
