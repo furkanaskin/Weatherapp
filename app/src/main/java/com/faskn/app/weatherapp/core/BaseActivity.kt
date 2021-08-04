@@ -2,60 +2,33 @@ package com.faskn.app.weatherapp.core
 
 import android.os.Bundle
 import androidx.annotation.LayoutRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.databinding.library.baseAdapters.BR
 import androidx.lifecycle.ViewModelProvider
-import dagger.android.AndroidInjection
-import dagger.android.support.DaggerAppCompatActivity
-import javax.inject.Inject
 
 /**
  * Created by Furkan on 2019-10-16
  */
-
 abstract class BaseActivity<VM : BaseViewModel, DB : ViewDataBinding>(
-    private val mViewModelClass: Class<VM>
-) :
-    DaggerAppCompatActivity() {
+    @LayoutRes private val layoutResId: Int,
+    viewModelClass: Class<VM>
+) : AppCompatActivity() {
 
-    @Inject
-    internal lateinit var viewModelProviderFactory: ViewModelProvider.Factory
+    protected lateinit var binding: DB
 
-    @LayoutRes
-    abstract fun getLayoutRes(): Int
-
-    val binding by lazy {
-        DataBindingUtil.setContentView(this, getLayoutRes()) as DB
+    val viewModel: VM by lazy {
+        ViewModelProvider(this).get(viewModelClass)
     }
-
-    val viewModel by lazy {
-        ViewModelProvider(this, viewModelProviderFactory).get(mViewModelClass)
-    }
-
-    /**
-     * If you want to inject Dependency Injection
-     * on your activity, you can override this.
-     */
-    open fun onInject() {}
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
-        initViewModel(viewModel)
-        onInject()
-        setupBindingLifecycleOwner()
+        binding = DataBindingUtil.setContentView(this, layoutResId) as DB
+        binding.run {
+            setVariable(BR.viewModel, viewModel)
+            lifecycleOwner = this@BaseActivity
+        }
     }
 
-    /**
-     *
-     *  You need override this method.
-     *  And you need to set viewModel to binding: binding.viewModel = viewModel
-     *
-     */
-
-    abstract fun initViewModel(viewModel: VM)
-
-    private fun setupBindingLifecycleOwner() {
-        binding.lifecycleOwner = this
-    }
 }

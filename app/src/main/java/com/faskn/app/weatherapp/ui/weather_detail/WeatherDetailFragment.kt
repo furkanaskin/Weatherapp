@@ -6,18 +6,17 @@ import androidx.navigation.fragment.navArgs
 import com.faskn.app.weatherapp.R
 import com.faskn.app.weatherapp.core.BaseFragment
 import com.faskn.app.weatherapp.databinding.FragmentWeatherDetailBinding
-import com.faskn.app.weatherapp.di.Injectable
 import com.faskn.app.weatherapp.domain.model.ListItem
 import com.faskn.app.weatherapp.ui.weather_detail.weatherHourOfDay.WeatherHourOfDayAdapter
 import com.faskn.app.weatherapp.utils.extensions.observeWith
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
 
-class WeatherDetailFragment :
-    BaseFragment<WeatherDetailViewModel, FragmentWeatherDetailBinding>(
-        R.layout.fragment_weather_detail,
-        WeatherDetailViewModel::class.java
-    ),
-    Injectable {
+@AndroidEntryPoint
+class WeatherDetailFragment : BaseFragment<WeatherDetailViewModel, FragmentWeatherDetailBinding>(
+    R.layout.fragment_weather_detail,
+    WeatherDetailViewModel::class.java,
+) {
 
     private val weatherDetailFragmentArgs: WeatherDetailFragmentArgs by navArgs()
     var disposable = CompositeDisposable()
@@ -25,9 +24,10 @@ class WeatherDetailFragment :
     override fun init() {
         super.init()
         binding.viewModel?.weatherItem?.set(weatherDetailFragmentArgs.weatherItem)
-        binding.viewModel?.selectedDayDate = weatherDetailFragmentArgs.weatherItem.dtTxt?.substringBefore(
-            " "
-        )
+        binding.viewModel?.selectedDayDate =
+            weatherDetailFragmentArgs.weatherItem.dtTxt?.substringBefore(
+                " "
+            )
 
         binding.viewModel?.getForecast()?.observeWith(viewLifecycleOwner) {
             binding.viewModel?.selectedDayForecastLiveData

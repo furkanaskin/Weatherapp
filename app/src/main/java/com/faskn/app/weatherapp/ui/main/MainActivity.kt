@@ -18,28 +18,13 @@ import com.faskn.app.weatherapp.databinding.ActivityMainBinding
 import com.faskn.app.weatherapp.utils.extensions.hide
 import com.faskn.app.weatherapp.utils.extensions.show
 import com.google.android.material.navigation.NavigationView
-import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasAndroidInjector
-import javax.inject.Inject
+import dagger.hilt.android.AndroidEntryPoint
 
-class MainActivity :
-    BaseActivity<MainActivityViewModel, ActivityMainBinding>(
-        MainActivityViewModel::class.java
-    ),
-    HasAndroidInjector,
-    NavigationView.OnNavigationItemSelectedListener {
-
-    @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
-
-    override fun androidInjector(): AndroidInjector<Any> = dispatchingAndroidInjector
-
-    override fun initViewModel(viewModel: MainActivityViewModel) {
-        binding.viewModel = viewModel
-    }
-
-    override fun getLayoutRes() = R.layout.activity_main
+@AndroidEntryPoint
+class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>(
+    R.layout.activity_main,
+    MainActivityViewModel::class.java
+), NavigationView.OnNavigationItemSelectedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
