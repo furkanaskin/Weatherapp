@@ -84,3 +84,4 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 </code></pre>
+[![Build status](https://build.appcenter.ms/v0.1/apps/0d35d33b-68a0-43dc-b99f-ccf3283b6664/branches/dev/badge)](https://appcenter.ms)
