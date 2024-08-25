@@ -51,6 +51,7 @@ android {
         buildConfigField "String", "OWM_API_KEY_VALUE", "${properties.getProperty("OWM_API_KEY_VALUE")}"
 
     }
+
     buildTypes {
         release {
             minifyEnabled true
@@ -133,7 +134,6 @@ dependencies {
     implementation Dependencies.rxJava
     implementation Dependencies.rxKotlin
     implementation Dependencies.rxAndroid
-    implementation Dependencies.rxAnimations
 
     // network
     implementation Dependencies.retrofit
@@ -153,14 +153,8 @@ dependencies {
     implementation Dependencies.stethoUrlConnection
     implementation Dependencies.timber
 
-    // shadow view
-    implementation Dependencies.shadowView
-
     // date & time
     implementation Dependencies.threetenabp
-
-    // search
-    implementation Dependencies.algolia
 
     // test
     testImplementation Dependencies.junit

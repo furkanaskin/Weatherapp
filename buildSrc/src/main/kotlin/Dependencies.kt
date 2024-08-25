@@ -21,15 +21,12 @@ object Versions {
     const val rxJavaVersion = "2.2.21"
     const val rxKotlinVersion = "2.4.0"
     const val rxAndroidVersion = "2.1.1"
-    const val rxAnimationsVersion = "1.0.0"
     const val retrofitVersion = "2.9.0"
     const val okHttpVersion = "5.0.0-alpha.2"
     const val moshiConverterVersion = "2.9.0"
     const val moshiVersion = "1.12.0"
     const val picassoVersion = "2.71828"
     const val threetenabpVersion = "1.3.1"
-    const val shadowViewVersion = "0.0.3"
-    const val algoliaVersion = "3.+"
     const val stethoVersion = "1.6.0"
     const val timberVersion = "4.7.1"
 
@@ -87,7 +84,6 @@ object Dependencies {
     const val rxJava = "io.reactivex.rxjava2:rxjava:${Versions.rxJavaVersion}"
     const val rxAndroid = "io.reactivex.rxjava2:rxandroid:${Versions.rxAndroidVersion}"
     const val rxKotlin = "io.reactivex.rxjava2:rxkotlin:${Versions.rxKotlinVersion}"
-    const val rxAnimations = "com.mikhaellopez:rxanimation:${Versions.rxAnimationsVersion}"
 
     // network
     const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofitVersion}"
@@ -103,14 +99,8 @@ object Dependencies {
     // picasso
     const val picasso = "com.squareup.picasso:picasso:${Versions.picassoVersion}"
 
-    // shadowView
-    const val shadowView = "com.loopeer.lib:shadow:${Versions.shadowViewVersion}"
-
     // threetenabp
     const val threetenabp = "com.jakewharton.threetenabp:threetenabp:${Versions.threetenabpVersion}"
-
-    // algolia
-    const val algolia = "com.algolia:algoliasearch-android:${Versions.algoliaVersion}"
 
     // stetho
     const val stethoCore = "com.facebook.stetho:stetho:${Versions.stethoVersion}"
