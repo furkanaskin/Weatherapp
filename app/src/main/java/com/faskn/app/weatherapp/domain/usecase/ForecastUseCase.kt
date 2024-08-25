@@ -23,8 +23,8 @@ class ForecastUseCase @Inject internal constructor(private val repository: Forec
 
     override fun buildUseCaseObservable(params: ForecastParams?): LiveData<ForecastViewState> {
         return repository.loadForecastByCoord(
-            params?.lat?.toDouble() ?: 0.0,
-            params?.lon?.toDouble() ?: 0.0,
+            lat = params?.lat?.toDouble() ?: 0.0,
+            lon = params?.lon?.toDouble() ?: 0.0,
             params?.fetchRequired
                 ?: false,
             units = params?.units ?: Constants.Coords.METRIC

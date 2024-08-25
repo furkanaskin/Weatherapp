@@ -46,7 +46,7 @@ ext {
     rxJavaVersion = '2.2.21'
     rxKotlinVersion = '2.4.0'
     rxAndroidVersion = '2.1.1'
-    rxAnimationsVersion = '1.0.0'
+    rxAnimationsVersion = '2.1.0'
     timberVersion = '4.7.1'
     hiltVersion = '2.38'
     retrofitVersion = '2.9.0'
@@ -60,7 +60,6 @@ ext {
     lifecycleViewModelKtxVersion = '2.4.0-alpha02'
     lifecycleVersion = '2.2.0'
     roomVersion = '2.3.0'
-    shadowViewVersion = '0.0.3'
     algoliaVersion = '3.+'
     moshiConverterVersion = '2.9.0'
     moshiVersion = "1.12.0"
@@ -142,9 +141,6 @@ ext {
 
     //threetenabp
     threetenabp = "com.jakewharton.threetenabp:threetenabp:$threetenabpVersion"
-
-    //shadowView
-    shadowView = "com.loopeer.lib:shadow:$shadowViewVersion"
 
     //timber
     timber = "com.jakewharton.timber:timber:$timberVersion"

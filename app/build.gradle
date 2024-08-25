@@ -42,6 +42,15 @@ android {
         buildConfigField STRING, BUILD_TIME, "\"${rootProject.ext.buildTime}\""
 
         setProperty("archivesBaseName", "${rootProject.ext.archivesBaseName}")
+
+        // Get the API keys from local.properties
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file("local.properties").newDataInputStream())
+
+        // Set API keys in BuildConfig
+        buildConfigField "String", "PK_API_KEY_VALUE", "${properties.getProperty("PK_API_KEY_VALUE")}"
+        buildConfigField "String", "OWM_API_KEY_VALUE", "${properties.getProperty("OWM_API_KEY_VALUE")}"
+
     }
     buildTypes {
         release {
@@ -105,13 +114,11 @@ dependencies {
     implementation rootProject.ext.timber
     implementation rootProject.ext.navigationFragment
     implementation rootProject.ext.navigationUI
-    implementation rootProject.ext.algolia
     implementation rootProject.ext.hilt
     kapt rootProject.ext.hiltKapt
     implementation rootProject.ext.rxJava
     implementation rootProject.ext.rxKotlin
     implementation rootProject.ext.rxAndroid
-    implementation rootProject.ext.rxAnimations
     implementation rootProject.ext.retrofit
     implementation rootProject.ext.okHttp
     implementation rootProject.ext.moshi
@@ -120,7 +127,6 @@ dependencies {
     kapt rootProject.ext.moshiKapt
     implementation rootProject.ext.rxJavaAdapter
     implementation rootProject.ext.picasso
-    implementation rootProject.ext.shadowView
     implementation rootProject.ext.lifecycleExt
     kapt rootProject.ext.lifecycleAnnotation
     implementation rootProject.ext.liveDataKtx

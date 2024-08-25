@@ -81,19 +81,18 @@ class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>(
     private fun initSearchResultsAdapter() {
         val adapter = SearchResultAdapter { item ->
             item.coord?.let {
-                binding.viewModel?.saveCoordsToSharedPref(it)
-                    ?.subscribe { _, _ ->
+                binding.viewModel?.saveCoordsToSharedPref(it)?.subscribe { _, _ ->
 
-                        tryCatch(
-                            tryBlock = {
-                                binding.searchView.hideKeyboard((activity as MainActivity))
-                            }
-                        )
+                    tryCatch(
+                        tryBlock = {
+                            binding.searchView.hideKeyboard((activity as MainActivity))
+                        }
+                    )
 
-                        findNavController().navigate(
-                            R.id.action_searchFragment_to_dashboardFragment
-                        )
-                    }
+                    findNavController().navigate(
+                        R.id.action_searchFragment_to_dashboardFragment
+                    )
+                }
             }
         }
 
@@ -107,7 +106,7 @@ class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>(
 
     private fun initSearchResultsRecyclerView(list: List<CitiesForSearchEntity>) {
         (binding.recyclerViewSearchResults.adapter as SearchResultAdapter).submitList(
-            list.distinctBy { it.getFullName() }.sortedBy { it.importance }
+            list.distinctBy { it.getFullName() }.sortedBy { it.name }
         )
     }
 }

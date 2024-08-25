@@ -11,14 +11,14 @@ import okhttp3.Response
  */
 
 @Singleton
-class DefaultRequestInterceptor @Inject constructor() : Interceptor {
+class OWMRequestInterceptor @Inject constructor() : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val url = chain.request().url
             .newBuilder()
             .addQueryParameter(
-                Constants.NetworkService.API_KEY_QUERY,
-                Constants.NetworkService.API_KEY_VALUE
+                Constants.NetworkService.OWM_API_KEY_QUERY,
+                Constants.NetworkService.OWM_API_KEY_VALUE
             )
             .build()
         val request = chain.request().newBuilder().url(url).build()

@@ -5,6 +5,7 @@ import com.faskn.app.weatherapp.core.Constants.NetworkService.RATE_LIMITER_TYPE
 import com.faskn.app.weatherapp.db.entity.CitiesForSearchEntity
 import com.faskn.app.weatherapp.domain.datasource.searchCities.SearchCitiesLocalDataSource
 import com.faskn.app.weatherapp.domain.datasource.searchCities.SearchCitiesRemoteDataSource
+import com.faskn.app.weatherapp.domain.model.SearchRequest
 import com.faskn.app.weatherapp.domain.model.SearchResponse
 import com.faskn.app.weatherapp.utils.domain.RateLimiter
 import com.faskn.app.weatherapp.utils.domain.Resource
@@ -25,22 +26,24 @@ class SearchCitiesRepository @Inject constructor(
 
     fun loadCitiesByCityName(cityName: String?): LiveData<Resource<List<CitiesForSearchEntity>>> {
         return object : NetworkBoundResource<List<CitiesForSearchEntity>, SearchResponse>() {
-            override fun saveCallResult(item: SearchResponse) = searchCitiesLocalDataSource.insertCities(
-                item
-            )
+            override fun saveCallResult(item: SearchResponse) =
+                searchCitiesLocalDataSource.insertCities(
+                    item
+                )
 
             override fun shouldFetch(data: List<CitiesForSearchEntity>?): Boolean {
-                return data == null || data.isEmpty()
+                return data.isNullOrEmpty()
             }
 
-            override fun loadFromDb(): LiveData<List<CitiesForSearchEntity>> = searchCitiesLocalDataSource.getCityByName(
-                cityName
-            )
+            override fun loadFromDb(): LiveData<List<CitiesForSearchEntity>> =
+                searchCitiesLocalDataSource.getCityByName(
+                    cityName
+                )
 
-            override fun createCall(): Single<SearchResponse> = searchCitiesRemoteDataSource.getCityWithQuery(
-                cityName
-                    ?: ""
-            )
+            override fun createCall(): Single<SearchResponse> =
+                searchCitiesRemoteDataSource.getCityWithQuery(
+                    SearchRequest(cityName ?: "")
+                )
 
             override fun onFetchFailed() = rateLimiter.reset(RATE_LIMITER_TYPE)
         }.asLiveData

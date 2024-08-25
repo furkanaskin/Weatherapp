@@ -3,7 +3,7 @@ package com.faskn.app.weatherapp.db.entity
 import android.os.Parcelable
 import android.text.SpannableString
 import androidx.room.*
-import com.faskn.app.weatherapp.domain.model.HitsItem
+import com.faskn.app.weatherapp.domain.model.ResultsItem
 import com.faskn.app.weatherapp.utils.extensions.bold
 import com.faskn.app.weatherapp.utils.extensions.italic
 import com.faskn.app.weatherapp.utils.extensions.plus
@@ -23,29 +23,27 @@ data class CitiesForSearchEntity(
     val name: String?,
     @ColumnInfo(name = "county")
     val county: String?,
-    @ColumnInfo(name = "importance")
-    val importance: Int?,
     @PrimaryKey
     @ColumnInfo(name = "Id")
     val id: String
 ) : Parcelable {
+
     @Ignore
-    constructor(hitsItem: HitsItem?) : this(
-        country = hitsItem?.country,
-        importance = hitsItem?.importance,
-        administrative = hitsItem?.administrative?.first(),
-        coord = CoordEntity(hitsItem?.geoloc),
-        name = hitsItem?.localeNames?.first(),
-        county = hitsItem?.county?.first(),
-        id = hitsItem?.objectID.toString()
+    constructor(result: ResultsItem?) : this(
+        country = result?.country,
+        administrative = result?.administrative,
+        coord = CoordEntity(result?.lat, result?.lng),
+        name = result?.name,
+        county = result?.county,
+        id = result?.coordinates.toString()
     )
 
     fun getFullName(): SpannableString {
         return spannable {
             bold(name ?: "").plus(", ") +
-                bold(county ?: "").plus(", ") +
-                italic(administrative ?: "").plus(", ") +
-                italic(country ?: "")
+                    bold(county ?: "").plus(", ") +
+                    italic(administrative ?: "").plus(", ") +
+                    italic(country ?: "")
         }
     }
 }

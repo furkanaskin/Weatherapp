@@ -4,14 +4,21 @@ import com.faskn.app.weatherapp.domain.WeatherAppAPI
 import com.faskn.app.weatherapp.domain.model.CurrentWeatherResponse
 import io.reactivex.Single
 import javax.inject.Inject
+import javax.inject.Named
 
 /**
  * Created by Furkan on 2019-10-24
  */
 
-class CurrentWeatherRemoteDataSource @Inject constructor(private val api: WeatherAppAPI) {
+class CurrentWeatherRemoteDataSource @Inject constructor(
+    private val api: WeatherAppAPI
+) {
 
-    fun getCurrentWeatherByGeoCords(lat: Double, lon: Double, units: String): Single<CurrentWeatherResponse> = api.getCurrentByGeoCords(
+    fun getCurrentWeatherByGeoCords(
+        lat: Double,
+        lon: Double,
+        units: String
+    ): Single<CurrentWeatherResponse> = api.getCurrentByGeoCords(
         lat,
         lon,
         units

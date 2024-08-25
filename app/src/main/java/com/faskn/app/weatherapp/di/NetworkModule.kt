@@ -1,10 +1,10 @@
 package com.faskn.app.weatherapp.di
 
 import android.os.Environment
-import com.algolia.search.saas.places.PlacesClient
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.faskn.app.weatherapp.core.Constants
-import com.faskn.app.weatherapp.domain.DefaultRequestInterceptor
+import com.faskn.app.weatherapp.domain.OWMRequestInterceptor
+import com.faskn.app.weatherapp.domain.PKRequestInterceptor
 import com.faskn.app.weatherapp.domain.WeatherAppAPI
 import com.squareup.moshi.Moshi
 import dagger.Module
@@ -34,34 +34,50 @@ object NetworkModule {
     fun provideOkHttpClientBuilder(): OkHttpClient.Builder =
         OkHttpClient.Builder()
             .addNetworkInterceptor(StethoInterceptor())
-            .addInterceptor(DefaultRequestInterceptor())
             .readTimeout(1, TimeUnit.MINUTES)
             .writeTimeout(1, TimeUnit.MINUTES)
 
     @Provides
     @Singleton
-    fun provideRetrofit(
+    @Named("RetrofitOWM")
+    fun provideRetrofitForOpenWeatherMap(
         moshi: Moshi,
         okHttpClientBuilder: OkHttpClient.Builder,
         cache: Cache,
     ): Retrofit = Retrofit.Builder()
-        .baseUrl(Constants.NetworkService.BASE_URL)
-        .client(okHttpClientBuilder.cache(cache).build())
+        .baseUrl(Constants.NetworkService.OWM_BASE_URL)
+        .client(
+            okHttpClientBuilder.addInterceptor(OWMRequestInterceptor()).cache(cache).build()
+        )
         .addConverterFactory(MoshiConverterFactory.create(moshi))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
 
     @Provides
     @Singleton
-    fun provideService(retrofit: Retrofit): WeatherAppAPI =
+    @Named("RetrofitPK")
+    fun provideRetrofitForPlaceKit(
+        moshi: Moshi,
+        okHttpClientBuilder: OkHttpClient.Builder,
+        cache: Cache,
+    ): Retrofit = Retrofit.Builder()
+        .baseUrl(Constants.NetworkService.PK_BASE_URL)
+        .client(
+            okHttpClientBuilder.addInterceptor(PKRequestInterceptor()).cache(cache).build()
+        )
+        .addConverterFactory(MoshiConverterFactory.create(moshi))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+
+    @Provides
+    @Singleton
+    @Named("OwmService")
+    fun provideOwmService(@Named("RetrofitOWM") retrofit: Retrofit): WeatherAppAPI =
         retrofit.create(WeatherAppAPI::class.java)
 
     @Provides
     @Singleton
-    fun providePlacesClient(): PlacesClient =
-        PlacesClient(
-            Constants.AlgoliaKeys.APPLICATION_ID,
-            Constants.AlgoliaKeys.SEARCH_API_KEY
-        )
-
+    @Named("PkService")
+    fun providePkService(@Named("RetrofitPK") retrofit: Retrofit): WeatherAppAPI =
+        retrofit.create(WeatherAppAPI::class.java)
 }

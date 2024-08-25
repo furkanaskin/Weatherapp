@@ -4,11 +4,8 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class Geoloc(
+data class SearchRequest(
 
-    @Json(name = "lng")
-    val lng: Double? = null,
-
-    @Json(name = "lat")
-    val lat: Double? = null
+    @Json(name = "query")
+    val query: String? = null
 )
